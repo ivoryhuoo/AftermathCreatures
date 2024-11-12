@@ -4,10 +4,10 @@ import java.io.*;
 import java.awt.*;
 public class TutorialScreen extends Screen{
 	public TutorialScreen(){
-		JLabel volText = new JLabel("Volume");
-		JSlider volSlider = new JSlider();
+		//add elements
+		JLabel title = new JLabel("Tutorial");
+		JLabel introText = new JLabel("Welcome to Aftermath Creatures! Here's how to take care of your pet:");
 		
-		this.panel.add(volText);
-		this.panel.add(volSlider);
+		
 		}
 }

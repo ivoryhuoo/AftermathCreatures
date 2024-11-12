@@ -7,5 +7,6 @@ public class Screen {
 	public Screen() {
 		JPanel p =new JPanel();//creating instance of JFrame  
 		this.panel=p;
+//		this.panel.setSize(960, 720);
 	}
 }
