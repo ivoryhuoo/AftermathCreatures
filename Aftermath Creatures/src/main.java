@@ -20,7 +20,8 @@ public class main {
 		//if button is pressed change menus??? use flag???
 		
 		//testing
-//		currentScreen.add(tutorialScreen.panel);
+		currentScreen.remove(mainMenu.panel);
+		currentScreen.add(tutorialScreen.panel);
 		
 		//note: this has to be at the end for some reason
 		f.setVisible(true);
