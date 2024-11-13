@@ -14,6 +14,7 @@ public class main {
 		Screen tutorialScreen = new TutorialScreen();
 		Screen settingsScreen = new SettingsScreen();
 		Screen saveScreen = new SaveScreen();
+		Screen mainGameScreen = new MainGameScreen();
 		f.add(currentScreen);
 		
 		//default screen is main menu
@@ -23,7 +24,7 @@ public class main {
 		
 		//testing
 		currentScreen.remove(mainMenu.panel);
-		currentScreen.add(saveScreen.panel);
+		currentScreen.add(mainGameScreen.panel);
 		
 		//note: this has to be at the end for some reason
 		f.setVisible(true);
