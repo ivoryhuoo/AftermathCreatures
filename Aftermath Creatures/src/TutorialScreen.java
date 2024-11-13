@@ -16,35 +16,55 @@ public class TutorialScreen extends Screen{
 		JLabel petStatusTitle = new JLabel("Pet Statuses");
 		petStatusTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		JLabel controlsTitle = new JLabel("Quick Controls");
+		controlsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
+		JLabel controlsList = new JLabel("insert controls here");
 		JLabel commandsTitle = new JLabel("Commands");
 		commandsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		
 		//create sub-panels
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 5));
+		JPanel rightPanel = new JPanel();
+		rightPanel.setBorder(BorderFactory.createLineBorder(Color.gray,5));
 		JPanel gameplayBasicsPanel = new JPanel();
+		gameplayBasicsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,3));
 		JPanel petStatusPanel = new JPanel();
+		petStatusPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,3));
+		JPanel petStatusSubPanel = new JPanel();
+		//pictures on petStatusSubPanel
 		JPanel gameControlsPanel = new JPanel();
 		JPanel commandsPanel = new JPanel();
-		commandsPanel.setBorder(BorderFactory.createLineBorder(Color.gray,5));
+		//pictures on commandsPanel
+		
 		
 		//organize elements onto sub-panels
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 		leftPanel.add(title);
 		leftPanel.add(introText);
-		leftPanel.add(gameplayBasicsTitle);
 		leftPanel.add(gameplayBasicsPanel);
-
 		leftPanel.add(petStatusPanel);
 		leftPanel.add(gameControlsPanel);
-		gameplayBasicsPanel.setLayout(new BoxLayout(gameplayBasicsPanel, BoxLayout.Y_AXIS));
+		setVertical(gameplayBasicsPanel);
+		gameplayBasicsPanel.add(gameplayBasicsTitle);
 		gameplayBasicsPanel.add(gameplayBasicsText1);
 		gameplayBasicsPanel.add(gameplayBasicsText2);
 		gameplayBasicsPanel.add(gameplayBasicsText3);
-		commandsPanel.add(commandsTitle);
+		setVertical(petStatusPanel);
+		petStatusPanel.add(petStatusTitle);
+		petStatusPanel.add(petStatusSubPanel);
+		//add pictures onto petStatusSubPanel
+		setVertical(gameControlsPanel);
+		gameControlsPanel.add(controlsTitle);
+		gameControlsPanel.add(controlsList);
+		setVertical(rightPanel);
+		rightPanel.add(commandsPanel);
+		rightPanel.add(commandsTitle);
+		commandsPanel.setLayout(new GridLayout(4,2));
+		//add pictures onto commandsPanel
 		
 		//add sub-panels to main panel
 		this.panel.add(leftPanel);
-		this.panel.add(commandsPanel);
+		this.panel.add(rightPanel);
 		}
+
 }

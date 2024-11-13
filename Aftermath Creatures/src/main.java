@@ -12,16 +12,18 @@ public class main {
 		
 		Screen mainMenu = new MainMenuScreen();
 		Screen tutorialScreen = new TutorialScreen();
+		Screen settingsScreen = new SettingsScreen();
+		Screen saveScreen = new SaveScreen();
 		f.add(currentScreen);
 		
 		//default screen is main menu
 		currentScreen.add(mainMenu.panel);
 		
-		//if button is pressed change menus??? use flag???
+		//if button is pressed change menus... somehow
 		
 		//testing
 		currentScreen.remove(mainMenu.panel);
-		currentScreen.add(tutorialScreen.panel);
+		currentScreen.add(saveScreen.panel);
 		
 		//note: this has to be at the end for some reason
 		f.setVisible(true);
