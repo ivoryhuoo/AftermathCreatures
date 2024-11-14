@@ -8,13 +8,16 @@ public class InventoryScreen extends Screen{
 		
 		//create elements
 		JLabel title = new JLabel("Inventory");
-		JPanel buttonPanel = new JPanel();
+		setH1(title);
+		title.setAlignmentX((float) 0.5);
 		JPanel foodPanel = new JPanel();
 		JPanel giftPanel = new JPanel();
 		JPanel medsPanel = new JPanel();
-		JPanel bottomPanel = new JPanel();
-		JButton foodButton = new JButton("Food");
-		JButton giftButton = new JButton("Gift");
+		JTabbedPane bottomPanel = new JTabbedPane();
+		JButton item1 = new JButton("a");
+		JButton item2 = new JButton("b");
+		JButton item3 = new JButton("b");
+		JButton item4 = new JButton("b");
 			
 		
 		//set layouts
@@ -23,29 +26,19 @@ public class InventoryScreen extends Screen{
 		giftPanel.setLayout(new GridLayout(3,3));
 		medsPanel.setLayout(new GridLayout(3,3));
 		
-		//testing
-		foodPanel.add(new JLabel("temp1"));
-		giftPanel.add(new JLabel("temp2"));
 		
 		//add elements to subpanels
-		buttonPanel.add(foodButton);
-		buttonPanel.add(giftButton);
+		foodPanel.add(item1);
+		foodPanel.add(item2);
+		foodPanel.add(item3);
+		foodPanel.add(item4);
 		
 		//add subpanels to main panel
 		this.panel.add(title);
-		this.panel.add(buttonPanel);
 		this.panel.add(bottomPanel);
-		bottomPanel.add(foodPanel);//default
-		
-		//swap panels when button is clicked
-		class switchGift implements ActionListener{
-			public void actionPerformed(ActionEvent e) {
-				bottomPanel.remove(0);
-				bottomPanel.add(giftPanel);
-				//doesn't work yet
-			}
-		}
-		giftButton.addActionListener(new switchGift());
+		bottomPanel.addTab("Food",foodPanel);//default
+		bottomPanel.addTab("Gift",giftPanel);
+		bottomPanel.addTab("Meds", medsPanel);
 	}
 	
 }
