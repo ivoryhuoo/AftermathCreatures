@@ -9,13 +9,17 @@ public class main {
 		f.setSize(960, 720);
 		CardLayout c = new CardLayout();
 		JPanel currentScreen = new JPanel(c);
+		f.add(currentScreen);
 		
+		//create screens
 		Screen mainMenu = new MainMenuScreen();
 		Screen tutorialScreen = new TutorialScreen();
 		Screen settingsScreen = new SettingsScreen();
 		Screen saveScreen = new SaveScreen();
 		Screen mainGameScreen = new MainGameScreen();
-		f.add(currentScreen);
+		Screen inventoryScreen = new InventoryScreen(); 
+		Screen petSelectScreen = new PetSelectScreen();
+		
 		
 		//default screen is main menu
 		currentScreen.add(mainMenu.panel);
@@ -24,7 +28,8 @@ public class main {
 		
 		//testing
 		currentScreen.remove(mainMenu.panel);
-		currentScreen.add(mainGameScreen.panel);
+//		currentScreen.add(inventoryScreen.panel);
+		currentScreen.add(petSelectScreen.panel);
 		
 		//note: this has to be at the end for some reason
 		f.setVisible(true);

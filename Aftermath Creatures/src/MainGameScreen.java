@@ -32,6 +32,12 @@ public class MainGameScreen extends Screen{
 		JLabel fullness = new JLabel("Fullness: 100/100");
 		JLabel happiness = new JLabel("Happiness: 100/100");
 		//footer icons go here
+		JButton rest = new JButton("Rest");//placeholders
+		JButton inventory = new JButton("Inventory");
+		JButton doctor = new JButton("doctor");
+		JButton market = new JButton("market");
+		JButton minigames = new JButton("minigames");
+		JButton menu = new JButton("menu");
 		
 		//add elements to subpanels
 		header.add(curTime);
@@ -43,5 +49,11 @@ public class MainGameScreen extends Screen{
 		sidebar.add(fullness);
 		sidebar.add(happiness);
 		//footer icons go here
+		footer.add(rest);
+		footer.add(inventory);
+		footer.add(doctor);
+		footer.add(market);
+		footer.add(minigames);
+		footer.add(menu);
 	}
 }
