@@ -18,6 +18,7 @@ public class InventoryScreen extends Screen{
 		JButton item2 = new JButton("b");
 		JButton item3 = new JButton("b");
 		JButton item4 = new JButton("b");
+		JButton backToGame = new JButton("Back");
 			
 		
 		//set layouts
@@ -26,6 +27,12 @@ public class InventoryScreen extends Screen{
 		giftPanel.setLayout(new GridLayout(3,3));
 		medsPanel.setLayout(new GridLayout(3,3));
 		
+		//add functionality to buttons
+		backToGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("5");
+			}
+		});
 		
 		//add elements to subpanels
 		foodPanel.add(item1);
@@ -39,6 +46,7 @@ public class InventoryScreen extends Screen{
 		bottomPanel.addTab("Food",foodPanel);//default
 		bottomPanel.addTab("Gift",giftPanel);
 		bottomPanel.addTab("Meds", medsPanel);
+		this.panel.add(backToGame);
 	}
 	
 }

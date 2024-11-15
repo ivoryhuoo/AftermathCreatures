@@ -20,6 +20,7 @@ public class TutorialScreen extends Screen{
 		JLabel controlsList = new JLabel("insert controls here");
 		JLabel commandsTitle = new JLabel("Commands");
 		commandsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
+		JButton backToMainMenu = new JButton("Back");
 		
 		//create sub-panels
 		JPanel leftPanel = new JPanel();
@@ -36,6 +37,12 @@ public class TutorialScreen extends Screen{
 		JPanel commandsPanel = new JPanel();
 		//pictures on commandsPanel
 		
+		//add functionality to buttons
+		backToMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("0");
+			}
+		});
 		
 		//organize elements onto sub-panels
 		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
@@ -65,6 +72,7 @@ public class TutorialScreen extends Screen{
 		//add sub-panels to main panel
 		this.panel.add(leftPanel);
 		this.panel.add(rightPanel);
+		this.panel.add(backToMainMenu);
 		}
 
 }

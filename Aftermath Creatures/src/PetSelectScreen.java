@@ -20,6 +20,11 @@ public class PetSelectScreen extends Screen{
 		JLabel robotTitle = new JLabel("Robot");
 		setH2(robotTitle);
 		JLabel robotDesc = new JLabel("<html>A reliable pet, constructed from salvaged parts.<br> It is sturdy and reliable.</html>");
+		JButton backToMainMenu = new JButton("Back to Main Menu");
+		
+		zombiePanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		humanPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+		robotPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		
 		//add elements to panels
 		setVertical(zombiePanel);
@@ -35,8 +40,22 @@ public class PetSelectScreen extends Screen{
 		robotPanel.add(robotTitle);
 		robotPanel.add(robotDesc);
 		
-		//add eventlisteners to panels
-		zombiePanel.addMouseListener(null);
+		//add eventlisteners to panels and buttons
+		zombiePanel.addMouseListener(new MouseListener() {
+			public void mouseEntered(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				ScreenManager.swapView("5");
+				//create zombie pet
+			}
+		});
+		backToMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("0");
+			}
+		});
 		
 		//organize and add subpanels to main panel
 		petsPanel.add(zombiePanel);
@@ -47,5 +66,7 @@ public class PetSelectScreen extends Screen{
 		this.panel.add(petsPanel);
 		title.setAlignmentX((float)0.5);
 		petsPanel.setAlignmentX((float)0.5);
+		this.panel.add(backToMainMenu);
+		backToMainMenu.setAlignmentX((float)0.1);
 	}
 }

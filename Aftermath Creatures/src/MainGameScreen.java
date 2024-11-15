@@ -37,7 +37,39 @@ public class MainGameScreen extends Screen{
 		JButton doctor = new JButton("doctor");
 		JButton market = new JButton("market");
 		JButton minigames = new JButton("minigames");
-		JButton menu = new JButton("menu");
+		JButton menu = new JButton("Settings Menu");
+		
+		//add functionality to buttons
+		rest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				//pet.goToBed();
+			}
+		});
+		inventory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				ScreenManager.swapView("6");
+			}
+		});
+		doctor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				//pet.takeToVet();
+			}
+		});
+		market.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+//				ScreenManager.swapView("market code goes here");
+			}
+		});
+		minigames.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+//				ScreenManager.swapView("minigames code goes here");
+			}
+		});
+		menu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				ScreenManager.swapView("3");
+			}
+		});
 		
 		//add elements to subpanels
 		header.add(curTime);

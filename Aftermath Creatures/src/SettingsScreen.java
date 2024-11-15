@@ -1,6 +1,8 @@
 import javax.swing.BoxLayout;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -26,7 +28,13 @@ public class SettingsScreen extends Screen{
 		JLabel avgLabel = new JLabel("Average Playtime");
 		setH2(avgLabel);
 		JLabel avgPlaytime = new JLabel("");//change?
-		
+		//navigation buttons
+		JButton backToMainMenu = new JButton("Back to Main Menu");
+		JButton backToGame = new JButton("Back to Game");
+		//hide backToGame if game savefile is not loaded
+		if(true) {
+			backToGame.setVisible(false);
+		}
 		
 		//create subpanels
 		JPanel topPanel = new JPanel();
@@ -36,6 +44,19 @@ public class SettingsScreen extends Screen{
 		setVertical(bottomPanel);
 		bottomPanel.setAlignmentX((float) 0.1);
 		bottomPanel.setVisible(false);//hide parental controls by default
+		JPanel buttonPanel = new JPanel();
+		
+		//add functionality to buttons
+		backToMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("0");
+			}
+		});
+		backToGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("5");
+			}
+		});
 		
 		//add elements to panel
 		topPanel.add(bgmText);
@@ -50,9 +71,12 @@ public class SettingsScreen extends Screen{
 		bottomPanel.add(totalPlaytime);
 		bottomPanel.add(avgLabel);
 		bottomPanel.add(avgPlaytime);
+		buttonPanel.add(backToMainMenu);
+		buttonPanel.add(backToGame);
 		
 		this.panel.add(topPanel);
 		this.panel.add(bottomPanel);
+		this.panel.add(buttonPanel);
 	}
 	
 }
