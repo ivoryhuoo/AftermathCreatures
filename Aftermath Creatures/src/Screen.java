@@ -4,10 +4,12 @@ import java.io.*;
 import java.awt.*;
 public class Screen {
 	JPanel panel;
+//	String currentScreenNum;
 	public Screen() {
 		JPanel p =new JPanel();//creating instance of JFrame  
 		this.panel=p;
 //		this.panel.setSize(960, 720);
+		
 	}
 	public void setVertical(JPanel p) {
 		//basic helper method to set a vertical boxlayout

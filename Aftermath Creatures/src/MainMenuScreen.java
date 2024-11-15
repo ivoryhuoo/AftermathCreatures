@@ -16,6 +16,35 @@ public class MainMenuScreen extends Screen{
 		JButton settingsButton = new JButton("Settings");
 		JButton exitGameButton = new JButton("Exit Game");
 		
+		//add button events
+		newGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				ScreenManager.setCurrentScreenNum("4"); //old code
+				ScreenManager.swapView("1");
+			}
+		});
+		loadGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("2");
+			}
+		});
+		tutorialButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("4");
+			}
+		});
+		settingsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScreenManager.swapView("3");
+			}
+		});
+		exitGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		
 		//adjust position and size of elements
 		title.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		title.setFont(new Font("Serif", Font.PLAIN, 50));
@@ -41,5 +70,6 @@ public class MainMenuScreen extends Screen{
 		this.panel.add(settingsButton);
 		this.panel.add(Box.createRigidArea(new Dimension(0, 30)));
 		this.panel.add(exitGameButton);
+		
 	}
 }
