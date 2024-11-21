@@ -16,7 +16,7 @@ public class InventoryScreen extends Screen{
 		JTabbedPane bottomPanel = new JTabbedPane();
 		JButton item1 = new JButton("a");
 		JButton item2 = new JButton("b");
-		JButton item3 = new JButton("c");
+		JButton item3 = new JButton("b");
 		JButton item4 = new JButton("d");
 		JButton backToGame = new JButton("Back");
 			
