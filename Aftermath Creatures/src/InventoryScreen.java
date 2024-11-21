@@ -16,8 +16,8 @@ public class InventoryScreen extends Screen{
 		JTabbedPane bottomPanel = new JTabbedPane();
 		JButton item1 = new JButton("a");
 		JButton item2 = new JButton("b");
-		JButton item3 = new JButton("b");
-		JButton item4 = new JButton("b");
+		JButton item3 = new JButton("c");
+		JButton item4 = new JButton("d");
 		JButton backToGame = new JButton("Back");
 			
 		
@@ -34,13 +34,13 @@ public class InventoryScreen extends Screen{
 			}
 		});
 		
-		//add elements to subpanels
+		//add elements to subpanel's
 		foodPanel.add(item1);
 		foodPanel.add(item2);
 		foodPanel.add(item3);
 		foodPanel.add(item4);
 		
-		//add subpanels to main panel
+		//add subpanel's to main panel
 		this.panel.add(title);
 		this.panel.add(bottomPanel);
 		bottomPanel.addTab("Food",foodPanel);//default
