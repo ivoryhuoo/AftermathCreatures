@@ -19,7 +19,6 @@ public class InventoryScreen extends Screen{
 		JButton item3 = new JButton("b");
 		JButton item4 = new JButton("d");
 		JButton backToGame = new JButton("Back");
-			
 		
 		//set layouts
 		setVertical(this.panel);
