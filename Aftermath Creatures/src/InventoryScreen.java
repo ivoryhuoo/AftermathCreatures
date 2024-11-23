@@ -1,51 +1,65 @@
 import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
 import java.awt.*;
-public class InventoryScreen extends Screen{
-	public InventoryScreen() {
-		//add header from main game screen??
-		
-		//create elements
-		JLabel title = new JLabel("Inventory");
-		setH1(title);
-		title.setAlignmentX((float) 0.5);
-		JPanel foodPanel = new JPanel();
-		JPanel giftPanel = new JPanel();
-		JPanel medsPanel = new JPanel();
-		JTabbedPane bottomPanel = new JTabbedPane();
-		JButton item1 = new JButton("a");
-		JButton item2 = new JButton("b");
-		JButton item3 = new JButton("b");
-		JButton item4 = new JButton("d");
-		JButton backToGame = new JButton("Back");
-		
-		//set layouts
-		setVertical(this.panel);
-		foodPanel.setLayout(new GridLayout(3,3));
-		giftPanel.setLayout(new GridLayout(3,3));
-		medsPanel.setLayout(new GridLayout(3,3));
-		
-		//add functionality to buttons
-		backToGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ScreenManager.swapView("5");
-			}
-		});
-		
-		//add elements to subpanel's
-		foodPanel.add(item1);
-		foodPanel.add(item2);
-		foodPanel.add(item3);
-		foodPanel.add(item4);
-		
-		//add subpanel's to main panel
-		this.panel.add(title);
-		this.panel.add(bottomPanel);
-		bottomPanel.addTab("Food",foodPanel);//default
-		bottomPanel.addTab("Gift",giftPanel);
-		bottomPanel.addTab("Meds", medsPanel);
-		this.panel.add(backToGame);
-	}
-	
+import java.util.List;
+
+public class InventoryScreen extends Screen {
+    private JPanel foodPanel;
+    private JPanel giftPanel;
+    private JPanel medsPanel;
+    private JTabbedPane bottomPanel;
+
+    public InventoryScreen() {
+        JLabel title = new JLabel("Inventory");
+        setH1(title);
+        title.setAlignmentX((float) 0.5);
+
+        foodPanel = new JPanel(new GridLayout(3, 3));
+        giftPanel = new JPanel(new GridLayout(3, 3));
+        medsPanel = new JPanel(new GridLayout(3, 3));
+        bottomPanel = new JTabbedPane();
+
+        JButton backToGame = new JButton("Back");
+
+        // Add functionality to buttons
+        backToGame.addActionListener(e -> ScreenManager.swapView("5"));
+
+        // Add subpanels to main panel
+        this.panel.add(title);
+        this.panel.add(bottomPanel);
+        bottomPanel.addTab("Food", foodPanel);
+        bottomPanel.addTab("Gift", giftPanel);
+        bottomPanel.addTab("Meds", medsPanel);
+        this.panel.add(backToGame);
+    }
+
+    public void refreshPanels() {
+        // Update Food Panel
+        foodPanel.removeAll();
+        List<String> foodItems = GameState.getItems("Food");
+        for (String item : foodItems) {
+            foodPanel.add(new JButton(item));
+        }
+
+        // Update Gift Panel
+        giftPanel.removeAll();
+        List<String> giftItems = GameState.getItems("Gifts");
+        for (String item : giftItems) {
+            giftPanel.add(new JButton(item));
+        }
+
+        // Update Meds Panel
+        medsPanel.removeAll();
+        List<String> medsItems = GameState.getItems("Meds");
+        for (String item : medsItems) {
+            medsPanel.add(new JButton(item));
+        }
+
+        // Repaint and revalidate panels
+        foodPanel.revalidate();
+        foodPanel.repaint();
+        giftPanel.revalidate();
+        giftPanel.repaint();
+        medsPanel.revalidate();
+        medsPanel.repaint();
+    }
 }
