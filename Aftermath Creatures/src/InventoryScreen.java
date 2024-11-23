@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class InventoryScreen extends Screen {
     private JPanel foodPanel;
@@ -11,47 +10,51 @@ public class InventoryScreen extends Screen {
     public InventoryScreen() {
         JLabel title = new JLabel("Inventory");
         setH1(title);
-        title.setAlignmentX((float) 0.5);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        foodPanel = new JPanel(new GridLayout(3, 3));
-        giftPanel = new JPanel(new GridLayout(3, 3));
-        medsPanel = new JPanel(new GridLayout(3, 3));
+        // Create panels for tabs
+        foodPanel = new JPanel(new GridLayout(2, 2, 20, 20)); // Add spacing
+        giftPanel = new JPanel(new GridLayout(2, 2, 20, 20));
+        medsPanel = new JPanel(new GridLayout(2, 2, 20, 20));
         bottomPanel = new JTabbedPane();
 
         JButton backToGame = new JButton("Back");
+        backToGame.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Add functionality to buttons
         backToGame.addActionListener(e -> ScreenManager.swapView("5"));
 
-        // Add subpanels to main panel
-        this.panel.add(title);
-        this.panel.add(bottomPanel);
+        // Add panels to tabs
         bottomPanel.addTab("Food", foodPanel);
         bottomPanel.addTab("Gift", giftPanel);
         bottomPanel.addTab("Meds", medsPanel);
+
+        // Add components to main panel
+        this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
+        this.panel.add(title);
+        this.panel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
+        this.panel.add(bottomPanel);
+        this.panel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         this.panel.add(backToGame);
     }
 
     public void refreshPanels() {
         // Update Food Panel
         foodPanel.removeAll();
-        List<String> foodItems = GameState.getItems("Food");
-        for (String item : foodItems) {
-            foodPanel.add(new JButton(item));
+        for (String item : GameState.getItems("Food")) {
+            foodPanel.add(createLargeButton(item));
         }
 
         // Update Gift Panel
         giftPanel.removeAll();
-        List<String> giftItems = GameState.getItems("Gifts");
-        for (String item : giftItems) {
-            giftPanel.add(new JButton(item));
+        for (String item : GameState.getItems("Gifts")) {
+            giftPanel.add(createLargeButton(item));
         }
 
         // Update Meds Panel
         medsPanel.removeAll();
-        List<String> medsItems = GameState.getItems("Meds");
-        for (String item : medsItems) {
-            medsPanel.add(new JButton(item));
+        for (String item : GameState.getItems("Meds")) {
+            medsPanel.add(createLargeButton(item));
         }
 
         // Repaint and revalidate panels
@@ -61,5 +64,12 @@ public class InventoryScreen extends Screen {
         giftPanel.repaint();
         medsPanel.revalidate();
         medsPanel.repaint();
+    }
+
+    private JButton createLargeButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Serif", Font.BOLD, 36)); // Larger font
+        button.setPreferredSize(new Dimension(150, 100)); // Larger button size
+        return button;
     }
 }
