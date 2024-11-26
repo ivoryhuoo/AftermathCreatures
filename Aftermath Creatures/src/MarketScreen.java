@@ -32,22 +32,22 @@ public class MarketScreen extends Screen {
         JButton backToGame = new JButton("Back");
 
         // Add functionality to Food buttons
-        foodItem1.addActionListener(e -> GameState.addItem("Food", "A"));
-        foodItem2.addActionListener(e -> GameState.addItem("Food", "B"));
-        foodItem3.addActionListener(e -> GameState.addItem("Food", "C"));
-        foodItem4.addActionListener(e -> GameState.addItem("Food", "D"));
+        foodItem1.addActionListener(e -> addItemToInventory("Food", "A"));
+        foodItem2.addActionListener(e -> addItemToInventory("Food", "B"));
+        foodItem3.addActionListener(e -> addItemToInventory("Food", "C"));
+        foodItem4.addActionListener(e -> addItemToInventory("Food", "D"));
 
         // Add functionality to Gift buttons
-        giftItem1.addActionListener(e -> GameState.addItem("Gifts", "A"));
-        giftItem2.addActionListener(e -> GameState.addItem("Gifts", "B"));
-        giftItem3.addActionListener(e -> GameState.addItem("Gifts", "C"));
-        giftItem4.addActionListener(e -> GameState.addItem("Gifts", "D"));
+        giftItem1.addActionListener(e -> addItemToInventory("Gifts", "A"));
+        giftItem2.addActionListener(e -> addItemToInventory("Gifts", "B"));
+        giftItem3.addActionListener(e -> addItemToInventory("Gifts", "C"));
+        giftItem4.addActionListener(e -> addItemToInventory("Gifts", "D"));
 
         // Add functionality to Meds buttons
-        medsItem1.addActionListener(e -> GameState.addItem("Meds", "A"));
-        medsItem2.addActionListener(e -> GameState.addItem("Meds", "B"));
-        medsItem3.addActionListener(e -> GameState.addItem("Meds", "C"));
-        medsItem4.addActionListener(e -> GameState.addItem("Meds", "D"));
+        medsItem1.addActionListener(e -> addItemToInventory("Meds", "A"));
+        medsItem2.addActionListener(e -> addItemToInventory("Meds", "B"));
+        medsItem3.addActionListener(e -> addItemToInventory("Meds", "C"));
+        medsItem4.addActionListener(e -> addItemToInventory("Meds", "D"));
 
         // Add functionality to Back button
         backToGame.addActionListener(e -> ScreenManager.swapView("5"));
@@ -89,5 +89,11 @@ public class MarketScreen extends Screen {
         button.setFont(new Font("Serif", Font.BOLD, 36)); // Larger font
         button.setPreferredSize(new Dimension(150, 100)); // Larger button size
         return button;
+    }
+
+    private void addItemToInventory(String category, String item) {
+        if (!GameState.addItem(category, item)) {
+            JOptionPane.showMessageDialog(null, category + " inventory is full! Cannot add more items.", "Inventory Full", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }
