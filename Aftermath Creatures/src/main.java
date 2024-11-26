@@ -12,6 +12,7 @@ public class main {
 		JFrame f = new JFrame("Aftermath Creatures");
 		f.setSize(960, 720);
 		ScreenManager s = ScreenManager.getInstance();
+		SoundManager soundManager = SoundManager.getInstance();
 		f.add(ScreenManager.currentScreen);//???
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,7 +25,6 @@ public class main {
         });
 		
 		playSessionStartTime = new Date();
-		System.out.println(playSessionStartTime);
 	}
 	public void incrementPlaySessions() {
 		
@@ -32,6 +32,6 @@ public class main {
 	public static void calculatePlayTime() {
 		Date playSessionEndTime = new Date();
 		long playTimeDuration = playSessionEndTime.getTime() - playSessionStartTime.getTime();
-		System.out.println(playTimeDuration);//testing
+		System.out.println(playTimeDuration);//testing, replace this line with writing to file
 	}
 }

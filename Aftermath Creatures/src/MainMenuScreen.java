@@ -20,26 +20,31 @@ public class MainMenuScreen extends Screen{
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				ScreenManager.setCurrentScreenNum("4"); //old code
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("1");
 			}
 		});
 		loadGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("2");
 			}
 		});
 		tutorialButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("4");
 			}
 		});
 		settingsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("3");
 			}
 		});
 		exitGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				System.exit(0);
 			}
 		});

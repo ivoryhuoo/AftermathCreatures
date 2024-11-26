@@ -1,4 +1,7 @@
 import javax.swing.BoxLayout;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.util.Arrays;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -13,7 +16,7 @@ public class SettingsScreen extends Screen{
 		char[] parentalControlsPassword = "cs2212".toCharArray();
 		
 		//create elements
-		JLabel bgmText = new JLabel("Music");
+		JLabel bgmText = new JLabel("Music 100");
 		JSlider bgmSlider = new JSlider();
 		bgmSlider.setMaximumSize(new Dimension(500,20));
 		JLabel sfxText = new JLabel("Sound Effects");
@@ -72,6 +75,16 @@ public class SettingsScreen extends Screen{
 			}
 		});
 		
+		//sliders
+		bgmSlider.setMaximum(100);
+		bgmSlider.setMinimum(0);
+		bgmSlider.setValue(100);
+		bgmSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				bgmText.setText("Music "+bgmSlider.getValue());
+				SoundManager.setVolume(bgmSlider.getValue());
+			}
+		});
 		
 		//add elements to panel
 		topPanel.add(bgmText);
