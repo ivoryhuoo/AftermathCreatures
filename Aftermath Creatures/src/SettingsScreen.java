@@ -17,7 +17,7 @@ public class SettingsScreen extends Screen{
 		
 		//create elements
 		JLabel bgmText = new JLabel("Music 100");
-		JSlider bgmSlider = new JSlider();
+		JSlider bgmSlider = new JSlider(-80,6);
 		bgmSlider.setMaximumSize(new Dimension(500,20));
 		JLabel sfxText = new JLabel("Sound Effects");
 		JSlider sfxSlider = new JSlider();
@@ -76,13 +76,11 @@ public class SettingsScreen extends Screen{
 		});
 		
 		//sliders
-		bgmSlider.setMaximum(100);
-		bgmSlider.setMinimum(0);
-		bgmSlider.setValue(100);
+		bgmSlider.setValue(6);
 		bgmSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				bgmText.setText("Music "+bgmSlider.getValue());
-				SoundManager.setVolume(bgmSlider.getValue());
+				SoundManager.gainControl.setValue(bgmSlider.getValue());
 			}
 		});
 		
