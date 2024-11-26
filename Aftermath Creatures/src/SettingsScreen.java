@@ -1,5 +1,5 @@
 import javax.swing.BoxLayout;
-
+import java.util.Arrays;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,8 @@ import javax.swing.*;
 public class SettingsScreen extends Screen{
 	public SettingsScreen(){
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
+		//hardcoded password
+		char[] parentalControlsPassword = "cs2212".toCharArray();
 		
 		//create elements
 		JLabel bgmText = new JLabel("Music");
@@ -20,8 +22,11 @@ public class SettingsScreen extends Screen{
 		JLabel parentalHeader = new JLabel("Parental Controls");
 		JPasswordField parentalPasswordEntry = new JPasswordField();
 		parentalPasswordEntry.setMaximumSize(new Dimension(100,30));
+		JButton passwordSubmit = new JButton("Submit password");
 		JLabel screentimeLabel = new JLabel("Screentime Restrictions");
+		setH2(screentimeLabel);
 		JLabel playStatsTitle = new JLabel("Statistics");
+		setH2(playStatsTitle);
 		JLabel totalLabel = new JLabel("Total Playtime");
 		setH2(totalLabel);
 		JLabel totalPlaytime = new JLabel("");//change?
@@ -49,14 +54,24 @@ public class SettingsScreen extends Screen{
 		//add functionality to buttons
 		backToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				bottomPanel.setVisible(false);//reset parental controls visibility
 				ScreenManager.swapView("0");
 			}
 		});
 		backToGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				bottomPanel.setVisible(false);//reset parental controls visibility
 				ScreenManager.swapView("5");
 			}
 		});
+		passwordSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (Arrays.equals(parentalPasswordEntry.getPassword(),parentalControlsPassword)) {
+					bottomPanel.setVisible(true);
+				}
+			}
+		});
+		
 		
 		//add elements to panel
 		topPanel.add(bgmText);
@@ -65,6 +80,7 @@ public class SettingsScreen extends Screen{
 		topPanel.add(sfxSlider);
 		topPanel.add(parentalHeader);
 		topPanel.add(parentalPasswordEntry);
+		topPanel.add(passwordSubmit);
 		bottomPanel.add(screentimeLabel);
 		bottomPanel.add(playStatsTitle);
 		bottomPanel.add(totalLabel);
