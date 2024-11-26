@@ -3,8 +3,10 @@ import javax.sound.sampled.*;
 
 public class SoundManager {
 	private static SoundManager single_instance = null;
-	private SoundManager() {
 	float soundVolume;	
+	static Clip bgm;
+	private SoundManager() {
+		
 	}
 	public static void play(String fileName){ 
 		// create AudioInputStream object 
@@ -31,15 +33,15 @@ public class SoundManager {
 				AudioSystem.getAudioInputStream(new File(fileName).getAbsoluteFile()); 
 		
 			// create clip reference 
-			Clip clip = AudioSystem.getClip(); 
+			bgm = AudioSystem.getClip(); 
 		
 			// open audioInputStream to the clip 
-			clip.open(audioInputStream); 
+			bgm.open(audioInputStream); 
 			FloatControl gainControl = 
-				    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				    (FloatControl) bgm.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(1);
-			clip.start(); 
-			if(loop==true)clip.loop(Clip.LOOP_CONTINUOUSLY);
+			bgm.start(); 
+			if(loop==true)bgm.loop(Clip.LOOP_CONTINUOUSLY);
 		}
 		catch (Exception e) {
 			//error
@@ -48,7 +50,9 @@ public class SoundManager {
 	
 	// Method to set volume
     public static void setVolume(int value) {
-        
+    	FloatControl gainControl = 
+    		    (FloatControl) bgm.getControl(FloatControl.Type.VOLUME);
+    	gainControl.setValue(value/100f);
     }
 	
 	//create singleton
