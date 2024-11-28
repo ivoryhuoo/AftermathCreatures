@@ -30,6 +30,7 @@ public class ScreenManager {
 		
 		//default is mainMenu
 		c.show(currentScreen, "0");
+		SoundManager.play("game_bgm.wav",true);
 
 	}
 	
