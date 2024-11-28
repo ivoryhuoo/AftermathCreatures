@@ -57,7 +57,7 @@ public class MainGameScreen extends Screen{
 		});
 		market.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				ScreenManager.swapView("7");
+//				ScreenManager.swapView("market code goes here");
 			}
 		});
 		minigames.addActionListener(new ActionListener() {
