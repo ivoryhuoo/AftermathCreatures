@@ -15,28 +15,28 @@ public class MarketScreen extends Screen {
         JTabbedPane bottomPanel = new JTabbedPane();
 
         // Create buttons
-        JButton foodItem1 = createLargeButton("Canned Beans");
-        JButton foodItem2 = createLargeButton("Energy Bars");
-        JButton foodItem3 = createLargeButton("Purified Water");
-        JButton foodItem4 = createLargeButton("Mystery Meat");
+        JButton foodItem1 = createLargeButton("A");
+        JButton foodItem2 = createLargeButton("B");
+        JButton foodItem3 = createLargeButton("C");
+        JButton foodItem4 = createLargeButton("D");
 
         JButton giftItem1 = createLargeButton("A");
         JButton giftItem2 = createLargeButton("B");
         JButton giftItem3 = createLargeButton("C");
         JButton giftItem4 = createLargeButton("D");
 
-        JButton medsItem1 = createLargeButton("First Aid Kit");
-        JButton medsItem2 = createLargeButton("Herbal Remedies");
-        JButton medsItem3 = createLargeButton("Radiation Pills");
-        JButton medsItem4 = createLargeButton("Universal Syrum");
+        JButton medsItem1 = createLargeButton("A");
+        JButton medsItem2 = createLargeButton("B");
+        JButton medsItem3 = createLargeButton("C");
+        JButton medsItem4 = createLargeButton("D");
 
         JButton backToGame = new JButton("Back");
 
         // Add functionality to Food buttons
-        foodItem1.addActionListener(e -> addItemToInventory("Food", "Canned Beans"));
-        foodItem2.addActionListener(e -> addItemToInventory("Food", "Energy Bars"));
-        foodItem3.addActionListener(e -> addItemToInventory("Food", "Purified Water"));
-        foodItem4.addActionListener(e -> addItemToInventory("Food", "Mystery Meat"));
+        foodItem1.addActionListener(e -> addItemToInventory("Food", "A"));
+        foodItem2.addActionListener(e -> addItemToInventory("Food", "B"));
+        foodItem3.addActionListener(e -> addItemToInventory("Food", "C"));
+        foodItem4.addActionListener(e -> addItemToInventory("Food", "D"));
 
         // Add functionality to Gift buttons
         giftItem1.addActionListener(e -> addItemToInventory("Gifts", "A"));
@@ -45,10 +45,10 @@ public class MarketScreen extends Screen {
         giftItem4.addActionListener(e -> addItemToInventory("Gifts", "D"));
 
         // Add functionality to Meds buttons
-        medsItem1.addActionListener(e -> addItemToInventory("Meds", "First Aid Kit"));
-        medsItem2.addActionListener(e -> addItemToInventory("Meds", "Herbal Remedies"));
-        medsItem3.addActionListener(e -> addItemToInventory("Meds", "Radiation Pills"));
-        medsItem4.addActionListener(e -> addItemToInventory("Meds", "Universal Syrum"));
+        medsItem1.addActionListener(e -> addItemToInventory("Meds", "A"));
+        medsItem2.addActionListener(e -> addItemToInventory("Meds", "B"));
+        medsItem3.addActionListener(e -> addItemToInventory("Meds", "C"));
+        medsItem4.addActionListener(e -> addItemToInventory("Meds", "D"));
 
         // Add functionality to Back button
         backToGame.addActionListener(e -> ScreenManager.swapView("5"));
