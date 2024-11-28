@@ -48,12 +48,6 @@ public class SoundManager {
 		}
 	}
 	
-//	// Method to set volume
-//    public static void setVolume(int value) {
-//    	gainControl = (FloatControl) bgm.getControl(FloatControl.Type.MASTER_GAIN);
-//    	gainControl.setValue(value/100f);
-//    }
-	
 	//create singleton
 	public static synchronized SoundManager getInstance()
     {

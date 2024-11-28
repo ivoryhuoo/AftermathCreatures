@@ -4,7 +4,7 @@ import java.io.*;
 import java.awt.*;
 public class MainMenuScreen extends Screen{
 	public MainMenuScreen(){
-		//read from parentalControls (DO LATER !!)
+		//TODO read data from parentalControls.json
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
 		this.panel.setAlignmentX(panel.CENTER_ALIGNMENT);//does this do anything?
 		this.panel.setBorder(BorderFactory.createLineBorder(Color.blue));
@@ -19,6 +19,7 @@ public class MainMenuScreen extends Screen{
 		//add button events
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				TODO implement this
 //				pseudo-code:
 //				if(currentTime<start time OR currentTime>end time) {
 //					popup("you can't play the game rn lol")

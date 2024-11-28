@@ -25,7 +25,7 @@ public class main {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			playtimeData = objectMapper.readValue(playtimeDataFile, PlaytimeData.class);
-		}catch(Exception e) {
+		}catch(Exception eRead) {
 			System.out.println("Error reading playtime data file");
 		}
 
@@ -38,7 +38,7 @@ public class main {
                 calculatePlayTime();
                 try {
                 	objectMapper.writeValue(playtimeDataFile,playtimeData);
-                }catch(Exception e2) {
+                }catch(Exception eWrite) {
                 	System.out.println("Error writing to playtime data file");
                 }
                 System.exit(0);
@@ -56,8 +56,6 @@ public class main {
 		Date playSessionEndTime = new Date();
 		long playTimeDuration = playSessionEndTime.getTime() - playSessionStartTime.getTime();
 		long total = playtimeData.getTotalPlaytime()+playTimeDuration;
-//		System.out.println(playtimeData.getTotalPlaytime());
-//		System.out.println(total);
 		playtimeData.setTotalPlaytime(total);
 	}
 }

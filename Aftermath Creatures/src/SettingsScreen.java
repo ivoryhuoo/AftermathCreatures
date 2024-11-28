@@ -22,17 +22,20 @@ public class SettingsScreen extends Screen{
 		//hardcoded password
 		char[] parentalControlsPassword = "cs2212".toCharArray();
 		
-		//read data from file to PlaytimeData object
+		//read data from file to PlaytimeData and ParentalControls objects
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			playtimeData = objectMapper.readValue(playtimeDataFile, PlaytimeData.class);
-		}catch(Exception e) {
+			parentalControls = objectMapper.readValue(parentalControlsDataFile, ParentalControls.class);
+		}catch(Exception eRead) {
 			System.out.println("Error reading playtime data file");
 		}
+		//TODO i think these are still in milliseconds lol (change to hours/minutes?)
 		String totalPlaytimeAmt = String.valueOf(playtimeData.getTotalPlaytime());
 		String avgPlaytimeAmt = String.valueOf(playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions());
 		
-		//create elements
+		
+		//create menu elements
 		JLabel bgmText = new JLabel("Music 100");
 		JSlider bgmSlider = new JSlider(-80,6);
 		bgmSlider.setMaximumSize(new Dimension(500,20));
@@ -45,21 +48,35 @@ public class SettingsScreen extends Screen{
 		JButton passwordSubmit = new JButton("Submit password");
 		JLabel screentimeLabel = new JLabel("Screentime Restrictions");
 		setH2(screentimeLabel);
+		JLabel startLabel = new JLabel("Start of Allowed Time");
+		JLabel endLabel = new JLabel("End of Allowed Time");
+		JButton submitScreentimeSettings = new JButton("Submit Screentime Settings");
 		JLabel playStatsTitle = new JLabel("Statistics");
 		setH2(playStatsTitle);
 		JLabel totalLabel = new JLabel("Total Playtime");
-		setH2(totalLabel);
-		JLabel totalPlaytime = new JLabel(totalPlaytimeAmt);//change?
+		JLabel totalPlaytime = new JLabel(totalPlaytimeAmt);
 		JLabel avgLabel = new JLabel("Average Playtime");
-		setH2(avgLabel);
-		JLabel avgPlaytime = new JLabel(avgPlaytimeAmt);//change?
+		JLabel avgPlaytime = new JLabel(avgPlaytimeAmt);
 		//navigation buttons
 		JButton backToMainMenu = new JButton("Back to Main Menu");
 		JButton backToGame = new JButton("Back to Game");
-		//hide backToGame if game savefile is not loaded
+		//TODO hide backToGame if game savefile is not loaded
 		if(true) {
 			backToGame.setVisible(false);
 		}
+		//dropdown boxes for parental controls screentime restrictions
+		Integer[] hours = new Integer[24];
+		Integer[] minutes = new Integer[4];
+		for(int i=0;i<24;i++) {
+			hours[i]=i;
+		}
+		for(int i=0;i<4;i++) {
+			minutes[i]=i*15;
+		}
+		JComboBox startHoursDropdown = new JComboBox(hours);
+		JComboBox startMinsDropdown = new JComboBox(minutes);
+		JComboBox endHoursDropdown = new JComboBox(hours);
+		JComboBox endMinsDropdown = new JComboBox(minutes);
 		
 		//create subpanels
 		JPanel topPanel = new JPanel();
@@ -70,6 +87,10 @@ public class SettingsScreen extends Screen{
 		bottomPanel.setAlignmentX((float) 0.1);
 		bottomPanel.setVisible(false);//hide parental controls by default
 		JPanel buttonPanel = new JPanel();
+		JPanel startScreentime = new JPanel();
+		startScreentime.setLayout(new BoxLayout(startScreentime,BoxLayout.X_AXIS));
+		JPanel endScreentime = new JPanel();
+		endScreentime.setLayout(new BoxLayout(endScreentime,BoxLayout.X_AXIS));
 		
 		//add functionality to buttons
 		backToMainMenu.addActionListener(new ActionListener() {
@@ -91,8 +112,21 @@ public class SettingsScreen extends Screen{
 				}
 			}
 		});
+		submitScreentimeSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				parentalControls.setStartHr(((Integer) startHoursDropdown.getSelectedItem()).intValue());
+				parentalControls.setStartMin(((Integer) startMinsDropdown.getSelectedItem()).intValue());
+				parentalControls.setEndHr(((Integer) endHoursDropdown.getSelectedItem()).intValue());
+				parentalControls.setEndMin(((Integer) endMinsDropdown.getSelectedItem()).intValue());
+				try {
+					objectMapper.writeValue(parentalControlsDataFile, parentalControls);
+				}catch(Exception eWrite) {
+					System.out.println("Error writing to parental controls data file");
+				}
+			}
+		});
 		
-		//sliders
+		//add functionality to sliders
 		bgmSlider.setValue(6);
 		bgmSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -100,6 +134,7 @@ public class SettingsScreen extends Screen{
 				SoundManager.gainControl.setValue(bgmSlider.getValue());
 			}
 		});
+		//TODO separate bgm(music) and sfx(sound) volume control, or scrap the idea and have just a master volume
 		
 		//add elements to panel
 		topPanel.add(bgmText);
@@ -110,6 +145,15 @@ public class SettingsScreen extends Screen{
 		topPanel.add(parentalPasswordEntry);
 		topPanel.add(passwordSubmit);
 		bottomPanel.add(screentimeLabel);
+		bottomPanel.add(startLabel);
+		bottomPanel.add(startScreentime);
+		startScreentime.add(startHoursDropdown);
+		startScreentime.add(startMinsDropdown);
+		bottomPanel.add(endLabel);
+		bottomPanel.add(endScreentime);
+		endScreentime.add(endHoursDropdown);
+		endScreentime.add(endMinsDropdown);
+		bottomPanel.add(submitScreentimeSettings);
 		bottomPanel.add(playStatsTitle);
 		bottomPanel.add(totalLabel);
 		bottomPanel.add(totalPlaytime);
