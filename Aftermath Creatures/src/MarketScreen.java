@@ -6,7 +6,8 @@ public class MarketScreen extends Screen {
         JLabel title = new JLabel("Market");
         setH1(title);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        //Testing
+        
         // Create panels for each tab
         JPanel foodPanel = new JPanel(new GridLayout(2, 2, 20, 20));
         JPanel giftPanel = new JPanel(new GridLayout(2, 2, 20, 20));
