@@ -78,7 +78,7 @@ public class Pet {
      * Go to bed: The pet enters the sleeping state and remains in that state until their sleep value reaches the maximum.
      */
     public void goToBed() {
-        if (!state.equals("Normal")) {
+        if (!state.equals("Normal")) { 
             System.out.println("Cannot sleep in the current state.");
             return;
         }
@@ -94,7 +94,7 @@ public class Pet {
                 state = "Normal"; // Pet wakes up
                 System.out.println(name + " woke up refreshed!");
             }
-        }, 5000); // Sleep for 5 seconds
+        }, 10000); // Sleep for 10 seconds
     }
     
     /**
@@ -205,9 +205,9 @@ public class Pet {
             public void run() {
                 if (!state.equals("Dead")) {
                     // Gradual decrease in stats if pet is NOT dead 
-                    fullness = Math.max(MIN_STAT, fullness - 10); // Decrease fullness by 10
-                    sleep = Math.max(MIN_STAT, sleep - 20);       // Decrease sleep by 20
-                    happiness = Math.max(MIN_STAT, happiness - 10); // Decrease happiness by 10
+                    fullness = Math.max(MIN_STAT, fullness - 2); // Decrease fullness by 2
+                    sleep = Math.max(MIN_STAT, sleep - 5);       // Decrease sleep by 5
+                    happiness = Math.max(MIN_STAT, happiness - 2); // Decrease happiness by 2
 
                     // Delegate state management to updateState
                     updateState();
