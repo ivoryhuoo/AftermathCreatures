@@ -6,14 +6,29 @@ import java.util.Arrays;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+
 import javax.swing.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SettingsScreen extends Screen{
+	static File dataFile = new File("playtimeData.json");
+	static PlaytimeData playtimeData;
 	public SettingsScreen(){
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
 		//hardcoded password
 		char[] parentalControlsPassword = "cs2212".toCharArray();
+		
+		//read data from file to PlaytimeData object
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			playtimeData = objectMapper.readValue(dataFile, PlaytimeData.class);
+		}catch(Exception e) {
+			System.out.println("Error reading playtime data file");
+		}
+		String totalPlaytimeAmt = String.valueOf(playtimeData.getTotalPlaytime());
+		String avgPlaytimeAmt = String.valueOf(playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions());
 		
 		//create elements
 		JLabel bgmText = new JLabel("Music 100");
@@ -32,10 +47,10 @@ public class SettingsScreen extends Screen{
 		setH2(playStatsTitle);
 		JLabel totalLabel = new JLabel("Total Playtime");
 		setH2(totalLabel);
-		JLabel totalPlaytime = new JLabel("");//change?
+		JLabel totalPlaytime = new JLabel(totalPlaytimeAmt);//change?
 		JLabel avgLabel = new JLabel("Average Playtime");
 		setH2(avgLabel);
-		JLabel avgPlaytime = new JLabel("");//change?
+		JLabel avgPlaytime = new JLabel(avgPlaytimeAmt);//change?
 		//navigation buttons
 		JButton backToMainMenu = new JButton("Back to Main Menu");
 		JButton backToGame = new JButton("Back to Game");
