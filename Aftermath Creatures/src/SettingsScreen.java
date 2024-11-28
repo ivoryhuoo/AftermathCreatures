@@ -13,8 +13,10 @@ import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SettingsScreen extends Screen{
-	static File dataFile = new File("playtimeData.json");
+	static File playtimeDataFile = new File("playtimeData.json");
 	static PlaytimeData playtimeData;
+	static File parentalControlsDataFile = new File("parentalControls.json");
+	static ParentalControls parentalControls;
 	public SettingsScreen(){
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
 		//hardcoded password
@@ -23,7 +25,7 @@ public class SettingsScreen extends Screen{
 		//read data from file to PlaytimeData object
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			playtimeData = objectMapper.readValue(dataFile, PlaytimeData.class);
+			playtimeData = objectMapper.readValue(playtimeDataFile, PlaytimeData.class);
 		}catch(Exception e) {
 			System.out.println("Error reading playtime data file");
 		}

@@ -4,12 +4,12 @@ import java.io.*;
 import java.awt.*;
 public class MainMenuScreen extends Screen{
 	public MainMenuScreen(){
+		//read from parentalControls (DO LATER !!)
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
 		this.panel.setAlignmentX(panel.CENTER_ALIGNMENT);//does this do anything?
-		
 		this.panel.setBorder(BorderFactory.createLineBorder(Color.blue));
 		//create title and buttons
-		JLabel title = new JLabel("Aftermath Creatures");//may replace with something prettier
+		JLabel title = new JLabel("Aftermath Creatures");
 		JButton newGameButton = new JButton("New Game");
 		JButton loadGameButton = new JButton("Load Game");
 		JButton tutorialButton = new JButton("Tutorial");
@@ -19,7 +19,10 @@ public class MainMenuScreen extends Screen{
 		//add button events
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				ScreenManager.setCurrentScreenNum("4"); //old code
+//				pseudo-code:
+//				if(currentTime<start time OR currentTime>end time) {
+//					popup("you can't play the game rn lol")
+//				}
 				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("1");
 			}

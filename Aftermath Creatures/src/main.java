@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.*;
 public class main {
 	static PlaytimeData playtimeData;
-	static File dataFile = new File("playtimeData.json");
+	static File playtimeDataFile = new File("playtimeData.json");
 	public static Date playSessionStartTime;
 	public static void main(String[] args) {
 		//set up frame
@@ -24,7 +24,7 @@ public class main {
 		//read data from file to PlaytimeData object
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			playtimeData = objectMapper.readValue(dataFile, PlaytimeData.class);
+			playtimeData = objectMapper.readValue(playtimeDataFile, PlaytimeData.class);
 		}catch(Exception e) {
 			System.out.println("Error reading playtime data file");
 		}
@@ -37,7 +37,7 @@ public class main {
             public void windowClosing(WindowEvent e) {
                 calculatePlayTime();
                 try {
-                	objectMapper.writeValue(dataFile,playtimeData);
+                	objectMapper.writeValue(playtimeDataFile,playtimeData);
                 }catch(Exception e2) {
                 	System.out.println("Error writing to playtime data file");
                 }
