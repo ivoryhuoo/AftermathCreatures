@@ -1,4 +1,3 @@
-import javax.swing.BoxLayout;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -57,6 +56,7 @@ public class SettingsScreen extends Screen{
 		JLabel totalPlaytime = new JLabel(totalPlaytimeAmt);
 		JLabel avgLabel = new JLabel("Average Playtime");
 		JLabel avgPlaytime = new JLabel(avgPlaytimeAmt);
+		JButton revivePet = new JButton("Revive Pet");
 		//navigation buttons
 		JButton backToMainMenu = new JButton("Back to Main Menu");
 		JButton backToGame = new JButton("Back to Game");
@@ -125,6 +125,18 @@ public class SettingsScreen extends Screen{
 				}
 			}
 		});
+		//TODO maybe make pet a singleton as well?? silver bullet moment
+//		revivePet.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if(pet.getState()=="dead") {
+//					pet.setHealth(100);
+//					pet.updateState();
+//				}else {
+//					JLabel message = new JLabel("The pet is already alive.");
+//					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.WARNING_MESSAGE);
+//				}
+//			}
+//		});
 		
 		//add functionality to sliders
 		bgmSlider.setValue(6);
@@ -159,6 +171,7 @@ public class SettingsScreen extends Screen{
 		bottomPanel.add(totalPlaytime);
 		bottomPanel.add(avgLabel);
 		bottomPanel.add(avgPlaytime);
+		bottomPanel.add(revivePet);
 		buttonPanel.add(backToMainMenu);
 		buttonPanel.add(backToGame);
 		
