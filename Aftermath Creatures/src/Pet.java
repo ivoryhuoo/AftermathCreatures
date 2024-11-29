@@ -265,5 +265,7 @@ public class Pet {
     }
     
     public String getState() { return state; }
+    
+    public String getName() {return name;}
 }
 

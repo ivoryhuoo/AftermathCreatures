@@ -48,6 +48,22 @@ public class main {
         });
 		
 		playSessionStartTime = new Date();
+		
+		//game loop
+		while(true) {
+			System.out.println("coconut tf2");//DISPLAY BREAKS WITHOUT THIS LINE
+			if(ScreenManager.currentScreenNum.equals("5")) {
+				//update values
+				ScreenManager.mainGameScreen.updatePetName();
+				ScreenManager.mainGameScreen.updateCoins();
+				ScreenManager.mainGameScreen.updateScore();
+				ScreenManager.mainGameScreen.updateTime();
+				ScreenManager.mainGameScreen.updateHealth();
+				ScreenManager.mainGameScreen.updateSleep();
+				ScreenManager.mainGameScreen.updateFullness();
+				ScreenManager.mainGameScreen.updateHappiness();
+			}
+		}
 	}
 	public static void incrementPlaySessions() {
 		int n = playtimeData.getPlaySessions();
