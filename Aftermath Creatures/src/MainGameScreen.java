@@ -152,10 +152,11 @@ public class MainGameScreen extends Screen{
 		//update time
 		Calendar currentTime = Calendar.getInstance();
 		if(!((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE))).equals(curTime.getText())) {
-			curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE)));
 			//fix abnormal time formatting (eg. 12:5 instead of 12:05)
 			if(currentTime.get(Calendar.MINUTE)<10) {
 				curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":0"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+			}else {
+				curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE)));
 			}
 		}
 	}
