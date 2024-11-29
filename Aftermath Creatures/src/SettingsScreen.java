@@ -134,7 +134,7 @@ public class SettingsScreen extends Screen{
 			public void actionPerformed(ActionEvent e) {
 				if(main.pet.getState()=="dead") {
 					SoundManager.play("button_sound.wav");
-					main.pet.revive();
+//					main.pet.revive();
 					JLabel message = new JLabel("The pet is alive again.");
 					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.OK_OPTION);
 				}else {

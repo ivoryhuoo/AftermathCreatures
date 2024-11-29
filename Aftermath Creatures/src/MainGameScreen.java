@@ -8,10 +8,17 @@ public class MainGameScreen extends Screen{
 	static JLabel petName;
 	static JLabel money;
 	static JLabel score;
+	static JLabel petStateIcon;
 	static JLabel health;
 	static JLabel sleep;
 	static JLabel fullness;
 	static JLabel happiness;
+	static ImageIcon normalIcon;
+	static ImageIcon hungryIcon;
+	static ImageIcon angryIcon;
+	static ImageIcon sleepingIcon;
+	static ImageIcon deadIcon;
+	static String petState;//store value to check against Pet's state
 	public MainGameScreen() {
 		//set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
@@ -51,6 +58,17 @@ public class MainGameScreen extends Screen{
 		JButton market = new JButton("market");
 		JButton minigames = new JButton("minigames");
 		JButton menu = new JButton("Settings Menu");
+		
+		//set up pet state icons
+		resetPetState();
+		petStateIcon = new JLabel();
+		petStateIcon.setPreferredSize(new Dimension(50,50));
+		normalIcon = new ImageIcon("icons/normal.png");
+		hungryIcon = new ImageIcon("icons/hungry.png");
+		angryIcon = new ImageIcon("icons/angry.png");
+		sleepingIcon = new ImageIcon("icons/sleeping.png");
+		deadIcon = new ImageIcon("icons/dead.png");
+		petStateIcon.setIcon(normalIcon);//default state is normal
 		
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
@@ -93,6 +111,7 @@ public class MainGameScreen extends Screen{
 		//add elements to subpanels
 		header.add(curTime);
 		header.add(petName);
+		header.add(petStateIcon);
 		header.add(money);
 		header.add(score);
 		sidebar.add(health);
@@ -115,10 +134,10 @@ public class MainGameScreen extends Screen{
 		}
 	}
 	public void updateCoins() {
-		
+		//UNtESTEd
 	}
 	public void updateScore() {
-		
+		//UNTESTED
 	}
 	public void updateTime() {
 		//update time
@@ -147,5 +166,21 @@ public class MainGameScreen extends Screen{
 		if(!(String.valueOf(main.pet.getHappiness()).equals(happiness.getText()))) {
 			happiness.setText("Happiness: "+String.valueOf(main.pet.getHappiness()));
 		}
+	}
+	public void updateIcon() {
+		//UNTESTED
+		if(!(main.pet.getState().equals(petState))) {
+			petState = main.pet.getState();
+			switch(main.pet.getState()){
+				case "Normal":petStateIcon.setIcon(normalIcon);break;
+				case "Hungry":petStateIcon.setIcon(hungryIcon);break;
+				case "Angry":petStateIcon.setIcon(angryIcon);break;
+				case "Sleeping":petStateIcon.setIcon(sleepingIcon);break;
+				case "Dead":petStateIcon.setIcon(deadIcon);break;
+			}
+		}
+	}
+	public void resetPetState() {
+		petState="Normal";
 	}
 }
