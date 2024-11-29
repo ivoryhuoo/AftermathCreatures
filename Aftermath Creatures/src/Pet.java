@@ -386,5 +386,7 @@ public class Pet {
      * @return the current state of the pet as a string.
      */
     public String getState() { return state; }
+    
+    public String getName() {return name;}
 }
 

@@ -1,8 +1,17 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.Calendar;
 import java.awt.*;
 public class MainGameScreen extends Screen{
+	static JLabel curTime;
+	static JLabel petName;
+	static JLabel money;
+	static JLabel score;
+	static JLabel health;
+	static JLabel sleep;
+	static JLabel fullness;
+	static JLabel happiness;
 	public MainGameScreen() {
 		//set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
@@ -16,21 +25,25 @@ public class MainGameScreen extends Screen{
 		JPanel footer = new JPanel();
 		footer.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		panel.add(footer, BorderLayout.SOUTH);
-		//pet goes in BorderLayout.CENTER
+		//pet image goes in BorderLayout.CENTER
 		
 		//create elements
-		JLabel curTime = new JLabel("17:25");
-		JLabel petName = new JLabel("pet name");
-		JLabel money = new JLabel("$0");
-		JLabel score = new JLabel("Score: 0");
+		curTime = new JLabel("17:25");
+		petName = new JLabel("pet name");
+		money = new JLabel("$0");
+		score = new JLabel("Score: 0");
 		setH2(curTime);
 		setH2(petName);
 		setH2(money);
 		setH2(score);
-		JLabel health = new JLabel("Health: 100/100");
-		JLabel sleep = new JLabel("Sleep: 100/100");
-		JLabel fullness = new JLabel("Fullness: 100/100");
-		JLabel happiness = new JLabel("Happiness: 100/100");
+		health = new JLabel("Health: 100/100");
+		sleep = new JLabel("Sleep: 100/100");
+		fullness = new JLabel("Fullness: 100/100");
+		happiness = new JLabel("Happiness: 100/100");
+		setH2(health);
+		setH2(sleep);
+		setH2(fullness);
+		setH2(happiness);
 		//footer icons go here
 		JButton rest = new JButton("Rest");//placeholders
 		JButton inventory = new JButton("Inventory");
@@ -42,31 +55,37 @@ public class MainGameScreen extends Screen{
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				//pet.goToBed();
+				SoundManager.play("button_sound.wav");
+				main.pet.goToBed();//??
 			}
 		});
 		inventory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("6");
 			}
 		});
 		doctor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				//pet.takeToVet();
+				SoundManager.play("button_sound.wav");
+				main.pet.takeToVet();//??
 			}
 		});
 		market.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 //				ScreenManager.swapView("market code goes here");
 			}
 		});
 		minigames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 //				ScreenManager.swapView("minigames code goes here");
 			}
 		});
 		menu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("3");
 			}
 		});
@@ -87,5 +106,46 @@ public class MainGameScreen extends Screen{
 		footer.add(market);
 		footer.add(minigames);
 		footer.add(menu);
+		
+	}
+	public void updatePetName() {
+		//update pet name
+		if(main.pet.getName()!=petName.getText()) {
+			petName.setText(main.pet.getName());
+		}
+	}
+	public void updateCoins() {
+		
+	}
+	public void updateScore() {
+		
+	}
+	public void updateTime() {
+		//update time
+		Calendar currentTime = Calendar.getInstance();
+		if(!((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE))).equals(curTime.getText())) {
+			curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+		}
+	}
+	//update pet stats
+	public void updateHealth() {
+		if(!(String.valueOf(main.pet.getHealth()).equals(health.getText()))) {
+			health.setText("Health: "+String.valueOf(main.pet.getHealth()));
+		}
+	}
+	public void updateSleep() {
+		if(!(String.valueOf(main.pet.getSleep()).equals(sleep.getText()))) {
+			sleep.setText("Sleep: "+String.valueOf(main.pet.getSleep()));
+		}
+	}
+	public void updateFullness() {
+		if(!(String.valueOf(main.pet.getFullness()).equals(fullness.getText()))) {
+			fullness.setText("Fullness: "+String.valueOf(main.pet.getFullness()));
+		}
+	}
+	public void updateHappiness() {
+		if(!(String.valueOf(main.pet.getHappiness()).equals(happiness.getText()))) {
+			happiness.setText("Happiness: "+String.valueOf(main.pet.getHappiness()));
+		}
 	}
 }

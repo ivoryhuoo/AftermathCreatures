@@ -21,6 +21,7 @@ public class PetSelectScreen extends Screen{
 		setH2(robotTitle);
 		JLabel robotDesc = new JLabel("<html>A reliable pet, constructed from salvaged parts.<br> It is sturdy and reliable.</html>");
 		JButton backToMainMenu = new JButton("Back to Main Menu");
+		JTextField namePetLabel = new JTextField("Name of your pet");
 		
 		zombiePanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		humanPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
@@ -47,12 +48,42 @@ public class PetSelectScreen extends Screen{
 			public void mouseReleased(MouseEvent e) {}
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
-				ScreenManager.swapView("5");
+				SoundManager.play("button_sound.wav");
+				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
 				//create zombie pet
+				main.pet = new Pet(namePetLabel.getText());
+				ScreenManager.swapView("5");
+			}
+		});
+		humanPanel.addMouseListener(new MouseListener() {
+			public void mouseEntered(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				SoundManager.play("button_sound.wav");
+				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
+				//create human pet
+				main.pet = new Pet(namePetLabel.getText());
+				ScreenManager.swapView("5");
+			}
+		});
+		robotPanel.addMouseListener(new MouseListener() {
+			public void mouseEntered(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				SoundManager.play("button_sound.wav");
+				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
+				//create robot pet
+				main.pet = new Pet(namePetLabel.getText());
+				ScreenManager.swapView("5");
 			}
 		});
 		backToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("0");
 			}
 		});
