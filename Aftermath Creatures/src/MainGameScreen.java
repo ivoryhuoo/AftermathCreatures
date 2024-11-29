@@ -19,6 +19,7 @@ public class MainGameScreen extends Screen{
 	static ImageIcon sleepingIcon;
 	static ImageIcon deadIcon;
 	static String petState;//store value to check against Pet's state
+	static JLabel petSprite;
 	public MainGameScreen() {
 		//set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
@@ -70,11 +71,19 @@ public class MainGameScreen extends Screen{
 		deadIcon = new ImageIcon("icons/dead.png");
 		petStateIcon.setIcon(normalIcon);//default state is normal
 		
+		//set up pet sprite
+		petSprite = new JLabel();
+		//change size?
+		
+		//change image-set based on type of pet ie.
+		//normalPet = new ImageIcon("icons/" + main.pet.getWhichPet + "/normal.png");
+		//where main.pet.getWhichPet returns a String like "Robot" or something
+		
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-				main.pet.goToBed();//??
+				main.pet.goToBed();
 			}
 		});
 		inventory.addActionListener(new ActionListener() {
@@ -86,7 +95,7 @@ public class MainGameScreen extends Screen{
 		doctor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-				main.pet.takeToVet();//??
+				main.pet.takeToVet();
 			}
 		});
 		market.addActionListener(new ActionListener() {
@@ -144,6 +153,10 @@ public class MainGameScreen extends Screen{
 		Calendar currentTime = Calendar.getInstance();
 		if(!((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE))).equals(curTime.getText())) {
 			curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+			//fix abnormal time formatting (eg. 12:5 instead of 12:05)
+			if(currentTime.get(Calendar.MINUTE)<10) {
+				curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":0"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+			}
 		}
 	}
 	//update pet stats
@@ -168,15 +181,30 @@ public class MainGameScreen extends Screen{
 		}
 	}
 	public void updateIcon() {
-		//UNTESTED
+		//change petStateIcon in header, change pet sprite
 		if(!(main.pet.getState().equals(petState))) {
 			petState = main.pet.getState();
 			switch(main.pet.getState()){
-				case "Normal":petStateIcon.setIcon(normalIcon);break;
-				case "Hungry":petStateIcon.setIcon(hungryIcon);break;
-				case "Angry":petStateIcon.setIcon(angryIcon);break;
-				case "Sleeping":petStateIcon.setIcon(sleepingIcon);break;
-				case "Dead":petStateIcon.setIcon(deadIcon);break;
+				case "Normal":
+					petStateIcon.setIcon(normalIcon);
+					//change pet sprite
+					break;
+				case "Hungry":
+					petStateIcon.setIcon(hungryIcon);
+					//change pet sprite
+					break;
+				case "Angry":
+					petStateIcon.setIcon(angryIcon);
+					//change pet sprite
+					break;
+				case "Sleeping":
+					petStateIcon.setIcon(sleepingIcon);
+					//change pet sprite
+					break;
+				case "Dead":
+					petStateIcon.setIcon(deadIcon);
+					//change pet sprite
+					break;
 			}
 		}
 	}
