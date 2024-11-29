@@ -3,8 +3,6 @@ import java.util.TimerTask;
 
 public class Pet {
 	
-	//Testing
-
     private String name;
     private int health;
     private int fullness;
@@ -168,6 +166,18 @@ public class Pet {
         updateState(); // Check state after exercise
     }
     
+    /**
+     * Use Medicine: The player uses a medItem to heal the pet by a certain increment.
+     */
+    public void useMedicine(MedItem medItem) {
+        if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
+
+        health = Math.min(health + medItem.getHealingValue(), MAX_STAT); // Increase health, but don't exceed max
+        System.out.println(name + " was healed with " + medItem.getName() + " and feels better!");
+        updateState(); // Check and update the pet's state after healing
+    }
+
+    
     private void updateState() {
         if (health <= MIN_STAT) { // Health: If health points reach zero, the pet dies (enters the dead state) and the game is over. 
             state = "Dead";
@@ -207,9 +217,9 @@ public class Pet {
             public void run() {
                 if (!state.equals("Dead")) {
                     // Gradual decrease in stats if pet is NOT dead 
-                    fullness = Math.max(MIN_STAT, fullness - 10); // Decrease fullness by 10
-                    sleep = Math.max(MIN_STAT, sleep - 20);       // Decrease sleep by 20
-                    happiness = Math.max(MIN_STAT, happiness - 10); // Decrease happiness by 10
+                    fullness = Math.max(MIN_STAT, fullness - 5); // Decrease fullness by 5
+                    sleep = Math.max(MIN_STAT, sleep - 2);       // Decrease sleep by 2
+                    happiness = Math.max(MIN_STAT, happiness - 5); // Decrease happiness by 5
 
                     // Delegate state management to updateState
                     updateState();
