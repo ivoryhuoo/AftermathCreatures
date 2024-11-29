@@ -41,6 +41,7 @@ public class TutorialScreen extends Screen{
 		//add functionality to buttons
 		backToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("0");
 			}
 		});

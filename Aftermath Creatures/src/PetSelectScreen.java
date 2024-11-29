@@ -47,12 +47,36 @@ public class PetSelectScreen extends Screen{
 			public void mouseReleased(MouseEvent e) {}
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("5");
 				//create zombie pet
 			}
 		});
+		humanPanel.addMouseListener(new MouseListener() {
+			public void mouseEntered(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				SoundManager.play("button_sound.wav");
+				ScreenManager.swapView("5");
+				//create human pet
+			}
+		});
+		robotPanel.addMouseListener(new MouseListener() {
+			public void mouseEntered(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				SoundManager.play("button_sound.wav");
+				ScreenManager.swapView("5");
+				//create robot pet
+			}
+		});
 		backToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("0");
 			}
 		});

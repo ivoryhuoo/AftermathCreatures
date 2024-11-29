@@ -166,6 +166,14 @@ public class Pet {
         updateState(); // Check state after exercise
     }
     
+    /**
+     * Reset health to maximum, reset state to normal state
+     */
+    public void revive() {
+    	main.pet.setHealth(MAX_STAT);
+		main.pet.updateState();
+    }
+    
     private void updateState() {
         if (health <= MIN_STAT) { // Health: If health points reach zero, the pet dies (enters the dead state) and the game is over. 
             state = "Dead";

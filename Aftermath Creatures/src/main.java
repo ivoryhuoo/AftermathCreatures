@@ -10,6 +10,8 @@ public class main {
 	static PlaytimeData playtimeData;
 	static File playtimeDataFile = new File("playtimeData.json");
 	public static Date playSessionStartTime;
+	static Pet pet;
+	
 	public static void main(String[] args) {
 		//set up frame
 		JFrame f = new JFrame("Aftermath Creatures");

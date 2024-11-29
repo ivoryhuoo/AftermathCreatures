@@ -95,18 +95,21 @@ public class SettingsScreen extends Screen{
 		//add functionality to buttons
 		backToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				bottomPanel.setVisible(false);//reset parental controls visibility
 				ScreenManager.swapView("0");
 			}
 		});
 		backToGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				bottomPanel.setVisible(false);//reset parental controls visibility
 				ScreenManager.swapView("5");
 			}
 		});
 		passwordSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				if (Arrays.equals(parentalPasswordEntry.getPassword(),parentalControlsPassword)) {
 					bottomPanel.setVisible(true);
 				}
@@ -114,6 +117,7 @@ public class SettingsScreen extends Screen{
 		});
 		submitScreentimeSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				parentalControls.setStartHr(((Integer) startHoursDropdown.getSelectedItem()).intValue());
 				parentalControls.setStartMin(((Integer) startMinsDropdown.getSelectedItem()).intValue());
 				parentalControls.setEndHr(((Integer) endHoursDropdown.getSelectedItem()).intValue());
@@ -126,17 +130,19 @@ public class SettingsScreen extends Screen{
 			}
 		});
 		//TODO maybe make pet a singleton as well?? silver bullet moment
-//		revivePet.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if(pet.getState()=="dead") {
-//					pet.setHealth(100);
-//					pet.updateState();
-//				}else {
-//					JLabel message = new JLabel("The pet is already alive.");
-//					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.WARNING_MESSAGE);
-//				}
-//			}
-//		});
+		revivePet.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(main.pet.getState()=="dead") {
+					SoundManager.play("button_sound.wav");
+					main.pet.revive();
+					JLabel message = new JLabel("The pet is alive again.");
+					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.OK_OPTION);
+				}else {
+					JLabel message = new JLabel("The pet is already alive.");
+					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
 		
 		//add functionality to sliders
 		bgmSlider.setValue(6);

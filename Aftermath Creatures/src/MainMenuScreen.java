@@ -104,7 +104,7 @@ public class MainMenuScreen extends Screen{
 		this.panel.add(credits);
 		
 	}
-	public boolean screentimeValid() {
+	private boolean screentimeValid() {
 		//read data from parentalControls.json (check for updates)
 		ParentalControls p=parentalControls;
 		try {

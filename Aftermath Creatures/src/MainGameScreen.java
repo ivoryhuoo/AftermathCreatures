@@ -42,31 +42,37 @@ public class MainGameScreen extends Screen{
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				//pet.goToBed();
+				SoundManager.play("button_sound.wav");
+				main.pet.goToBed();//??
 			}
 		});
 		inventory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("6");
 			}
 		});
 		doctor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				//pet.takeToVet();
+				SoundManager.play("button_sound.wav");
+				main.pet.takeToVet();//??
 			}
 		});
 		market.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 //				ScreenManager.swapView("market code goes here");
 			}
 		});
 		minigames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 //				ScreenManager.swapView("minigames code goes here");
 			}
 		});
 		menu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("3");
 			}
 		});
