@@ -20,10 +20,10 @@ public class MarketScreen extends Screen {
         JButton foodItem3 = createLargeButton("Purified Water");
         JButton foodItem4 = createLargeButton("Mystery Meat");
 
-        JButton giftItem1 = createLargeButton("A");
-        JButton giftItem2 = createLargeButton("B");
-        JButton giftItem3 = createLargeButton("C");
-        JButton giftItem4 = createLargeButton("D");
+        JButton giftItem1 = createLargeButton("Rusty Sword");
+        JButton giftItem2 = createLargeButton("Doom Hammer");
+        JButton giftItem3 = createLargeButton("Glowstick Grenade");
+        JButton giftItem4 = createLargeButton("Junkyard Shotgun");
 
         JButton medsItem1 = createLargeButton("First Aid Kit");
         JButton medsItem2 = createLargeButton("Herbal Remedies");
@@ -39,10 +39,10 @@ public class MarketScreen extends Screen {
         foodItem4.addActionListener(e -> addItemToInventory("Food", "Mystery Meat"));
 
         // Add functionality to Gift buttons
-        giftItem1.addActionListener(e -> addItemToInventory("Gifts", "A"));
-        giftItem2.addActionListener(e -> addItemToInventory("Gifts", "B"));
-        giftItem3.addActionListener(e -> addItemToInventory("Gifts", "C"));
-        giftItem4.addActionListener(e -> addItemToInventory("Gifts", "D"));
+        giftItem1.addActionListener(e -> addItemToInventory("Gifts", "Rusty Sword"));
+        giftItem2.addActionListener(e -> addItemToInventory("Gifts", "Doom Hammer"));
+        giftItem3.addActionListener(e -> addItemToInventory("Gifts", "Glowstick Grenade"));
+        giftItem4.addActionListener(e -> addItemToInventory("Gifts", "Junkyard Shotgun"));
 
         // Add functionality to Meds buttons
         medsItem1.addActionListener(e -> addItemToInventory("Meds", "First Aid Kit"));
