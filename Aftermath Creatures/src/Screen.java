@@ -12,7 +12,7 @@ public class Screen {
 		
 	}
 	public void setVertical(JPanel p) {
-		//basic helper method to set a vertical boxlayout
+		//basic helper method to set a vertical box layout
 		p.setLayout(new BoxLayout(p,BoxLayout.Y_AXIS));
 	}
 	public void setH1(JLabel a) {
