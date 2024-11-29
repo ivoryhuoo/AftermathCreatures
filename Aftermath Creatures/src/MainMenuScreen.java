@@ -26,6 +26,7 @@ public class MainMenuScreen extends Screen{
 		JButton tutorialButton = new JButton("Tutorial");
 		JButton settingsButton = new JButton("Settings");
 		JButton exitGameButton = new JButton("Exit Game");
+		JLabel credits = new JLabel("Developed by: Ivory Huo, Numan Salahuddin, Terry Shui, Harshi Kamboj (Group 43) Fall 2024, CS2212, Western University");
 		
 		//add button events
 		newGameButton.addActionListener(new ActionListener() {
@@ -87,6 +88,7 @@ public class MainMenuScreen extends Screen{
 		settingsButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 		exitGameButton.setPreferredSize(new Dimension(50,250));
 		exitGameButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+		credits.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		
 		//add buttons to frame
 		this.panel.add(title);
@@ -99,6 +101,7 @@ public class MainMenuScreen extends Screen{
 		this.panel.add(settingsButton);
 		this.panel.add(Box.createRigidArea(new Dimension(0, 30)));
 		this.panel.add(exitGameButton);
+		this.panel.add(credits);
 		
 	}
 	public boolean screentimeValid() {
