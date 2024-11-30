@@ -23,6 +23,7 @@ public class ScreenManager {
 		MainGameScreen mainGameScreen = new MainGameScreen();
 		Screen inventoryScreen = new InventoryScreen(); 
 		Screen petSelectScreen = new PetSelectScreen();
+		Screen marketScreen = new MarketScreen();
 		//add screens to cardlayout
 		currentScreen.add(mainMenu.panel,"0");
 		currentScreen.add(petSelectScreen.panel,"1");
@@ -31,6 +32,7 @@ public class ScreenManager {
 		currentScreen.add(tutorialScreen.panel,"4");
 		currentScreen.add(mainGameScreen.panel,"5");
 		currentScreen.add(inventoryScreen.panel,"6");
+		currentScreen.add(marketScreen.panel,"7");
 		
 		//default is mainMenu
 		c.show(currentScreen, "0");

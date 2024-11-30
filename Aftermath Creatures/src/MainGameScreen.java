@@ -1,22 +1,29 @@
 import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.Calendar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
-/**
- * Screen displays the pet, the pet's stats/condition. This is where main gameplay happens.
- * @see		Screen
- * @author 	Terry
- */
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Calendar;
+import java.io.*;
 public class MainGameScreen extends Screen{
 	static JLabel curTime;
 	static JLabel petName;
-	static JLabel money;
 	static JLabel score;
+	static JLabel petStateIcon;
 	static JLabel health;
 	static JLabel sleep;
 	static JLabel fullness;
 	static JLabel happiness;
+	static ImageIcon normalIcon;
+	static ImageIcon hungryIcon;
+	static ImageIcon angryIcon;
+	static ImageIcon sleepingIcon;
+	static ImageIcon deadIcon;
+	static String petState;//store value to check against Pet's state
+	static JLabel petSprite;
+	private JLabel money; // Reference to the money label
+    private Timer updateTimer; // Timer for updating the coin display
 	public MainGameScreen() {
 		//set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
@@ -35,7 +42,7 @@ public class MainGameScreen extends Screen{
 		//create elements
 		curTime = new JLabel("17:25");
 		petName = new JLabel("pet name");
-		money = new JLabel("$0");
+		money = new JLabel("Coins: " + Coins.getCoins()); // Display initial coin count
 		score = new JLabel("Score: 0");
 		setH2(curTime);
 		setH2(petName);
@@ -56,6 +63,25 @@ public class MainGameScreen extends Screen{
 		JButton market = new JButton("market");
 		JButton minigames = new JButton("minigames");
 		JButton menu = new JButton("Settings Menu");
+		
+		//set up pet state icons
+		resetPetState();
+		petStateIcon = new JLabel();
+		petStateIcon.setPreferredSize(new Dimension(50,50));
+		normalIcon = new ImageIcon("icons/normal.png");
+		hungryIcon = new ImageIcon("icons/hungry.png");
+		angryIcon = new ImageIcon("icons/angry.png");
+		sleepingIcon = new ImageIcon("icons/sleeping.png");
+		deadIcon = new ImageIcon("icons/dead.png");
+		petStateIcon.setIcon(normalIcon);//default state is normal
+		
+		//set up pet sprite
+		petSprite = new JLabel();
+		//change size?
+		
+		//change image-set based on type of pet ie.
+		//normalPet = new ImageIcon("icons/" + main.pet.getWhichPet + "/normal.png");
+		//where main.pet.getWhichPet returns a String like "Robot" or something
 		
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
@@ -79,7 +105,7 @@ public class MainGameScreen extends Screen{
 		market.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-//				ScreenManager.swapView("market code goes here");
+				ScreenManager.swapView("7");
 			}
 		});
 		minigames.addActionListener(new ActionListener() {
@@ -102,6 +128,7 @@ public class MainGameScreen extends Screen{
 		//add elements to subpanels
 		header.add(curTime);
 		header.add(petName);
+		header.add(petStateIcon);
 		header.add(money);
 		header.add(score);
 		sidebar.add(health);
@@ -116,6 +143,8 @@ public class MainGameScreen extends Screen{
 		footer.add(minigames);
 		footer.add(menu);
 		
+		// Start updating the money label
+        startUpdatingCoins();
 	}
 	public void updatePetName() {
 		//update pet name
@@ -123,17 +152,28 @@ public class MainGameScreen extends Screen{
 			petName.setText(main.pet.getName());
 		}
 	}
-	public void updateCoins() {
-		
-	}
+	private void startUpdatingCoins() {
+        updateTimer = new Timer(true); // Daemon thread
+        updateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> money.setText("Coins: " + Coins.getCoins()));
+            }
+        }, 0, 1000); // Update every second
+    }
 	public void updateScore() {
-		
+		//UNTESTED
 	}
 	public void updateTime() {
 		//update time
 		Calendar currentTime = Calendar.getInstance();
 		if(!((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE))).equals(curTime.getText())) {
-			curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+			//fix abnormal time formatting (eg. 12:5 instead of 12:05)
+			if(currentTime.get(Calendar.MINUTE)<10) {
+				curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":0"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+			}else {
+				curTime.setText((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE)));
+			}
 		}
 	}
 	//update pet stats
@@ -156,5 +196,36 @@ public class MainGameScreen extends Screen{
 		if(!(String.valueOf(main.pet.getHappiness()).equals(happiness.getText()))) {
 			happiness.setText("Happiness: "+String.valueOf(main.pet.getHappiness()));
 		}
+	}
+	public void updateIcon() {
+		//change petStateIcon in header, change pet sprite
+		if(!(main.pet.getState().equals(petState))) {
+			petState = main.pet.getState();
+			switch(main.pet.getState()){
+				case "Normal":
+					petStateIcon.setIcon(normalIcon);
+					//change pet sprite
+					break;
+				case "Hungry":
+					petStateIcon.setIcon(hungryIcon);
+					//change pet sprite
+					break;
+				case "Angry":
+					petStateIcon.setIcon(angryIcon);
+					//change pet sprite
+					break;
+				case "Sleeping":
+					petStateIcon.setIcon(sleepingIcon);
+					//change pet sprite
+					break;
+				case "Dead":
+					petStateIcon.setIcon(deadIcon);
+					//change pet sprite
+					break;
+			}
+		}
+	}
+	public void resetPetState() {
+		petState="Normal";
 	}
 }

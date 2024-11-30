@@ -24,6 +24,10 @@ public class MainMenuScreen extends Screen{
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
 		this.panel.setAlignmentX(panel.CENTER_ALIGNMENT);//does this do anything?
 		this.panel.setBorder(BorderFactory.createLineBorder(Color.blue));
+
+		// Ensure the coin timer starts when the game launches
+	    Coins.startCoinTimer();
+
 		//create title and buttons
 		JLabel title = new JLabel("Aftermath Creatures");
 		JButton newGameButton = new JButton("New Game");
@@ -107,7 +111,7 @@ public class MainMenuScreen extends Screen{
 		this.panel.add(Box.createRigidArea(new Dimension(0, 30)));
 		this.panel.add(exitGameButton);
 		this.panel.add(credits);
-		
+
 	}
 	private boolean screentimeValid() {
 		//read data from parentalControls.json (check for updates)
