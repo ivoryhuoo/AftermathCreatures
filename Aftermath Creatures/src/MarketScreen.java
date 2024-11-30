@@ -1,6 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
-
+import javax.swing.*;
 public class MarketScreen extends Screen {
     public MarketScreen() {
         JLabel title = new JLabel("Market");
