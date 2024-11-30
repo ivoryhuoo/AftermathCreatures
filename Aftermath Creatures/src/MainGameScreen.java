@@ -86,6 +86,10 @@ public class MainGameScreen extends Screen{
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
 //				ScreenManager.swapView("minigames code goes here");
+				
+				//debug: this kills the pet
+				main.pet.setHealth(0);
+				minigames.setText(main.pet.getState());
 			}
 		});
 		menu.addActionListener(new ActionListener() {

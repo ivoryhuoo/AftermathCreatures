@@ -136,11 +136,11 @@ public class SettingsScreen extends Screen{
 		});
 		revivePet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(main.pet.getState()=="dead") {
-					SoundManager.play("button_sound.wav");
-//					main.pet.revive();
+				SoundManager.play("button_sound.wav");
+				if(main.pet.getState().equals("Dead")) {
+					main.pet.revive();
 					JLabel message = new JLabel("The pet is alive again.");
-					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.PLAIN_MESSAGE);
 				}else {
 					JLabel message = new JLabel("The pet is already alive.");
 					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.WARNING_MESSAGE);

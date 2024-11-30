@@ -388,5 +388,10 @@ public class Pet {
     public String getState() { return state; }
     
     public String getName() {return name;}
+    
+    public void revive() {
+    	this.health = MAX_STAT;
+    	updateState();
+    }
 }
 
