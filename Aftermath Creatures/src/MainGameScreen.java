@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -45,6 +47,7 @@ public class MainGameScreen extends Screen{
 		JPanel center = new JPanel();
 		center.setLayout(new FlowLayout(FlowLayout.CENTER));
 		panel.add(center, BorderLayout.CENTER);
+		center.setBackground(Color.DARK_GRAY);
 		
 		//create elements
 		curTime = new JLabel("17:25");
@@ -84,7 +87,6 @@ public class MainGameScreen extends Screen{
 		
 		//set up pet sprite
 		petSprite = new JLabel();
-		
 		//change size?
 		
 		//add functionality to buttons
@@ -126,6 +128,15 @@ public class MainGameScreen extends Screen{
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("3");
+			}
+		});
+		petSprite.addMouseListener(new MouseListener() {
+			public void mouseEntered(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {
+				SoundManager.play("pet_interact_sound.wav");
 			}
 		});
 		
