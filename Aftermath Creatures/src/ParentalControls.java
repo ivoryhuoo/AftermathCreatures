@@ -1,4 +1,7 @@
-
+/**
+ * Class for storing/loading/saving parental controls screentime restrictions.
+ * @author 	Terry
+ */
 public class ParentalControls {
 	private int startHr;
 	private int startMin;

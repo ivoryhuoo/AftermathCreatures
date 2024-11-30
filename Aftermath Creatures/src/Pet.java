@@ -1,6 +1,8 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 /**
  * Represents a virtual pet with various states and attributes like health, fullness, sleep, and happiness. 
  * <p>
@@ -70,15 +72,18 @@ public class Pet {
      */
     private boolean canExecuteCommand(String command) {
         if (state.equals("Dead")) { // If the pet is dead, no commands are available to the player
-            System.out.println("Cannot " + command + ". The pet is dead.");
+            String message=("Cannot " + command + ". The pet is dead.");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (state.equals("Sleeping")) { // If the pet is asleep, no commands are available to the player
-            System.out.println("Cannot " + command + ". The pet is sleeping."); 
+            String message=("Cannot " + command + ". The pet is sleeping.");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
             return false;
         }
         if (state.equals("Angry") && happiness < MAX_STAT / 2) { // If the pet is angry, the pet will only respond to commands that increase happiness.
-            System.out.println("Cannot " + command + ". The pet is angry and refuses to listen!");
+            String message=("Cannot " + command + ". The pet is angry and refuses to listen!");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true; 
@@ -104,7 +109,8 @@ public class Pet {
      */
     public void goToBed() {
         if (!state.equals("Normal")) {
-            System.out.println("Cannot sleep in the current state.");
+            String message=("Cannot sleep in the current state.");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -129,7 +135,8 @@ public class Pet {
         if (!canExecuteCommand("play")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
         happiness = Math.min(happiness + 20, MAX_STAT); // Increase happiness by fixed amount of 20
-        System.out.println(name + " is playing and feels happier!");
+        String message = (name + " is playing and feels happier!");
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check state after playing
     }
     
@@ -157,13 +164,15 @@ public class Pet {
         if (!canExecuteCommand("visit the vet")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
         if (!canUseVet) { // Cooldown flag for vet (If unable to use vet at the moment, command is unavail and return)
-            System.out.println("The vet is unavailable right now. Please wait.");
+            String message = ("The vet is unavailable right now. Please wait.");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         //If cooldown timer is done (command works)
         health = Math.min(health + 30, MAX_STAT); // Increase health by a fixed amount, 30
-        System.out.println(name + " was taken to the vet and is feeling better!");
+        String message = (name + " was taken to the vet and is feeling better!");
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check state after visiting the vet
 
         // Start cooldown
@@ -172,7 +181,8 @@ public class Pet {
             @Override
             public void run() {
                 canUseVet = true; // Reset cooldown
-                System.out.println("The vet is now available again!");
+                String message = ("The vet is now available again!");
+                JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
             }
         }, 10000); // Cooldown duration: 10 seconds
     }
@@ -188,7 +198,8 @@ public class Pet {
         health = Math.min(health + 20, MAX_STAT); // Increase health points by 20
         fullness = Math.max(fullness - 20, MIN_STAT); // Decrease fullness (increase hunger) by 20
         sleep = Math.max(sleep - 10, MIN_STAT); // Decrease sleep points (increase sleepiness) by 10
-        System.out.println(name + " exercised and is healthier but hungrier and sleepier.");
+        String message = (name + " exercised and is healthier but hungrier and sleepier.");
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check state after exercise
     }
     
@@ -199,7 +210,8 @@ public class Pet {
         if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
 
         health = Math.min(health + medItem.getHealingValue(), MAX_STAT); // Increase health, but don't exceed max
-        System.out.println(name + " was healed with " + medItem.getName() + " and feels better!");
+        String message = (name + " was healed with " + medItem.getName() + " and feels better!");
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check and update the pet's state after healing
     }
 
@@ -209,18 +221,22 @@ public class Pet {
     private void updateState() {
         if (health <= MIN_STAT) { // Health: If health points reach zero, the pet dies (enters the dead state) and the game is over. 
             state = "Dead";
-            System.out.println(name + " has died.");
+            String message = (name + " has died.");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
         } else if (sleep <= MIN_STAT) { // Sleep: If sleep reaches zero, a health penalty is applied (a set number of health points are removed)
             state = "Sleeping";
             health = Math.max(MIN_STAT, health - 10); // Apply health penalty
-            System.out.println(name + " is too tired and fell asleep.");
+            String message = (name + " is too tired and fell asleep.");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
         } else if (fullness <= MIN_STAT) { // Fullness: When fullness reaches zero, the pet enters the hungry state and the rate that happiness decline should be increased. 
             state = "Hungry";
             happiness = Math.max(MIN_STAT, happiness - 5); // Accelerated happiness decline
-            System.out.println(name + " is starving!");
+            String message = (name + " is starving!");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
         } else if (happiness <= MIN_STAT) { // Happiness: When happiness reaches zero, the pet will enter the angry state. 
             state = "Angry";
-            System.out.println(name + " is angry!");
+            String message = (name + " is angry!");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
         } else { // If nothing has been impacted, pet remains normal
             state = "Normal";
         }
@@ -388,5 +404,10 @@ public class Pet {
     public String getState() { return state; }
     
     public String getName() {return name;}
+    
+    public void revive() {
+    	this.health = MAX_STAT;
+    	updateState();
+    }
 }
 

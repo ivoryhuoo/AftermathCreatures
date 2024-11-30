@@ -1,7 +1,10 @@
 import java.awt.CardLayout;
 
 import javax.swing.JPanel;
-
+/**
+ * Creates all game screens and swaps between them using CardLayout.
+ * @author Terry
+ */
 public class ScreenManager {
 	//static reference
 	private static ScreenManager single_instance = null;
