@@ -22,6 +22,11 @@ public class MainGameScreen extends Screen{
 	static ImageIcon deadIcon;
 	static String petState;//store value to check against Pet's state
 	static JLabel petSprite;
+	static ImageIcon normalPet;
+	static ImageIcon hungryPet;
+	static ImageIcon angryPet;
+	static ImageIcon sleepingPet;
+	static ImageIcon deadPet;
 	private JLabel money; // Reference to the money label
     private Timer updateTimer; // Timer for updating the coin display
 	public MainGameScreen() {
@@ -37,7 +42,9 @@ public class MainGameScreen extends Screen{
 		JPanel footer = new JPanel();
 		footer.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		panel.add(footer, BorderLayout.SOUTH);
-		//pet image goes in BorderLayout.CENTER
+		JPanel center = new JPanel();
+		center.setLayout(new FlowLayout(FlowLayout.CENTER));
+		panel.add(center, BorderLayout.CENTER);
 		
 		//create elements
 		curTime = new JLabel("17:25");
@@ -77,16 +84,8 @@ public class MainGameScreen extends Screen{
 		
 		//set up pet sprite
 		petSprite = new JLabel();
+		
 		//change size?
-		//change image-set based on type of pet ie.
-		
-		//normalPet = new ImageIcon("sprites/Normal"+main.pet.getWhichPet+".png");
-		//angryPet = new ImageIcon("sprites/Angry"+main.pet.getWhichPet+".png");
-		//hungryPet = new ImageIcon("sprites/Hungry"+main.pet.getWhichPet+".png");
-		//sleepingPet = new ImageIcon("sprites/Sleepy"+main.pet.getWhichPet+".png");
-		//deadPet = new ImageIcon("sprites/Dead"+main.pet.getWhichPet+".png");
-		
-		//where main.pet.getWhichPet returns a String like "Robot" or something
 		
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
@@ -140,6 +139,7 @@ public class MainGameScreen extends Screen{
 		sidebar.add(sleep);
 		sidebar.add(fullness);
 		sidebar.add(happiness);
+		center.add(petSprite);
 		//footer icons go here
 		footer.add(rest);
 		footer.add(inventory);
@@ -203,34 +203,50 @@ public class MainGameScreen extends Screen{
 		}
 	}
 	public void updateIcon() {
+		//change image-set based on type of pet
+		normalPet = new ImageIcon("sprites/Normal"+main.pet.getClass().getName()+".png");
+		angryPet = new ImageIcon("sprites/Angry"+main.pet.getClass().getName()+".png");
+		hungryPet = new ImageIcon("sprites/Hungry"+main.pet.getClass().getName()+".png");
+		sleepingPet = new ImageIcon("sprites/Sleepy"+main.pet.getClass().getName()+".png");
+		deadPet = new ImageIcon("sprites/Dead"+main.pet.getClass().getName()+".png");
 		//change petStateIcon in header, change pet sprite
 		if(!(main.pet.getState().equals(petState))) {
 			petState = main.pet.getState();
 			switch(main.pet.getState()){
 				case "Normal":
+					//change icon and pet sprite
 					petStateIcon.setIcon(normalIcon);
-					//change pet sprite
+					petSprite.setIcon(normalPet);
 					break;
 				case "Hungry":
+					//change icon and pet sprite
 					petStateIcon.setIcon(hungryIcon);
-					//change pet sprite
+					petSprite.setIcon(hungryPet);
 					break;
 				case "Angry":
+					//change icon and pet sprite
 					petStateIcon.setIcon(angryIcon);
-					//change pet sprite
+					petSprite.setIcon(angryPet);
 					break;
 				case "Sleeping":
+					//change icon and pet sprite
 					petStateIcon.setIcon(sleepingIcon);
-					//change pet sprite
+					petSprite.setIcon(sleepingPet);
 					break;
 				case "Dead":
+					//change icon and pet sprite
 					petStateIcon.setIcon(deadIcon);
-					//change pet sprite
+					petSprite.setIcon(deadPet);
 					break;
 			}
 		}
 	}
 	public void resetPetState() {
 		petState="Normal";
+		if(main.pet!=null) {
+			normalPet = new ImageIcon("sprites/Normal"+main.pet.getClass().getName()+".png");
+			petStateIcon.setIcon(normalIcon);
+			petSprite.setIcon(normalPet);
+		}
 	}
 }
