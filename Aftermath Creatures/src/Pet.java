@@ -20,23 +20,23 @@ import javax.swing.JOptionPane;
  */
 public class Pet {
 	
-    private String name; // Name of pet
-    private int health; // Health level of the pet 
-    private int fullness; // Fullness level of the pet
-    private int sleep; // Sleep level of the pet
-    private int happiness; // Happiness level of the pet
-    private String state; // Current state of the pet (e.g., Normal, Sleeping, Angry, etc.)
+    protected String name; // Name of pet
+    protected int health; // Health level of the pet 
+    protected int fullness; // Fullness level of the pet
+    protected int sleep; // Sleep level of the pet
+    protected int happiness; // Happiness level of the pet
+    protected String state; // Current state of the pet (e.g., Normal, Sleeping, Angry, etc.)
     
     
     // Cooldown flag for the "Take to Vet" command
-    private boolean canUseVet = true; 
+    protected boolean canUseVet = true; 
     
     // Shared Timer instance for all timer-based logic (goToBed & takeToVet implementation)
-    private final Timer sharedTimer = new Timer();
+    protected final Timer sharedTimer = new Timer();
 
     // Initialize maximum and minimum stats
-    private final int MAX_STAT = 100; 
-    private final int MIN_STAT = 0;
+    protected final int MAX_STAT = 100; 
+    protected final int MIN_STAT = 0;
 
     /**
      * Constructs a Pet instance with a given name.
@@ -45,14 +45,8 @@ public class Pet {
      *
      * @param name the name of the pet
      */
-    public Pet(String name) {
-        this.name = name;
-        this.health = MAX_STAT; // Start with full health
-        this.fullness = 50; // Moderate starting fullness level
-        this.sleep = 50; // Moderate starting sleep level
-        this.happiness = 50; // Moderate starting happiness level
-        this.state = "Normal"; // Initial state of the pet
-        startStatDecline(); // Start automatic stat decline once pet initialized 
+    public Pet() {
+        
     }
     
     /**
@@ -218,7 +212,7 @@ public class Pet {
     /**
      * Updates the pet's state based on its current stats.
      */
-    private void updateState() {
+    protected void updateState() {
         if (health <= MIN_STAT) { // Health: If health points reach zero, the pet dies (enters the dead state) and the game is over. 
             state = "Dead";
             String message = (name + " has died.");

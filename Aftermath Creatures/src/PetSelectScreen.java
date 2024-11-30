@@ -56,7 +56,7 @@ public class PetSelectScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
 				//create zombie pet
-				main.pet = new Pet(namePetLabel.getText());
+				main.pet = new Zombie(namePetLabel.getText());
 				ScreenManager.mainGameScreen.resetPetState();
 				ScreenManager.swapView("5");
 			}
@@ -70,7 +70,7 @@ public class PetSelectScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
 				//create human pet
-				main.pet = new Pet(namePetLabel.getText());
+				main.pet = new Human(namePetLabel.getText());
 				ScreenManager.mainGameScreen.resetPetState();
 				ScreenManager.swapView("5");
 			}
@@ -84,7 +84,7 @@ public class PetSelectScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
 				//create robot pet
-				main.pet = new Pet(namePetLabel.getText());
+				main.pet = new Robot(namePetLabel.getText());
 				ScreenManager.mainGameScreen.resetPetState();
 				ScreenManager.swapView("5");
 			}

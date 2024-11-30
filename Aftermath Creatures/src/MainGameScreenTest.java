@@ -19,7 +19,7 @@ class MainGameScreenTest {
 
 	@Test
 	void testUpdatePetName() {
-		main.pet = new Pet("Jim");
+		main.pet = new Zombie("Jim");
 		MainGameScreen m = new MainGameScreen();
 		m.updatePetName();
 		assertEquals(main.pet.getName(),m.petName.getText());
@@ -41,7 +41,7 @@ class MainGameScreenTest {
 	}
 	@Test
 	void testUpdateHealth() {
-		main.pet = new Pet("Bartholomew");
+		main.pet = new Zombie("Bartholomew");
 		main.pet.setHealth(59);
 		MainGameScreen m = new MainGameScreen();
 		m.updateHealth();
@@ -51,7 +51,7 @@ class MainGameScreenTest {
 	}
 	@Test
 	void testUpdateSleep() {
-		main.pet = new Pet("Gartholomew");
+		main.pet = new Zombie("Gartholomew");
 		main.pet.setSleep(29);
 		MainGameScreen m = new MainGameScreen();
 		m.updateSleep();
@@ -61,7 +61,7 @@ class MainGameScreenTest {
 	}
 	@Test
 	void testUpdateFullness() {
-		main.pet = new Pet("Schwartholomew");
+		main.pet = new Zombie("Schwartholomew");
 		main.pet.setFullness(57);
 		MainGameScreen m = new MainGameScreen();
 		m.updateFullness();
@@ -71,7 +71,7 @@ class MainGameScreenTest {
 	}
 	@Test
 	void testUpdateHappiness() {
-		main.pet = new Pet("Ungus Bungus the 3rd");
+		main.pet = new Zombie("Ungus Bungus the 3rd");
 		main.pet.setHappiness(19);
 		MainGameScreen m = new MainGameScreen();
 		m.updateHappiness();
