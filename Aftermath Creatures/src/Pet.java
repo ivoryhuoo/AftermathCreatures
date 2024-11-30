@@ -88,13 +88,13 @@ public class Pet {
      * 
      * @param foodItem the food item to feed the pet
      */
-    public void feed(FoodItem foodItem) {
-        if (!canExecuteCommand("feed")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
-
-        fullness = Math.min(fullness + foodItem.getNutritionValue(), MAX_STAT); // Different food types have different nutritional values
-        System.out.println(name + " was fed with " + foodItem.getName() + " and is now less hungry.");
-        updateState(); // Check state after feeding
-    }
+//    public void feed(FoodItem foodItem) {
+//        if (!canExecuteCommand("feed")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
+//
+//        fullness = Math.min(fullness + foodItem.getNutritionValue(), MAX_STAT); // Different food types have different nutritional values
+//        System.out.println(name + " was fed with " + foodItem.getName() + " and is now less hungry.");
+//        updateState(); // Check state after feeding
+//    }
     
     /**
      * Puts the pet to sleep, transitioning it to the "Sleeping" state until fully rested.
@@ -141,13 +141,13 @@ public class Pet {
      * 
      * @param giftItem the gift to give to the pet
      */
-    public void giveGift(GiftItem giftItem) {
-        if (!canExecuteCommand("give a gift")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
-
-        happiness = Math.min(happiness + giftItem.getHappinessBoost(), MAX_STAT); // Increase happiness based on the type of gift 
-        System.out.println(name + " received a " + giftItem.getName() + " and feels happier!"); 
-        updateState(); // Check state after giving the gift
-    }
+//    public void giveGift(GiftItem giftItem) {
+//        if (!canExecuteCommand("give a gift")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
+//
+//        happiness = Math.min(happiness + giftItem.getHappinessBoost(), MAX_STAT); // Increase happiness based on the type of gift 
+//        System.out.println(name + " received a " + giftItem.getName() + " and feels happier!"); 
+//        updateState(); // Check state after giving the gift
+//    }
     
     /**
      * Takes the pet to the vet, increasing its health.
@@ -200,14 +200,14 @@ public class Pet {
     /**
      * Use Medicine: The player uses a medItem to heal the pet by a certain increment.
      */
-    public void useMedicine(MedItem medItem) {
-        if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
-
-        health = Math.min(health + medItem.getHealingValue(), MAX_STAT); // Increase health, but don't exceed max
-        String message = (name + " was healed with " + medItem.getName() + " and feels better!");
-        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
-        updateState(); // Check and update the pet's state after healing
-    }
+//    public void useMedicine(MedItem medItem) {
+//        if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
+//
+//        health = Math.min(health + medItem.getHealingValue(), MAX_STAT); // Increase health, but don't exceed max
+//        String message = (name + " was healed with " + medItem.getName() + " and feels better!");
+//        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
+//        updateState(); // Check and update the pet's state after healing
+//    }
 
     /**
      * Updates the pet's state based on its current stats.

@@ -21,6 +21,8 @@ public class SettingsScreen extends Screen{
 	static PlaytimeData playtimeData;
 	static File parentalControlsDataFile = new File("parentalControls.json");
 	static ParentalControls parentalControls;
+	String totalPlaytimeAmt;
+	String avgPlaytimeAmt;
 	public SettingsScreen(){
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
 		//hardcoded password
@@ -35,8 +37,8 @@ public class SettingsScreen extends Screen{
 			System.out.println("Error reading playtime data file");
 		}
 		//TODO i think these are still in milliseconds lol (change to hours/minutes?)
-		String totalPlaytimeAmt = String.valueOf((int)Math.floor(playtimeData.getTotalPlaytime()/3600000))+" Hours "+String.valueOf((int)Math.floor(playtimeData.getTotalPlaytime()/60000)%60)+" Minutes "+String.valueOf((int)Math.round(playtimeData.getTotalPlaytime()/1000)%60)+" Seconds";
-		String avgPlaytimeAmt = String.valueOf((int)Math.floor((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/3600000))+" Hours "+String.valueOf((int)Math.round((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/60000)%60)+" Minutes "+String.valueOf((int)Math.round((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/1000)%60)+" Seconds";
+		totalPlaytimeAmt = String.valueOf((int)Math.floor(playtimeData.getTotalPlaytime()/3600000))+" Hours "+String.valueOf((int)Math.floor(playtimeData.getTotalPlaytime()/60000)%60)+" Minutes "+String.valueOf((int)Math.round(playtimeData.getTotalPlaytime()/1000)%60)+" Seconds";
+		avgPlaytimeAmt = String.valueOf((int)Math.floor((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/3600000))+" Hours "+String.valueOf((int)Math.round((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/60000)%60)+" Minutes "+String.valueOf((int)Math.round((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/1000)%60)+" Seconds";
 		
 		
 		//create menu elements
@@ -61,6 +63,7 @@ public class SettingsScreen extends Screen{
 		JLabel totalPlaytime = new JLabel(totalPlaytimeAmt);
 		JLabel avgLabel = new JLabel("Average Playtime");
 		JLabel avgPlaytime = new JLabel(avgPlaytimeAmt);
+		JButton resetPlaytimeStats = new JButton("Reset Playtime Stats");
 		JButton revivePet = new JButton("Revive Pet");
 		//navigation buttons
 		JButton backToMainMenu = new JButton("Back to Main Menu");
@@ -135,6 +138,19 @@ public class SettingsScreen extends Screen{
 				}
 			}
 		});
+		resetPlaytimeStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playtimeData.setPlaySessions(1);//avoid divide by zero (??)
+				playtimeData.setTotalPlaytime(0);
+				totalPlaytime.setText("0 Hours 0 Minutes 0 Seconds");
+				avgPlaytime.setText("0 Hours 0 Minutes 0 Seconds");
+				try {
+					objectMapper.writeValue(playtimeDataFile, playtimeData);
+				}catch(Exception eWrite) {
+					//error failed to write
+				}
+			}
+		});
 		revivePet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SoundManager.play("button_sound.wav");
@@ -190,6 +206,7 @@ public class SettingsScreen extends Screen{
 		bottomPanel.add(totalPlaytime);
 		bottomPanel.add(avgLabel);
 		bottomPanel.add(avgPlaytime);
+		bottomPanel.add(resetPlaytimeStats);
 		bottomPanel.add(revivePet);
 		buttonPanel.add(backToMainMenu);
 		buttonPanel.add(backToGame);
