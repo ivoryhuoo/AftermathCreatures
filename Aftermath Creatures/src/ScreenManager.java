@@ -12,6 +12,7 @@ public class ScreenManager {
 	static CardLayout c = new CardLayout();
 	static JPanel currentScreen = new JPanel(c);
 	public static String currentScreenNum="0";
+	private InventoryScreen inventoryScreen;
 	public static MainGameScreen mainGameScreen= new MainGameScreen();//allows game loop in main
 	//private constructor (for singleton)
 	private ScreenManager(){		
@@ -21,7 +22,7 @@ public class ScreenManager {
 		Screen settingsScreen = new SettingsScreen();
 		Screen saveScreen = new SaveScreen();
 		MainGameScreen mainGameScreen = new MainGameScreen();
-		Screen inventoryScreen = new InventoryScreen(); 
+		inventoryScreen = new InventoryScreen();
 		Screen petSelectScreen = new PetSelectScreen();
 		Screen marketScreen = new MarketScreen();
 		//add screens to cardlayout
@@ -43,6 +44,9 @@ public class ScreenManager {
 	public static void swapView(String key) {
 		currentScreenNum=key;
 		c.show(currentScreen,key);
+		if (key.equals("6")) { // Refresh Inventory Screen when viewing
+            getInstance().inventoryScreen.refreshPanels();
+        }
 	}
 	
 	//create singleton
