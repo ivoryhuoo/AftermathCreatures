@@ -9,7 +9,6 @@ import java.io.*;
 public class MainGameScreen extends Screen{
 	static JLabel curTime;
 	static JLabel petName;
-	static JLabel money;
 	static JLabel score;
 	static JLabel petStateIcon;
 	static JLabel health;
@@ -225,5 +224,4 @@ public class MainGameScreen extends Screen{
 	public void resetPetState() {
 		petState="Normal";
 	}
->>>>>>> Aftermath Creatures/src/MainGameScreen.java
 }

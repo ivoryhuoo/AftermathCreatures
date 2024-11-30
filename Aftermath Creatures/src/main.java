@@ -55,7 +55,7 @@ public class main {
 			if(ScreenManager.currentScreenNum.equals("5")) {
 				//update values
 				ScreenManager.mainGameScreen.updatePetName();
-				ScreenManager.mainGameScreen.updateCoins();
+//				ScreenManager.mainGameScreen.updateCoins(); //deprecated
 				ScreenManager.mainGameScreen.updateScore();
 				ScreenManager.mainGameScreen.updateTime();
 				ScreenManager.mainGameScreen.updateHealth();
