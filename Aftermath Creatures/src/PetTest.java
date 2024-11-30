@@ -16,5 +16,12 @@ class PetTest {
 		String actual = charles.getName();
 		assertEquals(expected,actual);
 	}
+	@Test
+	void testZombieClassNameAccess() {
+		Pet charles = new Zombie("Charles");
+		String expected = "Zombie";
+		String actual = charles.getClass().getName();
+		assertEquals(expected,actual);
+	}
 
 }
