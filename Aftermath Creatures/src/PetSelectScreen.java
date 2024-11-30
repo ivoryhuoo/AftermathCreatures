@@ -99,19 +99,5 @@ public class PetSelectScreen extends Screen{
 		petsPanel.setAlignmentX((float)0.5);
 		this.panel.add(backToMainMenu);
 		backToMainMenu.setAlignmentX((float)0.1);
-		
-		// Integrate keyboard shortcut 
-		setupKeyboardShortcuts();
-	}
-	
-	/**
-	 * Setup keyboard shortcuts
-	 */
-	private void setupKeyboardShortcuts() {
-	    // Global shortcut: ESC navigates to the settings menu
-	    KeyboardShortcutManager.setupGlobalShortcuts(this.panel);
-
-	    // Ensure the panel gains focus for shortcuts
-	    this.panel.requestFocusInWindow();
 	}
 }
