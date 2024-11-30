@@ -105,7 +105,7 @@ public class MainGameScreen extends Screen{
 		market.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-//				ScreenManager.swapView("market code goes here");
+				ScreenManager.swapView("7");
 			}
 		});
 		minigames.addActionListener(new ActionListener() {
