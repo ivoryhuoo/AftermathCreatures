@@ -1,8 +1,11 @@
 import javax.swing.*;
-import java.awt.event.*;
-import java.io.*;
-import java.util.Calendar;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Calendar;
+import java.io.*;
 public class MainGameScreen extends Screen{
 	static JLabel curTime;
 	static JLabel petName;
@@ -20,6 +23,8 @@ public class MainGameScreen extends Screen{
 	static ImageIcon deadIcon;
 	static String petState;//store value to check against Pet's state
 	static JLabel petSprite;
+	private JLabel money; // Reference to the money label
+    private Timer updateTimer; // Timer for updating the coin display
 	public MainGameScreen() {
 		//set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
@@ -38,7 +43,7 @@ public class MainGameScreen extends Screen{
 		//create elements
 		curTime = new JLabel("17:25");
 		petName = new JLabel("pet name");
-		money = new JLabel("$0");
+		money = new JLabel("Coins: " + Coins.getCoins()); // Display initial coin count
 		score = new JLabel("Score: 0");
 		setH2(curTime);
 		setH2(petName);
@@ -135,6 +140,8 @@ public class MainGameScreen extends Screen{
 		footer.add(minigames);
 		footer.add(menu);
 		
+		// Start updating the money label
+        startUpdatingCoins();
 	}
 	public void updatePetName() {
 		//update pet name
@@ -142,9 +149,15 @@ public class MainGameScreen extends Screen{
 			petName.setText(main.pet.getName());
 		}
 	}
-	public void updateCoins() {
-		//UNtESTEd
-	}
+	private void startUpdatingCoins() {
+        updateTimer = new Timer(true); // Daemon thread
+        updateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> money.setText("Coins: " + Coins.getCoins()));
+            }
+        }, 0, 1000); // Update every second
+    }
 	public void updateScore() {
 		//UNTESTED
 	}
@@ -212,4 +225,5 @@ public class MainGameScreen extends Screen{
 	public void resetPetState() {
 		petState="Normal";
 	}
+>>>>>>> Aftermath Creatures/src/MainGameScreen.java
 }
