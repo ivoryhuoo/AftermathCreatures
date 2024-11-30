@@ -117,6 +117,7 @@ public class SettingsScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				if (Arrays.equals(parentalPasswordEntry.getPassword(),parentalControlsPassword)) {
 					bottomPanel.setVisible(true);
+					parentalPasswordEntry.setText("");//clear password field
 				}
 			}
 		});
