@@ -6,6 +6,7 @@ import java.util.*;
 import java.awt.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.*;
+
 public class main {
 	static PlaytimeData playtimeData;
 	static File playtimeDataFile = new File("playtimeData.json");
