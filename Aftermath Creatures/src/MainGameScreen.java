@@ -78,9 +78,14 @@ public class MainGameScreen extends Screen{
 		//set up pet sprite
 		petSprite = new JLabel();
 		//change size?
-		
 		//change image-set based on type of pet ie.
-		//normalPet = new ImageIcon("icons/" + main.pet.getWhichPet + "/normal.png");
+		
+		//normalPet = new ImageIcon("sprites/Normal"+main.pet.getWhichPet+".png");
+		//angryPet = new ImageIcon("sprites/Angry"+main.pet.getWhichPet+".png");
+		//hungryPet = new ImageIcon("sprites/Hungry"+main.pet.getWhichPet+".png");
+		//sleepingPet = new ImageIcon("sprites/Sleepy"+main.pet.getWhichPet+".png");
+		//deadPet = new ImageIcon("sprites/Dead"+main.pet.getWhichPet+".png");
+		
 		//where main.pet.getWhichPet returns a String like "Robot" or something
 		
 		//add functionality to buttons
