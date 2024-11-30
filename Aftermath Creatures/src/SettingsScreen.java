@@ -35,8 +35,8 @@ public class SettingsScreen extends Screen{
 			System.out.println("Error reading playtime data file");
 		}
 		//TODO i think these are still in milliseconds lol (change to hours/minutes?)
-		String totalPlaytimeAmt = String.valueOf(playtimeData.getTotalPlaytime());
-		String avgPlaytimeAmt = String.valueOf(playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions());
+		String totalPlaytimeAmt = String.valueOf((int)Math.floor(playtimeData.getTotalPlaytime()/3600000))+" Hours "+String.valueOf((int)Math.floor(playtimeData.getTotalPlaytime()/60000)%60)+" Minutes "+String.valueOf((int)Math.round(playtimeData.getTotalPlaytime()/1000)%60)+" Seconds";
+		String avgPlaytimeAmt = String.valueOf((int)Math.floor((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/3600000))+" Hours "+String.valueOf((int)Math.round((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/60000)%60)+" Minutes "+String.valueOf((int)Math.round((playtimeData.getTotalPlaytime()/playtimeData.getPlaySessions())/1000)%60)+" Seconds";
 		
 		
 		//create menu elements
@@ -117,6 +117,7 @@ public class SettingsScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				if (Arrays.equals(parentalPasswordEntry.getPassword(),parentalControlsPassword)) {
 					bottomPanel.setVisible(true);
+					parentalPasswordEntry.setText("");//clear password field
 				}
 			}
 		});

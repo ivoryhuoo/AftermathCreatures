@@ -32,17 +32,28 @@ public class PetSelectScreen extends Screen{
 		humanPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		robotPanel.setBorder(BorderFactory.createLineBorder(Color.black, 2));
 		
+		//add sprites
+		JLabel zombieSprite = new JLabel();
+		JLabel humanSprite = new JLabel();
+		JLabel robotSprite = new JLabel();
+		ImageIcon zombie = new ImageIcon("sprites/NormalZombie.png");
+		ImageIcon human = new ImageIcon("sprites/NormalHuman.png");
+		ImageIcon robot = new ImageIcon("sprites/NormalRobot.png");
+		zombieSprite.setIcon(zombie);
+		humanSprite.setIcon(human);
+		robotSprite.setIcon(robot);
+		
 		//add elements to panels
 		setVertical(zombiePanel);
-		//zombie image goes here
+		zombiePanel.add(zombieSprite);
 		zombiePanel.add(zombieTitle);
 		zombiePanel.add(zombieDesc);
 		setVertical(humanPanel);
-		//human image goes here
+		humanPanel.add(humanSprite);
 		humanPanel.add(humanTitle);
 		humanPanel.add(humanDesc);
 		setVertical(robotPanel);
-		//robot image goes here
+		robotPanel.add(robotSprite);
 		robotPanel.add(robotTitle);
 		robotPanel.add(robotDesc);
 		
@@ -54,7 +65,7 @@ public class PetSelectScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("button_sound.wav");
-				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_CANCEL_OPTION);
 				//create zombie pet
 				main.pet = new Zombie(namePetLabel.getText());
 				ScreenManager.mainGameScreen.resetPetState();
@@ -68,7 +79,7 @@ public class PetSelectScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("button_sound.wav");
-				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(humanPanel,namePetLabel,"Name your pet",JOptionPane.OK_CANCEL_OPTION);
 				//create human pet
 				main.pet = new Human(namePetLabel.getText());
 				ScreenManager.mainGameScreen.resetPetState();
@@ -82,7 +93,7 @@ public class PetSelectScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("button_sound.wav");
-				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(robotPanel,namePetLabel,"Name your pet",JOptionPane.OK_CANCEL_OPTION);
 				//create robot pet
 				main.pet = new Robot(namePetLabel.getText());
 				ScreenManager.mainGameScreen.resetPetState();
