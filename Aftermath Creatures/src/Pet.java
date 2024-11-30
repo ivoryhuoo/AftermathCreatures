@@ -212,7 +212,7 @@ public class Pet {
     /**
      * Updates the pet's state based on its current stats.
      */
-    private void updateState() {
+    protected void updateState() {
         if (health <= MIN_STAT) { // Health: If health points reach zero, the pet dies (enters the dead state) and the game is over. 
             state = "Dead";
             String message = (name + " has died.");
