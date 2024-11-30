@@ -18,7 +18,7 @@ public class TutorialScreen extends Screen{
 		petStatusTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		JLabel controlsTitle = new JLabel("Quick Controls");
 		controlsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
-		JLabel controlsList = new JLabel("<html>P - pause <br> F - feed pet <br> G - give gift <br> Esc - return to main menu</html>");
+		JLabel controlsList = new JLabel("<html> Esc - Pause and go to Settings <br>F - Feed the pet <br>S - Make the pet sleep <br>G - Give a gift <br>V - Take the pet to the vet<br>M - Use medicine</html>");
 		JLabel commandsTitle = new JLabel("Commands");
 		commandsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		JButton backToMainMenu = new JButton("Back");

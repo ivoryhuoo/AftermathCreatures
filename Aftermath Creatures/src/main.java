@@ -62,6 +62,7 @@ public class main {
 				ScreenManager.mainGameScreen.updateSleep();
 				ScreenManager.mainGameScreen.updateFullness();
 				ScreenManager.mainGameScreen.updateHappiness();
+				ScreenManager.mainGameScreen.updateIcon();
 			}
 		}
 	}
