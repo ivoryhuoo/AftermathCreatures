@@ -10,14 +10,15 @@ public class TutorialScreen extends Screen{
 		JLabel introText = new JLabel("Welcome to Aftermath Creatures! Here's how to take care of your creature:");
 		JLabel gameplayBasicsTitle = new JLabel("Gameplay Basics");
 		gameplayBasicsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
-		JLabel gameplayBasicsText1 = new JLabel("Your creature has 4 stats: Health, Fullness, Happiness, and Sleep. Please keep these stats high.");
-		JLabel gameplayBasicsText2 = new JLabel("Play with your creature, feed your creature, and give your creature gifts! See what happens!");
-		JLabel gameplayBasicsText3 = new JLabel("But watch out! If you leave your creature unattended, its stats will go down...");
+		JLabel gameplayBasicsText = new JLabel("<html>Your creature has 4 stats: Health, Fullness, Happiness, and Sleep. Try your best to"
+				+ "<br>keep these stats high. Play with your creature, feed your creature, or give gifts! "
+				+ "<br>See what happens! But watch out: if you neglect your creature, its stats will go down."
+				+ "<br>And when that happens, it may not want to play with you anymore...</html>");
 		JLabel petStatusTitle = new JLabel("Pet Statuses");
 		petStatusTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		JLabel controlsTitle = new JLabel("Quick Controls");
 		controlsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
-		JLabel controlsList = new JLabel("insert controls here");
+		JLabel controlsList = new JLabel("<html> Esc - Pause and go to Settings <br>F - Feed the pet <br>S - Make the pet sleep <br>G - Give a gift <br>V - Take the pet to the vet<br>M - Use medicine</html>");
 		JLabel commandsTitle = new JLabel("Commands");
 		commandsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		JButton backToMainMenu = new JButton("Back");
@@ -32,14 +33,15 @@ public class TutorialScreen extends Screen{
 		JPanel petStatusPanel = new JPanel();
 		petStatusPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,3));
 		JPanel petStatusSubPanel = new JPanel();
-		//pictures on petStatusSubPanel
+		//TODO add pictures on petStatusSubPanel
 		JPanel gameControlsPanel = new JPanel();
 		JPanel commandsPanel = new JPanel();
-		//pictures on commandsPanel
+		//TODO add pictures on commandsPanel
 		
 		//add functionality to buttons
 		backToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SoundManager.play("button_sound.wav");
 				ScreenManager.swapView("0");
 			}
 		});
@@ -53,9 +55,7 @@ public class TutorialScreen extends Screen{
 		leftPanel.add(gameControlsPanel);
 		setVertical(gameplayBasicsPanel);
 		gameplayBasicsPanel.add(gameplayBasicsTitle);
-		gameplayBasicsPanel.add(gameplayBasicsText1);
-		gameplayBasicsPanel.add(gameplayBasicsText2);
-		gameplayBasicsPanel.add(gameplayBasicsText3);
+		gameplayBasicsPanel.add(gameplayBasicsText);
 		setVertical(petStatusPanel);
 		petStatusPanel.add(petStatusTitle);
 		petStatusPanel.add(petStatusSubPanel);

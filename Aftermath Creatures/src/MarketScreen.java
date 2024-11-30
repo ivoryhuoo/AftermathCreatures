@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
 
 public class MarketScreen extends Screen {
     public MarketScreen() {
