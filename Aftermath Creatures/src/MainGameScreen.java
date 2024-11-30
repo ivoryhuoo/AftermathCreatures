@@ -197,20 +197,32 @@ public class MainGameScreen extends Screen{
 		if(!(String.valueOf(main.pet.getHealth()).equals(health.getText()))) {
 			health.setText("Health: "+String.valueOf(main.pet.getHealth()));
 		}
+		if(main.pet.getHealth()<=25) {
+			health.setForeground(Color.red);
+		}
 	}
 	public void updateSleep() {
 		if(!(String.valueOf(main.pet.getSleep()).equals(sleep.getText()))) {
 			sleep.setText("Sleep: "+String.valueOf(main.pet.getSleep()));
+		}
+		if(main.pet.getSleep()<=25) {
+			sleep.setForeground(Color.red);
 		}
 	}
 	public void updateFullness() {
 		if(!(String.valueOf(main.pet.getFullness()).equals(fullness.getText()))) {
 			fullness.setText("Fullness: "+String.valueOf(main.pet.getFullness()));
 		}
+		if(main.pet.getFullness()<=25) {
+			fullness.setForeground(Color.red);
+		}
 	}
 	public void updateHappiness() {
 		if(!(String.valueOf(main.pet.getHappiness()).equals(happiness.getText()))) {
 			happiness.setText("Happiness: "+String.valueOf(main.pet.getHappiness()));
+		}
+		if(main.pet.getHappiness()<=25) {
+			happiness.setForeground(Color.red);
 		}
 	}
 	public void updateIcon() {
