@@ -3,6 +3,11 @@ import java.awt.event.*;
 import java.io.*;
 import java.util.Calendar;
 import java.awt.*;
+/**
+ * Screen displays the pet, the pet's stats/condition. This is where main gameplay happens.
+ * @see		Screen
+ * @author 	Terry
+ */
 public class MainGameScreen extends Screen{
 	static JLabel curTime;
 	static JLabel petName;
@@ -56,7 +61,7 @@ public class MainGameScreen extends Screen{
 		rest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-				main.pet.goToBed();//??
+				main.pet.goToBed();
 			}
 		});
 		inventory.addActionListener(new ActionListener() {
@@ -68,7 +73,7 @@ public class MainGameScreen extends Screen{
 		doctor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-				main.pet.takeToVet();//??
+				main.pet.takeToVet();
 			}
 		});
 		market.addActionListener(new ActionListener() {

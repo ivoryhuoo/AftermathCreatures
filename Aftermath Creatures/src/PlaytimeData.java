@@ -1,4 +1,7 @@
-
+/**
+ * Class for storing/loading/saving playtime statistics.
+ * @author 	Terry
+ */
 public class PlaytimeData {
 	private int playSessions;
 	private long totalPlaytime;

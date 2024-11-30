@@ -4,6 +4,11 @@ import java.io.*;
 import java.util.Calendar;
 import java.awt.*;
 import com.fasterxml.jackson.databind.*;
+/**
+ * Initial game screen.
+ * @see		Screen
+ * @author 	Terry
+ */
 public class MainMenuScreen extends Screen{
 	static ObjectMapper objectMapper = new ObjectMapper();
 	static File parentalControlsDataFile = new File("parentalControls.json");

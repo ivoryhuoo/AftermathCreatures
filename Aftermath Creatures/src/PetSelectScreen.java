@@ -2,6 +2,11 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
 import java.awt.*;
+/**
+ * Screen where player selects and creates a new pet
+ * @see		Screen
+ * @author 	Terry
+ */
 public class PetSelectScreen extends Screen{
 	public PetSelectScreen() {
 		//create elements

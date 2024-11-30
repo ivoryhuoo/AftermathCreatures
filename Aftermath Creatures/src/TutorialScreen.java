@@ -3,6 +3,11 @@ import java.awt.event.*;
 import java.io.*;
 import java.awt.*;
 public class TutorialScreen extends Screen{
+	/**
+	 * Screen showing tutorial information.
+	 * @see		Screen
+	 * @author 	Terry
+	 */
 	public TutorialScreen(){
 		//create elements
 		JLabel title = new JLabel("Tutorial");

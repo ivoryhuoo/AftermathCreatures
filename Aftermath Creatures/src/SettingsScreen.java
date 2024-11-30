@@ -10,7 +10,12 @@ import java.io.File;
 import javax.swing.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+/**
+ * Screen showing game settings and parental controls
+ * Parental controls sub-menu is locked behind a password
+ * @see		Screen
+ * @author 	Terry
+ */
 public class SettingsScreen extends Screen{
 	static File playtimeDataFile = new File("playtimeData.json");
 	static PlaytimeData playtimeData;
@@ -35,11 +40,11 @@ public class SettingsScreen extends Screen{
 		
 		
 		//create menu elements
-		JLabel bgmText = new JLabel("Music 100");
-		JSlider bgmSlider = new JSlider(-80,6);
+		JLabel bgmText = new JLabel("Music Volume");
+		JSlider bgmSlider = new JSlider(-40,6);
 		bgmSlider.setMaximumSize(new Dimension(500,20));
-		JLabel sfxText = new JLabel("Sound Effects");
-		JSlider sfxSlider = new JSlider();
+		JLabel sfxText = new JLabel("Sound Effects Volume");
+		JSlider sfxSlider = new JSlider(-40,6);
 		sfxSlider.setMaximumSize(new Dimension(500,20));
 		JLabel parentalHeader = new JLabel("Parental Controls");
 		JPasswordField parentalPasswordEntry = new JPasswordField();
@@ -129,12 +134,11 @@ public class SettingsScreen extends Screen{
 				}
 			}
 		});
-		//TODO maybe make pet a singleton as well?? silver bullet moment
 		revivePet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(main.pet.getState()=="dead") {
 					SoundManager.play("button_sound.wav");
-					main.pet.revive();
+//					main.pet.revive();
 					JLabel message = new JLabel("The pet is alive again.");
 					JOptionPane.showMessageDialog(revivePet, message, "Notice", JOptionPane.OK_OPTION);
 				}else {
@@ -149,10 +153,18 @@ public class SettingsScreen extends Screen{
 		bgmSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				bgmText.setText("Music "+bgmSlider.getValue());
-				SoundManager.gainControl.setValue(bgmSlider.getValue());
+				SoundManager.setMusicVol(bgmSlider.getValue());
+				if(SoundManager.gainControl.getValue()==-40)SoundManager.gainControl.setValue(-80);
 			}
 		});
-		//TODO separate bgm(music) and sfx(sound) volume control, or scrap the idea and have just a master volume
+		sfxSlider.setValue(6);
+		sfxSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				sfxText.setText("Sound "+sfxSlider.getValue());
+				SoundManager.setSoundVol(sfxSlider.getValue());
+				if(SoundManager.soundControl.getValue()==-40)SoundManager.soundControl.setValue(-80);
+			}
+		});
 		
 		//add elements to panel
 		topPanel.add(bgmText);

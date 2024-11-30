@@ -47,13 +47,14 @@ public class main {
             }
         });
 		
+		//mark start of play session for playtime duration calculation
 		playSessionStartTime = new Date();
 		
 		//game loop
 		while(true) {
 			System.out.println("coconut tf2");//DISPLAY BREAKS WITHOUT THIS LINE
 			if(ScreenManager.currentScreenNum.equals("5")) {
-				//update values
+				//update values on main game screen
 				ScreenManager.mainGameScreen.updatePetName();
 				ScreenManager.mainGameScreen.updateCoins();
 				ScreenManager.mainGameScreen.updateScore();
