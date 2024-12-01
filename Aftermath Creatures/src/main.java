@@ -6,7 +6,9 @@ import java.util.*;
 import java.awt.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.*;
-
+/**
+ * main method
+ */
 public class main {
 	static PlaytimeData playtimeData;
 	static File playtimeDataFile = new File("playtimeData.json");
@@ -65,6 +67,7 @@ public class main {
 				ScreenManager.mainGameScreen.updateFullness();
 				ScreenManager.mainGameScreen.updateHappiness();
 				ScreenManager.mainGameScreen.updateIcon();
+				ScreenManager.mainGameScreen.animatePet();
 			}
 		}
 	}

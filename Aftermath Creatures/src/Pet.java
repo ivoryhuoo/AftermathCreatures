@@ -93,15 +93,16 @@ public class Pet {
     /**
      * Feeds the pet with the specified food item, increasing its fullness.
      * 
-     * @param foodItem the food item to feed the pet
+     * @param amount the amount of stat increase
      */
     
     public void feed(int amount) {
         if (!canExecuteCommand("feed")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
         fullness = Math.min(fullness + amount, MAX_STAT); // Different food types have different nutritional values
-        String message =(name + " was fed and is now less hungry.");
-        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
+        //redundant popup message: inventory will display information
+//      String message =(name + " was fed and is now less hungry.");
+//      JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
         updateState(); // Check state after feeding
     }
     
@@ -148,7 +149,7 @@ public class Pet {
      * <p>
      * The amount of happiness gained depends on the gift's properties.
      * 
-     * @param giftItem the gift to give to the pet
+     * @param amount the amount of stat increase
      */
     public void giveGift(int amount) {
         if (!canExecuteCommand("give a gift")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
@@ -200,7 +201,7 @@ public class Pet {
         if (!canExecuteCommand("exercise")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
         health = Math.min(health + 20, MAX_STAT); // Increase health points by 20
-        fullness = Math.max(fullness - 20, MIN_STAT); // Decrease fullness (increase hunger) by 20
+        fullness = Math.max(fullness - 10, MIN_STAT); // Decrease fullness (increase hunger) by 10
         sleep = Math.max(sleep - 10, MIN_STAT); // Decrease sleep points (increase sleepiness) by 10
         String message = (name + " exercised and is healthier but hungrier and sleepier.");
         JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
@@ -209,6 +210,8 @@ public class Pet {
     
     /**
      * Use Medicine: The player uses a medItem to heal the pet by a certain increment.
+     * 
+     * @param amount the amount of stat increase
      */
     public void useMedicine(int amount) {
         if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
@@ -409,8 +412,19 @@ public class Pet {
      */
     public String getState() { return state; }
     
+    /**
+     * Get the name of the pet
+     * @return name The name of the pet
+     */
     public String getName() {return name;}
     
+    /**
+     * Revive the pet
+     * <p>
+     * Resets all stats to maximum values, including health. There is no check
+     * in this method, but it is only ever used if the pet's state is "Dead".
+     * Then updates the pet's state.
+     */
     public void revive() {
     	this.health = MAX_STAT;
     	this.fullness = MAX_STAT;

@@ -1,6 +1,11 @@
 import java.util.Timer;
 import java.util.TimerTask;
-
+/**
+ * Human pet class
+ * <p>
+ * One of the 3 possible pet options
+ * 
+ */
 public class Human extends Pet {
 
     public Human(String name) {
@@ -13,6 +18,11 @@ public class Human extends Pet {
         startStatDecline(); // Start automatic stat decline once pet initialized 
     }
 
+    /**
+     * Unique stat decrement method
+     * <p>
+     * Changes the human's stats over time
+     */
     private void startStatDecline() {
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(new TimerTask() {

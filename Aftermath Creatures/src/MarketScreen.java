@@ -1,6 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
-
+/**
+ * Screen where player can buy items
+ * @see Screen
+ */
 public class MarketScreen extends Screen {
     public MarketScreen() {
         JLabel title = new JLabel("Market");
