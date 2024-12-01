@@ -1,10 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+
 /**
  * Screen showing player's items
  * @see Screen
  */
 public class InventoryScreen extends Screen {
+    private static final String IMAGE_PATH = "items/"; // Base path for item images
+
     private JPanel foodPanel;
     private JPanel giftPanel;
     private JPanel medsPanel;
@@ -44,7 +47,7 @@ public class InventoryScreen extends Screen {
     public void refreshPanels() {
         foodPanel.removeAll();
         for (String item : GameState.getItems("Food")) {
-            JButton button = createLargeButton(formatItemDisplay(item, "Fullness"));
+            JButton button = createButtonWithIcon(formatItemDisplay(item, "Fullness"), getImageFileName(item));
             button.addActionListener(e -> {
                 String[] parts = item.split("-"); // Split name and stat increment
                 String itemName = parts[0];
@@ -60,7 +63,7 @@ public class InventoryScreen extends Screen {
 
         giftPanel.removeAll();
         for (String item : GameState.getItems("Gifts")) {
-            JButton button = createLargeButton(formatItemDisplay(item, "Happiness"));
+            JButton button = createButtonWithIcon(formatItemDisplay(item, "Happiness"), getImageFileName(item));
             button.addActionListener(e -> {
                 String[] parts = item.split("-");
                 String itemName = parts[0];
@@ -76,7 +79,7 @@ public class InventoryScreen extends Screen {
 
         medsPanel.removeAll();
         for (String item : GameState.getItems("Meds")) {
-            JButton button = createLargeButton(formatItemDisplay(item, "Health"));
+            JButton button = createButtonWithIcon(formatItemDisplay(item, "Health"), getImageFileName(item));
             button.addActionListener(e -> {
                 String[] parts = item.split("-");
                 String itemName = parts[0];
@@ -111,12 +114,33 @@ public class InventoryScreen extends Screen {
         return itemName + " - " + statIncrement + " " + attribute;
     }
 
+    /**
+     * Gets the image file name for an item.
+     * @param item The item in "Name-StatIncrement" format.
+     * @return The corresponding image file name.
+     */
+    private String getImageFileName(String item) {
+        String[] parts = item.split("-");
+        String itemName = parts[0];
+        return itemName.toLowerCase().replace(" ", "") + ".png";
+    }
 
-
-    private JButton createLargeButton(String text) {
+    /**
+     * Creates a JButton with an image icon and text.
+     * @param text The button text.
+     * @param imageName The name of the image file (e.g., "cannedBeans.png").
+     * @return A JButton with the image icon and text.
+     */
+    private JButton createButtonWithIcon(String text, String imageName) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Serif", Font.BOLD, 36)); // Larger font
-        button.setPreferredSize(new Dimension(150, 100)); // Larger button size
+        button.setFont(new Font("Serif", Font.BOLD, 18));
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+        ImageIcon icon = new ImageIcon(IMAGE_PATH + imageName);
+        Image scaledImage = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(scaledImage));
+
         return button;
     }
 }
