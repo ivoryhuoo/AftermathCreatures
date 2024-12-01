@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+
 public class MarketScreen extends Screen {
     public MarketScreen() {
         JLabel title = new JLabel("Market");
@@ -12,41 +13,41 @@ public class MarketScreen extends Screen {
         JPanel medsPanel = new JPanel(new GridLayout(2, 2, 20, 20));
         JTabbedPane bottomPanel = new JTabbedPane();
 
-        // Create buttons
+        // Create buttons with costs and stat increments
         JButton foodItem1 = createLargeButton("Canned Beans - 2 Coins");
-        JButton foodItem2 = createLargeButton("Energy Bars - 2 Coins");
-        JButton foodItem3 = createLargeButton("Purified Water - 2 Coins");
-        JButton foodItem4 = createLargeButton("Mystery Meat - 2 Coins");
+        JButton foodItem2 = createLargeButton("Energy Bars - 3 Coins");
+        JButton foodItem3 = createLargeButton("Purified Water - 1 Coin");
+        JButton foodItem4 = createLargeButton("Mystery Meat - 4 Coins");
 
         JButton giftItem1 = createLargeButton("Rusty Sword - 2 Coins");
-        JButton giftItem2 = createLargeButton("Doom Hammer - 2 Coins");
-        JButton giftItem3 = createLargeButton("Glowstick Grenade - 2 Coins");
-        JButton giftItem4 = createLargeButton("Junkyard Shotgun - 2 Coins");
+        JButton giftItem2 = createLargeButton("Doom Hammer - 3 Coins");
+        JButton giftItem3 = createLargeButton("Glowstick Grenade - 1 Coin");
+        JButton giftItem4 = createLargeButton("Junkyard Shotgun - 4 Coins");
 
         JButton medsItem1 = createLargeButton("First Aid Kit - 2 Coins");
-        JButton medsItem2 = createLargeButton("Herbal Remedies - 2 Coins");
-        JButton medsItem3 = createLargeButton("Radiation Pills - 2 Coins");
-        JButton medsItem4 = createLargeButton("Universal Syrum - 2 Coins");
+        JButton medsItem2 = createLargeButton("Herbal Remedies - 3 Coins");
+        JButton medsItem3 = createLargeButton("Radiation Pills - 1 Coin");
+        JButton medsItem4 = createLargeButton("Universal Syrum - 4 Coins");
 
         JButton backToGame = new JButton("Back");
 
         // Add functionality to Food buttons
-        foodItem1.addActionListener(e -> attemptPurchase("Food", "Canned Beans"));
-        foodItem2.addActionListener(e -> attemptPurchase("Food", "Energy Bars"));
-        foodItem3.addActionListener(e -> attemptPurchase("Food", "Purified Water"));
-        foodItem4.addActionListener(e -> attemptPurchase("Food", "Mystery Meat"));
+        foodItem1.addActionListener(e -> attemptPurchase("Food", "Canned Beans", 3, 2));
+        foodItem2.addActionListener(e -> attemptPurchase("Food", "Energy Bars", 4, 3));
+        foodItem3.addActionListener(e -> attemptPurchase("Food", "Purified Water", 2, 1));
+        foodItem4.addActionListener(e -> attemptPurchase("Food", "Mystery Meat", 5, 4));
 
         // Add functionality to Gift buttons
-        giftItem1.addActionListener(e -> attemptPurchase("Gifts", "Rusty Sword"));
-        giftItem2.addActionListener(e -> attemptPurchase("Gifts", "Doom Hammer"));
-        giftItem3.addActionListener(e -> attemptPurchase("Gifts", "Glowstick Grenade"));
-        giftItem4.addActionListener(e -> attemptPurchase("Gifts", "Junkyard Shotgun"));
+        giftItem1.addActionListener(e -> attemptPurchase("Gifts", "Rusty Sword", 3, 2));
+        giftItem2.addActionListener(e -> attemptPurchase("Gifts", "Doom Hammer", 4, 3));
+        giftItem3.addActionListener(e -> attemptPurchase("Gifts", "Glowstick Grenade", 2, 1));
+        giftItem4.addActionListener(e -> attemptPurchase("Gifts", "Junkyard Shotgun", 5, 4));
 
         // Add functionality to Meds buttons
-        medsItem1.addActionListener(e -> attemptPurchase("Meds", "First Aid Kit"));
-        medsItem2.addActionListener(e -> attemptPurchase("Meds", "Herbal Remedies"));
-        medsItem3.addActionListener(e -> attemptPurchase("Meds", "Radiation Pills"));
-        medsItem4.addActionListener(e -> attemptPurchase("Meds", "Universal Syrum"));
+        medsItem1.addActionListener(e -> attemptPurchase("Meds", "First Aid Kit", 3, 2));
+        medsItem2.addActionListener(e -> attemptPurchase("Meds", "Herbal Remedies", 4, 3));
+        medsItem3.addActionListener(e -> attemptPurchase("Meds", "Radiation Pills", 2, 1));
+        medsItem4.addActionListener(e -> attemptPurchase("Meds", "Universal Syrum", 5, 4));
 
         // Add functionality to Back button
         backToGame.addActionListener(e -> ScreenManager.swapView("5"));
@@ -90,10 +91,9 @@ public class MarketScreen extends Screen {
         return button;
     }
 
-    private void attemptPurchase(String category, String item) {
-        final int cost = 2; // Each item costs 2 coins
+    private void attemptPurchase(String category, String item, int statIncrement, int cost) {
         if (Coins.spendCoins(cost)) {
-            if (GameState.addItem(category, item)) {
+            if (GameState.addItem(category, item + "-" + statIncrement)) {
                 JOptionPane.showMessageDialog(null, "You purchased " + item + " for " + cost + " coins.", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, category + " inventory is full! Cannot add more items.", "Inventory Full", JOptionPane.WARNING_MESSAGE);

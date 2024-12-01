@@ -39,25 +39,54 @@ public class InventoryScreen extends Screen {
     }
 
     public void refreshPanels() {
-        // Update Food Panel
         foodPanel.removeAll();
         for (String item : GameState.getItems("Food")) {
-            foodPanel.add(createLargeButton(item));
+            JButton button = createLargeButton(formatItemDisplay(item, "Fullness"));
+            button.addActionListener(e -> {
+                String[] parts = item.split("-"); // Split name and stat increment
+                String itemName = parts[0];
+                int statIncrement = Integer.parseInt(parts[1]);
+
+                GameState.getItems("Food").remove(item); // Remove from inventory
+                main.pet.feed(statIncrement); // Apply stat increment
+                JOptionPane.showMessageDialog(null, itemName + " fed to pet. Fullness increased by " + statIncrement, "Item Used", JOptionPane.INFORMATION_MESSAGE);
+                refreshPanels();
+            });
+            foodPanel.add(button);
         }
 
-        // Update Gift Panel
         giftPanel.removeAll();
         for (String item : GameState.getItems("Gifts")) {
-            giftPanel.add(createLargeButton(item));
+            JButton button = createLargeButton(formatItemDisplay(item, "Happiness"));
+            button.addActionListener(e -> {
+                String[] parts = item.split("-");
+                String itemName = parts[0];
+                int statIncrement = Integer.parseInt(parts[1]);
+
+                GameState.getItems("Gifts").remove(item); // Remove from inventory
+                main.pet.giveGift(statIncrement); // Apply stat increment
+                JOptionPane.showMessageDialog(null, itemName + " given to pet. Happiness increased by " + statIncrement, "Item Used", JOptionPane.INFORMATION_MESSAGE);
+                refreshPanels();
+            });
+            giftPanel.add(button);
         }
 
-        // Update Meds Panel
         medsPanel.removeAll();
         for (String item : GameState.getItems("Meds")) {
-            medsPanel.add(createLargeButton(item));
+            JButton button = createLargeButton(formatItemDisplay(item, "Health"));
+            button.addActionListener(e -> {
+                String[] parts = item.split("-");
+                String itemName = parts[0];
+                int statIncrement = Integer.parseInt(parts[1]);
+
+                GameState.getItems("Meds").remove(item); // Remove from inventory
+                main.pet.useMedicine(statIncrement); // Apply stat increment
+                JOptionPane.showMessageDialog(null, itemName + " used on pet. Health increased by " + statIncrement, "Item Used", JOptionPane.INFORMATION_MESSAGE);
+                refreshPanels();
+            });
+            medsPanel.add(button);
         }
 
-        // Repaint and revalidate panels
         foodPanel.revalidate();
         foodPanel.repaint();
         giftPanel.revalidate();
@@ -65,6 +94,21 @@ public class InventoryScreen extends Screen {
         medsPanel.revalidate();
         medsPanel.repaint();
     }
+
+    /**
+     * Formats the display for items in the inventory.
+     * @param item The item in "Name-StatIncrement" format.
+     * @param attribute The pet attribute the item affects (e.g., Fullness, Happiness, Health).
+     * @return The formatted string for display in the inventory.
+     */
+    private String formatItemDisplay(String item, String attribute) {
+        String[] parts = item.split("-");
+        String itemName = parts[0];
+        String statIncrement = parts[1];
+        return itemName + " - " + statIncrement + " " + attribute;
+    }
+
+
 
     private JButton createLargeButton(String text) {
         JButton button = new JButton(text);
