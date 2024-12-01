@@ -33,11 +33,18 @@ public class Pet {
     
     // Shared Timer instance for all timer-based logic (goToBed & takeToVet implementation)
     protected final Timer sharedTimer = new Timer();
-
+    private final Timer statDeclineTimer = new Timer(true);
+    
     // Initialize maximum and minimum stats
     protected final int MAX_STAT = 100; 
     protected final int MIN_STAT = 0;
 
+    public Pet(String name) {
+        this.name = name;
+        startStatDecline();
+    }
+    
+    
     /**
      * Constructs a Pet instance with a given name.
      * <p>
@@ -88,11 +95,13 @@ public class Pet {
      * 
      * @param foodItem the food item to feed the pet
      */
-    public void feed(FoodItem foodItem) {
+    
+    public void feed(int amount) {
         if (!canExecuteCommand("feed")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
-        fullness = Math.min(fullness + foodItem.getNutritionValue(), MAX_STAT); // Different food types have different nutritional values
-        System.out.println(name + " was fed with " + foodItem.getName() + " and is now less hungry.");
+        fullness = Math.min(fullness + amount, MAX_STAT); // Different food types have different nutritional values
+        String message =(name + " was fed and is now less hungry.");
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
         updateState(); // Check state after feeding
     }
     
@@ -130,7 +139,7 @@ public class Pet {
 
         happiness = Math.min(happiness + 20, MAX_STAT); // Increase happiness by fixed amount of 20
         String message = (name + " is playing and feels happier!");
-        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
         updateState(); // Check state after playing
     }
     
@@ -141,11 +150,12 @@ public class Pet {
      * 
      * @param giftItem the gift to give to the pet
      */
-    public void giveGift(GiftItem giftItem) {
+    public void giveGift(int amount) {
         if (!canExecuteCommand("give a gift")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
-        happiness = Math.min(happiness + giftItem.getHappinessBoost(), MAX_STAT); // Increase happiness based on the type of gift 
-        System.out.println(name + " received a " + giftItem.getName() + " and feels happier!"); 
+        happiness = Math.min(happiness + amount, MAX_STAT); // Increase happiness based on the type of gift 
+        String message = (name + " received a gift and feels happier!");
+        JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
         updateState(); // Check state after giving the gift
     }
     
@@ -200,11 +210,11 @@ public class Pet {
     /**
      * Use Medicine: The player uses a medItem to heal the pet by a certain increment.
      */
-    public void useMedicine(MedItem medItem) {
+    public void useMedicine(int amount) {
         if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
 
-        health = Math.min(health + medItem.getHealingValue(), MAX_STAT); // Increase health, but don't exceed max
-        String message = (name + " was healed with " + medItem.getName() + " and feels better!");
+        health = Math.min(health + amount, MAX_STAT); // Increase health, but don't exceed max
+        String message = (name + " was healed with and feels better!");
         JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check and update the pet's state after healing
     }
@@ -213,25 +223,19 @@ public class Pet {
      * Updates the pet's state based on its current stats.
      */
     protected void updateState() {
-        if (health <= MIN_STAT) { // Health: If health points reach zero, the pet dies (enters the dead state) and the game is over. 
+        if (health <= MIN_STAT) {
             state = "Dead";
-            String message = (name + " has died.");
-            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
-        } else if (sleep <= MIN_STAT) { // Sleep: If sleep reaches zero, a health penalty is applied (a set number of health points are removed)
-            state = "Sleeping";
-            health = Math.max(MIN_STAT, health - 10); // Apply health penalty
-            String message = (name + " is too tired and fell asleep.");
-            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
-        } else if (fullness <= MIN_STAT) { // Fullness: When fullness reaches zero, the pet enters the hungry state and the rate that happiness decline should be increased. 
+            System.out.println(name + " has died.");
+        } else if (fullness == MIN_STAT) {
             state = "Hungry";
-            happiness = Math.max(MIN_STAT, happiness - 5); // Accelerated happiness decline
-            String message = (name + " is starving!");
-            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
-        } else if (happiness <= MIN_STAT) { // Happiness: When happiness reaches zero, the pet will enter the angry state. 
+            System.out.println(name + " is starving!");
+        } else if (sleep == MIN_STAT) {
+            state = "Sleeping";
+            System.out.println(name + " is too tired!");
+        } else if (happiness == MIN_STAT) {
             state = "Angry";
-            String message = (name + " is angry!");
-            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
-        } else { // If nothing has been impacted, pet remains normal
+            System.out.println(name + " is angry!");
+        } else {
             state = "Normal";
         }
     }
@@ -253,25 +257,33 @@ public class Pet {
      * </p>
      */
     private void startStatDecline() {
-        Timer timer = new Timer(true);
-        timer.scheduleAtFixedRate(new TimerTask() { // Schedule tasks at fixed rates of time 
+        statDeclineTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 if (!state.equals("Dead")) {
-                    // Gradual decrease in stats if pet is NOT dead 
-                    fullness = Math.max(MIN_STAT, fullness - 5); // Decrease fullness by 5
-                    sleep = Math.max(MIN_STAT, sleep - 2);       // Decrease sleep by 2
-                    happiness = Math.max(MIN_STAT, happiness - 5); // Decrease happiness by 5
+                    // Gradual decline
+                    fullness = Math.max(MIN_STAT, fullness - 5); // Decrease fullness
+                    sleep = Math.max(MIN_STAT, sleep - 2);       // Decrease sleep
+                    happiness = Math.max(MIN_STAT, happiness - 3); // Decrease happiness
 
-                    // Delegate state management to updateState
+                    // Health penalty logic
+                    if (fullness == MIN_STAT && sleep == MIN_STAT && happiness == MIN_STAT) {
+                        health = Math.max(MIN_STAT, health - 10); // All stats at 0: decrement by 10
+                    } else if (fullness == MIN_STAT || sleep == MIN_STAT) {
+                        health = Math.max(MIN_STAT, health - 4); // Either Sleep or Fullness at 0: decrement by 2
+                    }
+
+                    // Update state after each tick
                     updateState();
 
-                    // Output updated stats
-                    System.out.println("Stats updated: Fullness=" + fullness + ", Sleep=" + sleep + ", Happiness=" + happiness);
+                    // Debugging output (can be removed)
+                    System.out.println("Stats updated: Fullness=" + fullness + ", Sleep=" + sleep + ", Happiness=" + happiness + ", Health=" + health);
                 }
             }
-        }, 0, 30000); // Update stats every 30 seconds
+        }, 0, 30000); // Update every 30 seconds
     }
+    
+    
 
 
     /**
@@ -297,7 +309,7 @@ public class Pet {
      * 
      * @return the health of the pet as an integer.
      */
-    public int getHealth() { return health; }
+    public int getHealth() { return health;}
     
     /**
      * Sets the health value of the pet.
