@@ -152,7 +152,7 @@ public class SettingsScreen extends Screen{
 		bgmSlider.setValue(6);
 		bgmSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				bgmText.setText("Music "+bgmSlider.getValue());
+//				bgmText.setText("Music "+bgmSlider.getValue());
 				SoundManager.setMusicVol(bgmSlider.getValue());
 				if(SoundManager.gainControl.getValue()==-40)SoundManager.gainControl.setValue(-80);
 			}
@@ -160,7 +160,7 @@ public class SettingsScreen extends Screen{
 		sfxSlider.setValue(6);
 		sfxSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				sfxText.setText("Sound "+sfxSlider.getValue());
+//				sfxText.setText("Sound "+sfxSlider.getValue());
 				SoundManager.setSoundVol(sfxSlider.getValue());
 				if(SoundManager.soundControl.getValue()==-40)SoundManager.soundControl.setValue(-80);
 			}
