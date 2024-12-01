@@ -1,22 +1,35 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * @author Harshi
+ * @see Screen
+ * Represents the Marketplace screen where players can purchase items to use in the game.
+ * This screen allows the player to buy food, gifts, and medicines for their pet.
+ * Items are organized into tabs, and each item has a name, cost, and associated icon.
+ */
 public class MarketScreen extends Screen {
 
     private static final String IMAGE_PATH = "items/"; // Base path for item images
 
+    /**
+     * Constructor for the MarketScreen.
+     * Sets up the UI components, including tabs for Food, Gifts, and Meds,
+     * as well as buttons for each item.
+     */
     public MarketScreen() {
+        // Title of the screen
         JLabel title = new JLabel("Market");
         setH1(title);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create panels for each tab
-        JPanel foodPanel = new JPanel(new GridLayout(2, 2, 20, 20));
-        JPanel giftPanel = new JPanel(new GridLayout(2, 2, 20, 20));
-        JPanel medsPanel = new JPanel(new GridLayout(2, 2, 20, 20));
+        // Create panels for each category tab
+        JPanel foodPanel = new JPanel(new GridLayout(2, 2, 20, 20)); // Food items
+        JPanel giftPanel = new JPanel(new GridLayout(2, 2, 20, 20)); // Gift items
+        JPanel medsPanel = new JPanel(new GridLayout(2, 2, 20, 20)); // Medicine items
         JTabbedPane bottomPanel = new JTabbedPane();
 
-        // Create buttons with icons
+        // Create buttons for each item with icons
         JButton foodItem1 = createButtonWithIcon("Canned Beans - 2 Coins", "cannedBeans.png");
         JButton foodItem2 = createButtonWithIcon("Energy Bars - 3 Coins", "energyBars.png");
         JButton foodItem3 = createButtonWithIcon("Purified Water - 1 Coin", "purifiedWater.png");
@@ -32,9 +45,10 @@ public class MarketScreen extends Screen {
         JButton medsItem3 = createButtonWithIcon("Radiation Pills - 1 Coin", "radiationPills.png");
         JButton medsItem4 = createButtonWithIcon("Universal Syrum - 4 Coins", "universalSyrum.png");
 
+        // Back button to return to the previous screen
         JButton backToGame = new JButton("Back");
         backToGame.addActionListener(e -> ScreenManager.swapView("5")); // Replace "5" with the correct screen identifier
-        
+
         // Add functionality to Food buttons
         foodItem1.addActionListener(e -> attemptPurchase("Food", "Canned Beans", 3, 2));
         foodItem2.addActionListener(e -> attemptPurchase("Food", "Energy Bars", 4, 3));
@@ -53,30 +67,28 @@ public class MarketScreen extends Screen {
         medsItem3.addActionListener(e -> attemptPurchase("Meds", "Radiation Pills", 2, 1));
         medsItem4.addActionListener(e -> attemptPurchase("Meds", "Universal Syrum", 5, 4));
 
-        // Add buttons to Food panel
+        // Add buttons to category panels
         foodPanel.add(foodItem1);
         foodPanel.add(foodItem2);
         foodPanel.add(foodItem3);
         foodPanel.add(foodItem4);
 
-        // Add buttons to Gift panel
         giftPanel.add(giftItem1);
         giftPanel.add(giftItem2);
         giftPanel.add(giftItem3);
         giftPanel.add(giftItem4);
 
-        // Add buttons to Meds panel
         medsPanel.add(medsItem1);
         medsPanel.add(medsItem2);
         medsPanel.add(medsItem3);
         medsPanel.add(medsItem4);
 
-        // Add panels to tabs
+        // Add category panels to tabs
         bottomPanel.addTab("Food", foodPanel);
         bottomPanel.addTab("Gift", giftPanel);
         bottomPanel.addTab("Meds", medsPanel);
 
-        // Add components to main panel
+        // Add components to the main panel
         this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
         this.panel.add(title);
         this.panel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
@@ -85,6 +97,13 @@ public class MarketScreen extends Screen {
         this.panel.add(backToGame);
     }
 
+    /**
+     * Creates a JButton with an image icon and text.
+     *
+     * @param text      The button text, including the item name and cost.
+     * @param imageName The name of the image file for the item (e.g., "cannedBeans.png").
+     * @return A JButton configured with the image icon and text.
+     */
     private JButton createButtonWithIcon(String text, String imageName) {
         JButton button = new JButton(text);
         button.setFont(new Font("Serif", Font.BOLD, 18));
@@ -99,6 +118,15 @@ public class MarketScreen extends Screen {
         return button;
     }
 
+    /**
+     * Attempts to purchase an item from the market.
+     * Deducts the cost from the player's coins and adds the item to the inventory if successful.
+     *
+     * @param category      The category of the item (e.g., "Food", "Gifts", "Meds").
+     * @param item          The name of the item.
+     * @param statIncrement The stat increment provided by the item.
+     * @param cost          The cost of the item in coins.
+     */
     private void attemptPurchase(String category, String item, int statIncrement, int cost) {
         if (Coins.spendCoins(cost)) {
             if (GameState.addItem(category, item + "-" + statIncrement)) {
