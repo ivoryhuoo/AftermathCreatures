@@ -413,6 +413,9 @@ public class Pet {
     
     public void revive() {
     	this.health = MAX_STAT;
+    	this.fullness = MAX_STAT;
+    	this.sleep = MAX_STAT;
+    	this.happiness = MAX_STAT;
     	updateState();
     }
 }
