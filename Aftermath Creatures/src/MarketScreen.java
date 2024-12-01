@@ -1,10 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
-/**
- * Screen where player can buy items
- * @see Screen
- */
+
 public class MarketScreen extends Screen {
+
+    private static final String IMAGE_PATH = "items/"; // Base path for item images
+
     public MarketScreen() {
         JLabel title = new JLabel("Market");
         setH1(title);
@@ -16,24 +16,25 @@ public class MarketScreen extends Screen {
         JPanel medsPanel = new JPanel(new GridLayout(2, 2, 20, 20));
         JTabbedPane bottomPanel = new JTabbedPane();
 
-        // Create buttons with costs and stat increments
-        JButton foodItem1 = createLargeButton("Canned Beans - 2 Coins");
-        JButton foodItem2 = createLargeButton("Energy Bars - 3 Coins");
-        JButton foodItem3 = createLargeButton("Purified Water - 1 Coin");
-        JButton foodItem4 = createLargeButton("Mystery Meat - 4 Coins");
+        // Create buttons with icons
+        JButton foodItem1 = createButtonWithIcon("Canned Beans - 2 Coins", "cannedBeans.png");
+        JButton foodItem2 = createButtonWithIcon("Energy Bars - 3 Coins", "energyBars.png");
+        JButton foodItem3 = createButtonWithIcon("Purified Water - 1 Coin", "purifiedWater.png");
+        JButton foodItem4 = createButtonWithIcon("Mystery Meat - 4 Coins", "mysteryMeat.png");
 
-        JButton giftItem1 = createLargeButton("Rusty Sword - 2 Coins");
-        JButton giftItem2 = createLargeButton("Doom Hammer - 3 Coins");
-        JButton giftItem3 = createLargeButton("Glowstick Grenade - 1 Coin");
-        JButton giftItem4 = createLargeButton("Junkyard Shotgun - 4 Coins");
+        JButton giftItem1 = createButtonWithIcon("Rusty Sword - 2 Coins", "rustySword.png");
+        JButton giftItem2 = createButtonWithIcon("Doom Hammer - 3 Coins", "doomHammer.png");
+        JButton giftItem3 = createButtonWithIcon("Glowstick Grenade - 1 Coin", "glowstickGrenade.png");
+        JButton giftItem4 = createButtonWithIcon("Junkyard Shotgun - 4 Coins", "junkyardShotgun.png");
 
-        JButton medsItem1 = createLargeButton("First Aid Kit - 2 Coins");
-        JButton medsItem2 = createLargeButton("Herbal Remedies - 3 Coins");
-        JButton medsItem3 = createLargeButton("Radiation Pills - 1 Coin");
-        JButton medsItem4 = createLargeButton("Universal Syrum - 4 Coins");
+        JButton medsItem1 = createButtonWithIcon("First Aid Kit - 2 Coins", "firstAidKit.png");
+        JButton medsItem2 = createButtonWithIcon("Herbal Remedies - 3 Coins", "herbalRemedies.png");
+        JButton medsItem3 = createButtonWithIcon("Radiation Pills - 1 Coin", "radiationPills.png");
+        JButton medsItem4 = createButtonWithIcon("Universal Syrum - 4 Coins", "universalSyrum.png");
 
         JButton backToGame = new JButton("Back");
-
+        backToGame.addActionListener(e -> ScreenManager.swapView("5")); // Replace "5" with the correct screen identifier
+        
         // Add functionality to Food buttons
         foodItem1.addActionListener(e -> attemptPurchase("Food", "Canned Beans", 3, 2));
         foodItem2.addActionListener(e -> attemptPurchase("Food", "Energy Bars", 4, 3));
@@ -51,9 +52,6 @@ public class MarketScreen extends Screen {
         medsItem2.addActionListener(e -> attemptPurchase("Meds", "Herbal Remedies", 4, 3));
         medsItem3.addActionListener(e -> attemptPurchase("Meds", "Radiation Pills", 2, 1));
         medsItem4.addActionListener(e -> attemptPurchase("Meds", "Universal Syrum", 5, 4));
-
-        // Add functionality to Back button
-        backToGame.addActionListener(e -> ScreenManager.swapView("5"));
 
         // Add buttons to Food panel
         foodPanel.add(foodItem1);
@@ -87,10 +85,17 @@ public class MarketScreen extends Screen {
         this.panel.add(backToGame);
     }
 
-    private JButton createLargeButton(String text) {
+    private JButton createButtonWithIcon(String text, String imageName) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Serif", Font.BOLD, 24)); // Adjust font size
-        button.setPreferredSize(new Dimension(200, 100)); // Adjust button size
+        button.setFont(new Font("Serif", Font.BOLD, 18));
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+        // Load the image and scale it
+        ImageIcon icon = new ImageIcon(IMAGE_PATH + imageName);
+        Image scaledImage = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(scaledImage));
+
         return button;
     }
 
