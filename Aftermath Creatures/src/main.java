@@ -65,6 +65,7 @@ public class main {
 				ScreenManager.mainGameScreen.updateFullness();
 				ScreenManager.mainGameScreen.updateHappiness();
 				ScreenManager.mainGameScreen.updateIcon();
+				ScreenManager.mainGameScreen.animatePet();
 			}
 		}
 	}

@@ -69,9 +69,10 @@ public class MainGameScreen extends Screen{
 		//footer icons go here
 		JButton rest = new JButton("Rest");//placeholders
 		JButton inventory = new JButton("Inventory");
-		JButton doctor = new JButton("doctor");
-		JButton market = new JButton("market");
-		JButton minigames = new JButton("minigames");
+		JButton doctor = new JButton("Doctor");
+		JButton market = new JButton("Market");
+		JButton play = new JButton("Play");
+		JButton exercise = new JButton("Exercise");
 		JButton menu = new JButton("Settings Menu");
 		
 		//set up pet state icons
@@ -87,6 +88,8 @@ public class MainGameScreen extends Screen{
 		
 		//set up pet sprite
 		petSprite = new JLabel();
+		petSprite.setHorizontalAlignment(SwingConstants.CENTER);
+		petSprite.setVerticalAlignment(SwingConstants.CENTER);
 		//change size?
 		
 		//add functionality to buttons
@@ -114,14 +117,16 @@ public class MainGameScreen extends Screen{
 				ScreenManager.swapView("7");
 			}
 		});
-		minigames.addActionListener(new ActionListener() {
+		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
-//				ScreenManager.swapView("minigames code goes here");
-				
-				//debug: this kills the pet
-				main.pet.setHealth(0);
-				minigames.setText(main.pet.getState());
+				main.pet.play();
+			}
+		});
+		exercise.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				SoundManager.play("button_sound.wav");
+				main.pet.exercise();
 			}
 		});
 		menu.addActionListener(new ActionListener() {
@@ -130,6 +135,7 @@ public class MainGameScreen extends Screen{
 				ScreenManager.swapView("3");
 			}
 		});
+		//You can click on the pet to make it happy
 		petSprite.addMouseListener(new MouseListener() {
 			public void mouseEntered(MouseEvent e) {}
 			public void mousePressed(MouseEvent e) {}
@@ -137,6 +143,7 @@ public class MainGameScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("pet_interact_sound.wav");
+				main.pet.setHappiness(main.pet.getHappiness()+5);
 			}
 		});
 		
@@ -156,7 +163,8 @@ public class MainGameScreen extends Screen{
 		footer.add(inventory);
 		footer.add(doctor);
 		footer.add(market);
-		footer.add(minigames);
+		footer.add(play);
+		footer.add(exercise);
 		footer.add(menu);
 		
 		// Start updating the money label
@@ -270,6 +278,25 @@ public class MainGameScreen extends Screen{
 			normalPet = new ImageIcon("sprites/Normal"+main.pet.getClass().getName()+".png");
 			petStateIcon.setIcon(normalIcon);
 			petSprite.setIcon(normalPet);
+		}
+	}
+	public void animatePet() {
+		Calendar currentTime = Calendar.getInstance();
+		int curX = petSprite.getX();
+		int curY = petSprite.getY();
+		if(currentTime.get(Calendar.SECOND)%5<2&&main.pet.getState().equals("Normal")) {
+			if(currentTime.get(Calendar.MILLISECOND)%863==100&&curY<300) {
+				petSprite.setLocation(curX, curY+1);
+			}
+			if(currentTime.get(Calendar.MILLISECOND)%863==0&&curX>100) {
+				petSprite.setLocation(curX-1, curY);
+			}
+			if(currentTime.get(Calendar.MILLISECOND)%863==250&&curX<300) {
+				petSprite.setLocation(curX+1, curY);
+			}
+			if(currentTime.get(Calendar.MILLISECOND)%863==350&&curY>0) {
+				petSprite.setLocation(curX, curY-1);
+			}
 		}
 	}
 }
