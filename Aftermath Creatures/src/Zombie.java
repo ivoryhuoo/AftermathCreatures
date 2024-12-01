@@ -1,6 +1,11 @@
 import java.util.Timer;
 import java.util.TimerTask;
-
+/**
+ * Zombie pet class
+ * <p>
+ * One of the 3 possible pet options
+ * 
+ */
 public class Zombie extends Pet {
 
     public Zombie(String name) {
@@ -13,6 +18,11 @@ public class Zombie extends Pet {
         startStatDecline(); // Start automatic stat decline once pet initialized 
     }
 
+    /**
+     * Unique stat decrement method
+     * <p>
+     * Changes the zombie's stats over time
+     */
     private void startStatDecline() {
         Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(new TimerTask() {

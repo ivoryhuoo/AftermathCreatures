@@ -1,4 +1,8 @@
 import javax.swing.*;
+/**
+ * Screen where most gameplay happens
+ * @see Screen
+ */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -90,7 +94,6 @@ public class MainGameScreen extends Screen{
 		petSprite = new JLabel();
 		petSprite.setHorizontalAlignment(SwingConstants.CENTER);
 		petSprite.setVerticalAlignment(SwingConstants.CENTER);
-		//change size?
 		
 		//add functionality to buttons
 		rest.addActionListener(new ActionListener() {
@@ -170,12 +173,24 @@ public class MainGameScreen extends Screen{
 		// Start updating the money label
         startUpdatingCoins();
 	}
+	/**
+	 * Change the name of the pet
+	 * <p>
+	 * The screen is initialized with a default pet name when the program is run, 
+	 * so this method exists to change from that default value to whatever name 
+	 * the player chose for the pet.
+	 */
 	public void updatePetName() {
 		//update pet name
 		if(main.pet.getName()!=petName.getText()) {
 			petName.setText(main.pet.getName());
 		}
 	}
+	/**
+	 * Update coins
+	 * <p>
+	 * 
+	 */
 	private void startUpdatingCoins() {
         updateTimer = new Timer(true); // Daemon thread
         updateTimer.scheduleAtFixedRate(new TimerTask() {
@@ -185,11 +200,21 @@ public class MainGameScreen extends Screen{
             }
         }, 0, 1000); // Update every second
     }
+	/**
+	 * Update score
+	 */
 	public void updateScore() {
 		//UNTESTED
 	}
+	/**
+	 * Update time
+	 * <p>
+	 * Uses a Calendar object to get the current time, and updates the in-game 
+	 * time display. Uses a 24-hour format.
+	 * @see Calendar
+	 */
 	public void updateTime() {
-		//update time
+		//get current time
 		Calendar currentTime = Calendar.getInstance();
 		if(!((String.valueOf(currentTime.get(Calendar.HOUR_OF_DAY)))+":"+String.valueOf(currentTime.get(Calendar.MINUTE))).equals(curTime.getText())) {
 			//fix abnormal time formatting (eg. 12:5 instead of 12:05)
@@ -200,7 +225,13 @@ public class MainGameScreen extends Screen{
 			}
 		}
 	}
-	//update pet stats
+	/**
+	 * Update health
+	 * <p>
+	 * Checks if the pet's health is different from the displayed value, then changes
+	 * the display to match. Health is converted to a String.
+	 * @see Pet
+	 */
 	public void updateHealth() {
 		if(!(String.valueOf(main.pet.getHealth()).equals(health.getText()))) {
 			health.setText("Health: "+String.valueOf(main.pet.getHealth()));
@@ -209,6 +240,13 @@ public class MainGameScreen extends Screen{
 			health.setForeground(Color.red);
 		}
 	}
+	/**
+	 * Update sleep
+	 * <p>
+	 * Checks if the pet's sleep stat is different from the displayed value, then changes
+	 * the display to match. Sleep is converted to a String.
+	 * @see Pet
+	 */
 	public void updateSleep() {
 		if(!(String.valueOf(main.pet.getSleep()).equals(sleep.getText()))) {
 			sleep.setText("Sleep: "+String.valueOf(main.pet.getSleep()));
@@ -217,6 +255,12 @@ public class MainGameScreen extends Screen{
 			sleep.setForeground(Color.red);
 		}
 	}
+	/**
+	 * Update fullness
+	 * <p>
+	 * Same as updateHealth and updateSleep, but instead for the fullness stat.
+	 * @see Pet
+	 */
 	public void updateFullness() {
 		if(!(String.valueOf(main.pet.getFullness()).equals(fullness.getText()))) {
 			fullness.setText("Fullness: "+String.valueOf(main.pet.getFullness()));
@@ -225,6 +269,12 @@ public class MainGameScreen extends Screen{
 			fullness.setForeground(Color.red);
 		}
 	}
+	/**
+	 * Update happiness
+	 * <p>
+	 * Same as updateHealth and updateSleep, but instead for the happiness stat.
+	 * @see Pet
+	 */
 	public void updateHappiness() {
 		if(!(String.valueOf(main.pet.getHappiness()).equals(happiness.getText()))) {
 			happiness.setText("Happiness: "+String.valueOf(main.pet.getHappiness()));
@@ -233,6 +283,15 @@ public class MainGameScreen extends Screen{
 			happiness.setForeground(Color.red);
 		}
 	}
+	/**
+	 * Update pet status icon
+	 * <p>
+	 * Creates a set of ImageIcons using png files according to the type of pet chosen
+	 * by the player. If the current pet state does not match the display, the display
+	 * will switch to a different ImageIcon.
+	 * @see Pet
+	 * @see ImageIcon
+	 */
 	public void updateIcon() {
 		//change image-set based on type of pet
 		normalPet = new ImageIcon("sprites/Normal"+main.pet.getClass().getName()+".png");
@@ -272,6 +331,9 @@ public class MainGameScreen extends Screen{
 			}
 		}
 	}
+	/**
+	 * Change pet state to "Normal"
+	 */
 	public void resetPetState() {
 		petState="Normal";
 		if(main.pet!=null) {
@@ -280,6 +342,12 @@ public class MainGameScreen extends Screen{
 			petSprite.setIcon(normalPet);
 		}
 	}
+	/**
+	 * Animate pet
+	 * <p>
+	 * Changes the pet's X and Y position based on a regular arbitrary timer.
+	 * The pet slides around on the screen only if it is in a "Normal" state.
+	 */
 	public void animatePet() {
 		Calendar currentTime = Calendar.getInstance();
 		int curX = petSprite.getX();

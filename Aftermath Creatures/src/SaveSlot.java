@@ -1,7 +1,9 @@
 import java.awt.Color;
 
 import javax.swing.*;
-
+/**
+ * UI Save slot panel
+ */
 public class SaveSlot {
 	JPanel panel;
 	String name;

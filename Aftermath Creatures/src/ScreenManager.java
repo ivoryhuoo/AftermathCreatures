@@ -40,7 +40,14 @@ public class ScreenManager {
 		SoundManager.play("game_bgm.wav",true);
 	}
 	
-	//swap view
+	/**
+	 * Changes the displayed screen
+	 * <p>
+	 * Changes the CardLayout's displayed screen according to a key. Each game screen
+	 * is assigned a different key.
+	 * @param key
+	 * @see CardLayout
+	 */
 	public static void swapView(String key) {
 		currentScreenNum=key;
 		c.show(currentScreen,key);
@@ -49,7 +56,13 @@ public class ScreenManager {
         }
 	}
 	
-	//create singleton
+	/**
+	 * Singleton method
+	 * <p>
+	 * Creates one single instance of the ScreenManager. Any future references will
+	 * call upon this same instance.
+	 * @return singe_instance Singleton 
+	 */
 	public static synchronized ScreenManager getInstance()
     {
         if (single_instance == null)
@@ -58,7 +71,10 @@ public class ScreenManager {
         return single_instance;
     }
 	
-	//set current screen number = param s
+	/**
+	 * Set current screen number to input String
+	 * @param s
+	 */
 	public static void setCurrentScreenNum(String s) {
 		currentScreenNum=s;
 	}

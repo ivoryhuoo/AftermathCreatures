@@ -412,8 +412,19 @@ public class Pet {
      */
     public String getState() { return state; }
     
+    /**
+     * Get the name of the pet
+     * @return name The name of the pet
+     */
     public String getName() {return name;}
     
+    /**
+     * Revive the pet
+     * <p>
+     * Resets all stats to maximum values, including health. There is no check
+     * in this method, but it is only ever used if the pet's state is "Dead".
+     * Then updates the pet's state.
+     */
     public void revive() {
     	this.health = MAX_STAT;
     	this.fullness = MAX_STAT;

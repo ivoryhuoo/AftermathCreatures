@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-
+/**
+ * Screen showing player's items
+ * @see Screen
+ */
 public class InventoryScreen extends Screen {
     private JPanel foodPanel;
     private JPanel giftPanel;

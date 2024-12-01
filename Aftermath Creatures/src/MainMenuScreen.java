@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.*;
 /**
  * Initial game screen.
  * @see		Screen
- * @author 	Terry
  */
 public class MainMenuScreen extends Screen{
 	static ObjectMapper objectMapper = new ObjectMapper();
@@ -113,6 +112,18 @@ public class MainMenuScreen extends Screen{
 		this.panel.add(credits);
 
 	}
+	/**
+	 * Check if current time is valid
+	 * <p>
+	 * Uses a Calendar object to get the current time. Uses an ObjectMapper to read data
+	 * from a json file. The data is stored in a ParentalControls object, which contains
+	 * the starting time and ending time of the allowed screentime hours. This method 
+	 * determines if the current time falls inside the start and end time. 
+	 * @return true if the current time is within screentime limits, false if not
+	 * @see ParentalControls
+	 * @see Calendar
+	 * @see ObjectMapper
+	 */
 	private boolean screentimeValid() {
 		//read data from parentalControls.json (check for updates)
 		ParentalControls p=parentalControls;
@@ -150,9 +161,9 @@ public class MainMenuScreen extends Screen{
 		return true;
 	}
 	
-	/*
+	/**
 	 * Helper method for comparing times
-	 * 
+	 * <p>
 	 * Take 2 time values, each broken up into 2 ints representing hour and minute
 	 * 
 	 * @param h1 Hour value of first time
