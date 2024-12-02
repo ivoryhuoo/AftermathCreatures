@@ -2,6 +2,7 @@ import javax.swing.*;
 /**
  * Screen where most gameplay happens
  * @see Screen
+ * @author Ivory, Numan, Harshi, Terry
  */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,6 +79,10 @@ public class MainGameScreen extends Screen{
 		JButton play = new JButton("Play");
 		JButton exercise = new JButton("Exercise");
 		JButton menu = new JButton("Settings Menu");
+		// Create the Save Game button
+		JButton saveButton = new JButton("Save Game");
+
+		
 		
 		//set up pet state icons
 		resetPetState();
@@ -149,6 +154,16 @@ public class MainGameScreen extends Screen{
 				main.pet.setHappiness(main.pet.getHappiness()+5);
 			}
 		});
+		// Inside MainGameScreen constructor
+
+		// Create the Save Game button
+        saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SoundManager.play("button_sound.wav");
+                ScreenManager.swapView("2"); // Swap to SaveScreen (or relevant screen)
+            }
+        });
+
 		
 		//add elements to subpanels
 		header.add(curTime);
@@ -169,10 +184,13 @@ public class MainGameScreen extends Screen{
 		footer.add(play);
 		footer.add(exercise);
 		footer.add(menu);
-		
+		footer.add(saveButton); // Add it to the footer
+
 		// Start updating the money label
         startUpdatingCoins();
 	}
+	
+
 	/**
 	 * Change the name of the pet
 	 * <p>
