@@ -54,4 +54,14 @@ public class GameState {
     public static List<String> getItems(String category) {
         return inventory.getOrDefault(category, new ArrayList<>());
     }
+    
+    /**
+     * Resets all inventory categories to an empty state.
+     */
+    public static void resetInventory() {
+        inventory.get("Food").clear();
+        inventory.get("Gifts").clear();
+        inventory.get("Meds").clear();
+    }
+
 }

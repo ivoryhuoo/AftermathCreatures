@@ -385,4 +385,25 @@ public class MainGameScreen extends Screen{
 			}
 		}
 	}
+	
+	
+	/**
+	 * Updates the money JLabel to reflect the current coin balance.
+	 */
+	public void updateMoneyText() {
+	    if (money != null) {
+	        money.setText("Coins: " + Coins.getCoins());
+	    }
+	}
+
+	/**
+	 * Retrieves the text displayed in the money JLabel.
+	 *
+	 * @return The text showing the player's coin balance.
+	 */
+	public String getMoneyText() {
+	    return money != null ? money.getText() : "";
+	}
+
+
 }

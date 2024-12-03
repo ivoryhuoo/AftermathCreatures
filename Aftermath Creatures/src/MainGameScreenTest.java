@@ -24,10 +24,32 @@ class MainGameScreenTest {
 		m.updatePetName();
 		assertEquals(main.pet.getName(),m.petName.getText());
 	}
+	
 	@Test
 	void testUpdateCoins() {
-		
+	    // Reset the coin balance to ensure a clean state
+	    Coins.resetCoins();
+
+	    // Set up the initial coin value
+	    Coins.addCoins(10); // Start with 10 coins
+	    MainGameScreen mainGameScreen = new MainGameScreen();
+
+	    // Verify initial coin display
+	    mainGameScreen.updateMoneyText();
+	    assertEquals("Coins: 10", mainGameScreen.getMoneyText(), "Initial coin balance is incorrect.");
+
+	    // Add coins and verify
+	    Coins.addCoins(5); // Add 5 coins
+	    mainGameScreen.updateMoneyText();
+	    assertEquals("Coins: 15", mainGameScreen.getMoneyText(), "Updated coin balance is incorrect.");
+
+	    // Spend coins and verify
+	    Coins.spendCoins(7); // Spend 7 coins
+	    mainGameScreen.updateMoneyText();
+	    assertEquals("Coins: 8", mainGameScreen.getMoneyText(), "Coin balance after spending coins is incorrect.");
 	}
+
+
 	@Test
 	void testUpdateScore() {
 		
