@@ -44,6 +44,8 @@ public class Pet implements Serializable {
     /** Current Score of the Pet. */
     protected int score;
     
+    protected String typePet;
+    
     /** Indicates if the pet can visit the vet (cooldown mechanism). */
     protected boolean canUseVet = true; 
     
@@ -66,8 +68,9 @@ public class Pet implements Serializable {
      *
      * @param name the name of the pet
      */
-    public Pet(String name) {
-        this.name = name;
+    public Pet(String name,String petType) {
+        this.name = name.replace(",","");
+        this.typePet = petType;
         startStatDecline();
     }
     
