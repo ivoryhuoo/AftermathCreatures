@@ -1,19 +1,20 @@
 import java.util.Timer;
 import java.util.TimerTask;
 /**
- * Robot pet class
+ * Human pet class
  * <p>
  * One of the 3 possible pet options
  * 
  */
-public class Robot extends Pet {
+public class Human extends Pet {
 
-    public Robot(String name) {
+    public Human(String name,String petType) {
         this.name = name;
+        this.typePet = petType;
         this.health = MAX_STAT; // Start with full health
-        this.fullness = 30; // Lower starting fullness level
-        this.sleep = 30; // Lower starting sleep level
-        this.happiness = 30; // Lower starting happiness level
+        this.fullness = 50; // Moderate starting fullness level
+        this.sleep = 50; // Moderate starting sleep level
+        this.happiness = 80; // High starting happiness level
         this.state = "Normal"; // Initial state of the pet
         startStatDecline(); // Start automatic stat decline once pet initialized 
     }
@@ -21,7 +22,7 @@ public class Robot extends Pet {
     /**
      * Unique stat decrement method
      * <p>
-     * Changes the robot's stats over time
+     * Changes the human's stats over time
      */
     private void startStatDecline() {
         Timer timer = new Timer(true);
@@ -29,9 +30,9 @@ public class Robot extends Pet {
             @Override
             public void run() {
                 if (!state.equals("Dead")) {
-                    fullness = Math.max(MIN_STAT, fullness - 3);
-                    sleep = Math.max(MIN_STAT, sleep - 2);
-                    happiness = Math.max(MIN_STAT, happiness - 3);
+                    fullness = Math.max(MIN_STAT, fullness - 5);
+                    sleep = Math.max(MIN_STAT, sleep - 3);
+                    happiness = Math.max(MIN_STAT, happiness - 5);
 
                     // Health penalty conditions
                     if (fullness == MIN_STAT && sleep == MIN_STAT && happiness == MIN_STAT) {
@@ -42,7 +43,7 @@ public class Robot extends Pet {
 
                     updateState();
 
-                    System.out.println("Stats updated (Robot): Fullness=" + fullness + ", Sleep=" + sleep + ", Happiness=" + happiness + ", Health=" + health);
+                    System.out.println("Stats updated (Human): Fullness=" + fullness + ", Sleep=" + sleep + ", Happiness=" + happiness + ", Health=" + health);
                 }
             }
         }, 0, 30000); // Update stats every 30 seconds
