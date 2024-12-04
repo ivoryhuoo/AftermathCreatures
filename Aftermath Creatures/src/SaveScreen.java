@@ -4,18 +4,20 @@ import java.io.*;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * SaveScreen class to display save slots and load games
  * @author Numan
  */
-public class SaveScreen extends Screen {
-    public SaveScreen() {
-        // Create SaveSlot objects
-        SaveSlot saveSlot1 = new SaveSlot(1);
-        SaveSlot saveSlot2 = new SaveSlot(2);
-        SaveSlot saveSlot3 = new SaveSlot(3);
 
+public class SaveScreen extends Screen {
+    // Create SaveSlot objects
+    SaveSlot saveSlot1 = new SaveSlot(1);
+    SaveSlot saveSlot2 = new SaveSlot(2);
+    SaveSlot saveSlot3 = new SaveSlot(3);
+    public SaveScreen() {
+        
         // Add functionality on click to panels
         saveSlot1.panel.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -95,93 +97,68 @@ public class SaveScreen extends Screen {
      * Save the current game to the selected save slot.
      */
     private void saveGame(int saveSlotNumber) {
+
         try {
-            // Create a timestamp or use playtime as the filename suffix
-            String timestamp = getTimestamp();
-            
-            // Create output stream for serialization
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("save_slot_" + saveSlotNumber + "_" + timestamp + ".ser"))) {
-                // Assuming Pet, Coins, and Score are global/current game objects
-                oos.writeObject(main.pet); // Save the pet data
-                oos.writeObject(Coins.getCoins()); // Save the current coins
-                oos.writeObject(score.getText()); // Save the current score
-                oos.writeObject(getCurrentPlaytime()); // Save current playtime (in seconds)
+            File myObj = new File("saveSlot"+saveSlotNumber+".txt");
+            if (myObj.createNewFile()) {
+              System.out.println("File created: " + myObj.getName());
+            } 
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
 
-                // Provide confirmation
-                JOptionPane.showMessageDialog(null, "Game saved to Slot " + saveSlotNumber + " at " + timestamp);
-            }
 
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error saving the game: " + e.getMessage());
+          try {
+            FileWriter myWriter = new FileWriter("saveSlot"+saveSlotNumber+".txt");
+            myWriter.write(main.pet.score+","+Coins.getCoins()+","+main.pet.name+","+main.pet.health+","+main.pet.fullness+","+main.pet.sleep+","+main.pet.happiness+","+main.pet.state);
+            myWriter.close();
+
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+        switch(saveSlotNumber) {
+            case 1 -> saveSlot1.updateUI(main.pet.name,main.pet.score);
+            case 2 -> saveSlot2.updateUI(main.pet.name,main.pet.score);
+            case 3 -> saveSlot3.updateUI(main.pet.name,main.pet.score);
         }
+          
+
     }
 
     /**
      * Load the game from the selected save slot.
      */
     private void loadGame(int saveSlotNumber) {
+
         try {
-            // Open the saved file for the selected slot
-            String timestamp = getTimestamp(); // Optional: Use the latest save timestamp or user selection
-            String saveFile = "save_slot_" + saveSlotNumber + "_" + timestamp + ".ser";
-
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(saveFile))) {
-                // Assuming Pet, Coins, and other game data were serialized in this order
-                Pet loadedPet = (Pet) ois.readObject();
-                int loadedCoins = (int) ois.readObject();
-                String loadedScore = (String) ois.readObject();
-                int loadedTime = (int) ois.readObject();
-
-                // Restore the game state
-                main.pet = loadedPet;
-                Coins.setCoins(loadedCoins);
-                score.setText(loadedScore);
-
-                // Update the UI with the loaded pet state, health, etc.
-                updateUI();
-
-                // Switch to gameplay view (or main screen view)
-                ScreenManager.swapView("5"); // Example view switch, adjust as needed
-                JOptionPane.showMessageDialog(null, "Game loaded from Slot " + saveSlotNumber);
-
-            } catch (IOException | ClassNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "Error loading the game: " + e.getMessage());
+            File myObj = new File("saveSlot"+saveSlotNumber+".txt");
+            if (myObj.createNewFile()) {
+              System.out.println("File created: " + myObj.getName());
+            } 
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
+        String data = "";
+        try {
+            File myObj = new File("saveSlot"+saveSlotNumber+".txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                data = myReader.nextLine();
             }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error finding the save file: " + e.getMessage());
+        if (data!=""){
+            String[] split = data.split(",");
+            main.pet.setStats(Integer.parseInt(split[0]), Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), 
+            Integer.parseInt(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7]);
         }
     }
 
-    /**
-     * Generates a timestamp in the format YYYY-MM-DD_HH-MM-SS for filenames.
-     */
-    private String getTimestamp() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        return sdf.format(new Date());
-    }
-
-    /**
-     * Get the current playtime in seconds (or any other format you prefer).
-     */
-    private int getCurrentPlaytime() {
-        // Assuming 'playtime' is tracked in seconds somewhere in your game
-        return main.playtime;  // Replace with actual playtime tracking variable
-    }
-
-    /**
-     * Updates the UI after loading the game data.
-     */
-    private void updateUI() {
-        updatePetName(currentPet.getName());
-        updateScore(currentPet.getScore());
-        updateCoins(Coins.getCoins());
-        updateTime(currentPet.getTime());
-    }
-
-    // Helper methods to update the UI components (e.g., labels)
-    private void updatePetName(String name) { /* Update pet name UI */ }
-    private void updateScore(int score) { /* Update score UI */ }
-    private void updateCoins(int coins) { /* Update coins UI */ }
-    private void updateTime(int time) { /* Update time UI */ }
 }
