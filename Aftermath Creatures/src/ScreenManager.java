@@ -3,18 +3,24 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 /**
  * Creates all game screens and swaps between them using CardLayout.
- * @author Terry
+ * @author Terry, Ivory
  */
 public class ScreenManager {
-	//static reference
+	
+	// Static reference singleton
 	private static ScreenManager single_instance = null;
 	
+	// CardLayout to manage screen transitions
 	static CardLayout c = new CardLayout();
 	static JPanel currentScreen = new JPanel(c);
 	public static String currentScreenNum="0";
 	private InventoryScreen inventoryScreen;
-	public static MainGameScreen mainGameScreen= new MainGameScreen();//allows game loop in main
-	//private constructor (for singleton)
+	public static MainGameScreen mainGameScreen= new MainGameScreen(); // Allows game loop in main
+	
+	/**
+     * Private constructor to enforce singleton pattern.
+     * Initializes the default pet and sets up all game screens.
+     */
 	private ScreenManager(){	
 		
 		// Initialize default pet

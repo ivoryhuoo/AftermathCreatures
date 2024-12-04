@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * @author Harshi
+ * @author Harshi, Ivory
  * @see Screen
  * Represents the Marketplace screen where players can purchase items to use in the game.
  * This screen allows the player to buy food, gifts, and medicines for their pet.

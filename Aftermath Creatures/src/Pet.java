@@ -17,43 +17,62 @@ import javax.swing.JOptionPane;
  *   <li>State-based restrictions on commands</li>
  *   <li>Interaction with various items like food, gifts, and medicine</li>
  * </ul>
+ * 
+ * @author Ivory, Harshi, Terry
  */
 public class Pet {
 	
-    protected String name; // Name of pet
+	/** The name of the pet. */
+    protected String name; 
+    
+    /** The health level of the pet, ranges from MIN_STAT to MAX_STAT. */
     protected int health; // Health level of the pet 
-    protected int fullness; // Fullness level of the pet
-    protected int sleep; // Sleep level of the pet
-    protected int happiness; // Happiness level of the pet
-    protected String state; // Current state of the pet (e.g., Normal, Sleeping, Angry, etc.)
     
+    /** The fullness level of the pet, ranges from MIN_STAT to MAX_STAT. */
+    protected int fullness; 
     
-    // Cooldown flag for the "Take to Vet" command
+    /** The sleep level of the pet, ranges from MIN_STAT to MAX_STAT. */
+    protected int sleep; 
+    
+    /** The happiness level of the pet, ranges from MIN_STAT to MAX_STAT. */
+    protected int happiness;
+    
+    /** The current state of the pet (e.g., Normal, Hungry, Angry, Sleeping, Dead). */
+    protected String state; 
+    
+    /** Indicates if the pet can visit the vet (cooldown mechanism). */
     protected boolean canUseVet = true; 
     
-    // Shared Timer instance for all timer-based logic (goToBed & takeToVet implementation)
+    /** Shared timer for scheduling pet actions (e.g., sleeping, vet cooldown). */
     protected final Timer sharedTimer = new Timer();
+    
+    /** Timer for managing the gradual decline of pet stats over time. */
     private final Timer statDeclineTimer = new Timer(true);
     
-    // Initialize maximum and minimum stats
+    /** Maximum stat value for the pet's attributes. */
     protected final int MAX_STAT = 100; 
+    
+    /** Minimum stat value for the pet's attributes. */
     protected final int MIN_STAT = 0;
 
+    /**
+     * Constructs a Pet instance with a given name.
+     * <p>
+     * Initializes the pet's stats to default values and starts the automatic stat decline process.
+     *
+     * @param name the name of the pet
+     */
     public Pet(String name) {
         this.name = name;
         startStatDecline();
     }
     
-    
     /**
-     * Constructs a Pet instance with a given name.
+     * Default constructor.
      * <p>
-     * Initializes the pet's stats and starts automatic stat decline.
-     *
-     * @param name the name of the pet
+     * Primarily used in subclasses or scenarios where the name is assigned later.
      */
     public Pet() {
-        
     }
     
     /**
@@ -100,9 +119,6 @@ public class Pet {
         if (!canExecuteCommand("feed")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
         fullness = Math.min(fullness + amount, MAX_STAT); // Different food types have different nutritional values
-        //redundant popup message: inventory will display information
-//      String message =(name + " was fed and is now less hungry.");
-//      JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
         updateState(); // Check state after feeding
     }
     
@@ -195,7 +211,6 @@ public class Pet {
     /**
      * Exercise: The player takes the pet for a walk.
      * Increases health but decreases sleep and fullness.
-     * 
      */
     public void exercise() {
         if (!canExecuteCommand("exercise")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
@@ -286,9 +301,6 @@ public class Pet {
         }, 0, 30000); // Update every 30 seconds
     }
     
-    
-
-
     /**
      * Displays the current stats of the pet in a readable format.
      * <p>

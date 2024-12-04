@@ -1,6 +1,29 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Manages global and gameplay-specific keyboard shortcuts for the virtual pet application.
+ * 
+ * <p><b>Global Shortcuts:</b>
+ * <ul>
+ *   <li>ESC: Opens the settings menu.</li>
+ * </ul>
+ * 
+ * <p><b>Gameplay Shortcuts:</b>
+ * <ul>
+ *   <li>R: Makes the pet rest.</li>
+ *   <li>I: Opens the inventory screen.</li>
+ *   <li>D: Takes the pet to the doctor.</li>
+ *   <li>M: Opens the marketplace screen.</li>
+ *   <li>P: Plays with the pet.</li>
+ *   <li>E: Exercises the pet.</li>
+ * </ul>
+ * 
+ * <p>This class ensures seamless integration of shortcut actions with the application's GUI and gameplay.
+ * 
+ * @author Ivory
+ */
+
 public class KeyboardShortcutManager {
 
     /**

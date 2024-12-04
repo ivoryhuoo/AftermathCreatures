@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author Harshi
+ * @author Harshi, Ivory
  * @see Screen
  * Represents the Inventory screen where players can view and use items they have collected.
  * The screen organizes items into categories: Food, Gifts, and Meds.
