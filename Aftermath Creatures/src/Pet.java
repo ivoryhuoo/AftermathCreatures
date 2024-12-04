@@ -1,6 +1,6 @@
 import java.util.Timer;
 import java.util.TimerTask;
-
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +20,8 @@ import javax.swing.JOptionPane;
  * 
  * @author Ivory, Harshi, Terry, Numan
  */
-public class Pet {
+public class Pet implements Serializable {
+    private static final long serialVersionUID = 1L;
 	
 	/** The name of the pet. */
     protected String name; 
@@ -76,8 +77,20 @@ public class Pet {
      * Primarily used in subclasses or scenarios where the name is assigned later.
      */
     public Pet() {
+
     }
     
+        public void setStats(int xscore,int xcoins,String xname,int xhealth,int xfullness,int xsleep,int xhappiness,String xstate) {
+        this.name = xname;
+        score = xscore;
+        health = xhealth;
+        fullness = xfullness;
+        sleep = xsleep;
+        happiness = xhappiness;
+        state = xstate;
+        Coins.setCoins(xcoins);
+        updateState();
+    }
     /**
      * Determines if a command can be executed based on the pet's current state.
      * <p>
