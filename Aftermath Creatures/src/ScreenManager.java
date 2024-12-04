@@ -3,7 +3,7 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 /**
  * Creates all game screens and swaps between them using CardLayout.
- * @author Terry, Ivory
+ * @author Terry, Ivory, Numan
  */
 public class ScreenManager {
 	
@@ -24,7 +24,7 @@ public class ScreenManager {
 	private ScreenManager(){	
 		
 		// Initialize default pet
-        main.pet = new Zombie("Default Zombie");
+        main.pet = new Zombie("Default Zombie", "zombie");
         
 		//create screens
 		Screen mainMenu = new MainMenuScreen();
