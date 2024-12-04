@@ -1,3 +1,8 @@
+/**
+* @author Numan
+*/
+
+
 public class Score {
 	private int score = 0; // Initialize the score
 
