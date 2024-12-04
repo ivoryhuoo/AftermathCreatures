@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Screen where player selects and creates a new pet
  * @see		Screen
- * @author 	Terry
+ * @author 	Terry, Numan
  */
 public class PetSelectScreen extends Screen{
 	public PetSelectScreen() {
@@ -67,7 +67,7 @@ public class PetSelectScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				String petNameInput = JOptionPane.showInputDialog("Name your pet:");
 		        if (petNameInput != null && !petNameInput.trim().isEmpty()) {
-		            main.pet = new Zombie(petNameInput.trim());
+		            main.pet = new Zombie(petNameInput.trim(), "zombie");
 		            ScreenManager.mainGameScreen.resetPetState();
 		            ScreenManager.mainGameScreen.updatePetName();
 		            ScreenManager.mainGameScreen.updateShortcuts();
@@ -84,7 +84,7 @@ public class PetSelectScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				String petNameInput = JOptionPane.showInputDialog("Name your pet:");
 		        if (petNameInput != null && !petNameInput.trim().isEmpty()) {
-		            main.pet = new Human(petNameInput.trim());
+		            main.pet = new Human(petNameInput.trim(), "human");
 		            ScreenManager.mainGameScreen.resetPetState();
 		            ScreenManager.mainGameScreen.updatePetName();
 		            ScreenManager.mainGameScreen.updateShortcuts();
@@ -101,7 +101,7 @@ public class PetSelectScreen extends Screen{
 				SoundManager.play("button_sound.wav");
 				String petNameInput = JOptionPane.showInputDialog("Name your pet:");
 		        if (petNameInput != null && !petNameInput.trim().isEmpty()) {
-		            main.pet = new Robot(petNameInput.trim());
+		            main.pet = new Robot(petNameInput.trim(), "robot");
 		            ScreenManager.mainGameScreen.resetPetState();
 		            ScreenManager.mainGameScreen.updatePetName();
 		            ScreenManager.mainGameScreen.updateShortcuts();
