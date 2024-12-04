@@ -14,7 +14,7 @@ HOW TO RUN BUILT/COMPILED SOFTWARE
 
 HOW TO USE SOFTWARE (USER GUIDE)
 -Most screen navigation is done with mouse controls and on-screen button elements
--
+-See tutorial for keyboard shortcuts (based off bottom nav button options)
 
 PARENTAL CONTROLS
 -The password is "cs2212"
