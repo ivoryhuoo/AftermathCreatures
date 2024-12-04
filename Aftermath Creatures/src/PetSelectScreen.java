@@ -65,11 +65,14 @@ public class PetSelectScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("button_sound.wav");
-				JOptionPane.showMessageDialog(zombiePanel,namePetLabel,"Name your pet",JOptionPane.OK_CANCEL_OPTION);
-				//create zombie pet
-				main.pet = new Zombie(namePetLabel.getText());
-				ScreenManager.mainGameScreen.resetPetState();
-				ScreenManager.swapView("5");
+				String petNameInput = JOptionPane.showInputDialog("Name your pet:");
+		        if (petNameInput != null && !petNameInput.trim().isEmpty()) {
+		            main.pet = new Zombie(petNameInput.trim());
+		            ScreenManager.mainGameScreen.resetPetState();
+		            ScreenManager.mainGameScreen.updatePetName();
+		            ScreenManager.mainGameScreen.updateShortcuts();
+		            ScreenManager.swapView("5");
+		        }
 			}
 		});
 		humanPanel.addMouseListener(new MouseListener() {
@@ -79,11 +82,14 @@ public class PetSelectScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("button_sound.wav");
-				JOptionPane.showMessageDialog(humanPanel,namePetLabel,"Name your pet",JOptionPane.OK_CANCEL_OPTION);
-				//create human pet
-				main.pet = new Human(namePetLabel.getText());
-				ScreenManager.mainGameScreen.resetPetState();
-				ScreenManager.swapView("5");
+				String petNameInput = JOptionPane.showInputDialog("Name your pet:");
+		        if (petNameInput != null && !petNameInput.trim().isEmpty()) {
+		            main.pet = new Human(petNameInput.trim());
+		            ScreenManager.mainGameScreen.resetPetState();
+		            ScreenManager.mainGameScreen.updatePetName();
+		            ScreenManager.mainGameScreen.updateShortcuts();
+		            ScreenManager.swapView("5");
+		        }
 			}
 		});
 		robotPanel.addMouseListener(new MouseListener() {
@@ -93,11 +99,14 @@ public class PetSelectScreen extends Screen{
 			public void mouseExited(MouseEvent e) {}
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("button_sound.wav");
-				JOptionPane.showMessageDialog(robotPanel,namePetLabel,"Name your pet",JOptionPane.OK_CANCEL_OPTION);
-				//create robot pet
-				main.pet = new Robot(namePetLabel.getText());
-				ScreenManager.mainGameScreen.resetPetState();
-				ScreenManager.swapView("5");
+				String petNameInput = JOptionPane.showInputDialog("Name your pet:");
+		        if (petNameInput != null && !petNameInput.trim().isEmpty()) {
+		            main.pet = new Robot(petNameInput.trim());
+		            ScreenManager.mainGameScreen.resetPetState();
+		            ScreenManager.mainGameScreen.updatePetName();
+		            ScreenManager.mainGameScreen.updateShortcuts();
+		            ScreenManager.swapView("5");
+		        }
 			}
 		});
 		backToMainMenu.addActionListener(new ActionListener() {

@@ -15,7 +15,11 @@ public class ScreenManager {
 	private InventoryScreen inventoryScreen;
 	public static MainGameScreen mainGameScreen= new MainGameScreen();//allows game loop in main
 	//private constructor (for singleton)
-	private ScreenManager(){		
+	private ScreenManager(){	
+		
+		// Initialize default pet
+        main.pet = new Zombie("Default Zombie");
+        
 		//create screens
 		Screen mainMenu = new MainMenuScreen();
 		Screen tutorialScreen = new TutorialScreen();

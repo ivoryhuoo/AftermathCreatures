@@ -24,7 +24,7 @@ public class TutorialScreen extends Screen{
 		JLabel petStatusDesc = new JLabel("Normal Angry Hungry Sleeping Dead");
 		JLabel controlsTitle = new JLabel("Quick Controls");
 		controlsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
-		JLabel controlsList = new JLabel("<html> Esc - Pause and go to Settings <br>F - Feed the pet <br>S - Make the pet sleep <br>G - Give a gift <br>V - Take the pet to the vet<br>M - Use medicine</html>");
+		JLabel controlsList = new JLabel("<html> Esc - Pause and go to Settings Menu <br>R - Make the pet Sleep/Rest <br>I - Navigate to the Inventory <br>D - Take the pet to the Doctor/Vet <br>M - Navigate to the Market <br>P - Play with the Pet <br>E - Execise your Pet</html>");
 		JLabel commandsTitle = new JLabel("Commands");
 		commandsTitle.setFont(new Font("Serif", Font.PLAIN, 24));
 		JLabel commandsList = new JLabel("<html><b>Rest:</b> Restores sleep"
@@ -107,6 +107,20 @@ public class TutorialScreen extends Screen{
 		this.panel.setLayout(new FlowLayout());
 		this.panel.add(leftPanel);
 		this.panel.add(rightPanel);
+		
+		// Call the keyboard shortcut setup method
+	    setupKeyboardShortcuts();
 		}
 
+	/**
+	 * Setup keyboard shortcuts
+	 */
+	private void setupKeyboardShortcuts() {
+	    // Global shortcut: ESC navigates to the settings menu
+	    KeyboardShortcutManager.setupGlobalShortcuts(this.panel);
+
+	    // Ensure the panel gains focus for shortcuts
+	    this.panel.requestFocusInWindow();
+	}
+	
 }

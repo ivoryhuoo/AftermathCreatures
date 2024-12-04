@@ -95,7 +95,21 @@ public class MarketScreen extends Screen {
         this.panel.add(bottomPanel);
         this.panel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         this.panel.add(backToGame);
+        
+        // Call the keyboard shortcut setup method
+	    setupKeyboardShortcuts();
     }
+    
+    /**
+	 * Setup keyboard shortcuts
+	 */
+	private void setupKeyboardShortcuts() {
+	    // Global shortcut: ESC navigates to the settings menu
+	    KeyboardShortcutManager.setupGlobalShortcuts(this.panel);
+
+	    // Ensure the panel gains focus for shortcuts
+	    this.panel.requestFocusInWindow();
+	}
 
     /**
      * Creates a JButton with an image icon and text.
