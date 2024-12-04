@@ -8,8 +8,9 @@ import java.util.TimerTask;
  */
 public class Human extends Pet {
 
-    public Human(String name) {
+    public Human(String name,String petType) {
         this.name = name;
+        this.typePet = petType;
         this.health = MAX_STAT; // Start with full health
         this.fullness = 50; // Moderate starting fullness level
         this.sleep = 50; // Moderate starting sleep level
