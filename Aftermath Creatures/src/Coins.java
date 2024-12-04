@@ -20,6 +20,10 @@ public class Coins {
         return coins;
     }
 
+        public static void setCoins(int newCoins) {
+        coins = newCoins;
+    }
+
     /**
      * Adds a specified amount of coins to the player's balance.
      *
