@@ -8,8 +8,9 @@ import java.util.TimerTask;
  */
 public class Zombie extends Pet {
 
-    public Zombie(String name) {
+    public Zombie(String name,String petType) {
         this.name = name;
+        this.typePet = petType;
         this.health = MAX_STAT; // Start with full health
         this.fullness = 50; // Moderate starting fullness level
         this.sleep = 60; // Moderate starting sleep level
