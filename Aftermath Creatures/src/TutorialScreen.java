@@ -6,7 +6,7 @@ public class TutorialScreen extends Screen{
 	/**
 	 * Screen showing tutorial information.
 	 * @see		Screen
-	 * @author 	Terry
+	 * @author 	Terry, Ivory
 	 */
 	public TutorialScreen(){
 		//create elements

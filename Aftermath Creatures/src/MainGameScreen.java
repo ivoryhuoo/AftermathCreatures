@@ -13,44 +13,71 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Calendar;
 import java.io.*;
+/**
+ * Main gameplay screen for the virtual pet application.
+ * <p>
+ * This class handles the primary user interface where the player interacts with their pet,
+ * manages the pet's stats, and navigates between various game features such as inventory,
+ * settings, and the marketplace.
+ * </p>
+ * 
+ * <h2>Key Features:</h2>
+ * <ul>
+ *   <li>Displays the pet's current stats (health, sleep, fullness, happiness).</li>
+ *   <li>Dynamic pet state management and visual updates (e.g., Normal, Hungry, Angry).</li>
+ *   <li>Interactive buttons for gameplay actions (Rest, Play, Exercise, etc.).</li>
+ *   <li>Keyboard shortcuts for faster interaction.</li>
+ *   <li>Supports updating coin balance, score, and real-time clock.</li>
+ * </ul>
+ * 
+ * @see Screen
+ * @author Ivory, Numan, Harshi, Terry
+ * @version 1.0
+ * @since Fall 2024
+ */
 public class MainGameScreen extends Screen{
-	static JLabel curTime;
-	static JLabel petName;
-	static JLabel score;
-	static JLabel petStateIcon;
-	static JLabel health;
-	static JLabel sleep;
-	static JLabel fullness;
-	static JLabel happiness;
-	static ImageIcon normalIcon;
-	static ImageIcon hungryIcon;
-	static ImageIcon angryIcon;
-	static ImageIcon sleepingIcon;
-	static ImageIcon deadIcon;
+	static JLabel curTime; // Displays current game time
+	static JLabel petName; //Displays pet's name
+	static JLabel score; // Displays player's current score
+	static JLabel petStateIcon; // Displays an icon representing the pet's state
+	static JLabel health; // Displays the pet's health
+    static JLabel sleep; // Displays the pet's sleep level
+    static JLabel fullness; // Displays the pet's fullness level
+    static JLabel happiness; // Displays the pet's happiness level
+	static ImageIcon normalIcon; // Icons for pet states
+	static ImageIcon hungryIcon; // Icons for pet states
+	static ImageIcon angryIcon; // Icons for pet states
+	static ImageIcon sleepingIcon; // Icons for pet states
+	static ImageIcon deadIcon; // Icons for pet states
 	static String petState;//store value to check against Pet's state
-	static JLabel petSprite;
-	static ImageIcon normalPet;
-	static ImageIcon hungryPet;
-	static ImageIcon angryPet;
-	static ImageIcon sleepingPet;
-	static ImageIcon deadPet;
+	static JLabel petSprite; // Sprite representation of the pet
+	static ImageIcon normalPet; // Sprites for pet states
+	static ImageIcon hungryPet; // Sprites for pet states
+	static ImageIcon angryPet; // Sprites for pet states
+	static ImageIcon sleepingPet; // Sprites for pet states
+	static ImageIcon deadPet; // Sprites for pet states
 	private JLabel money; // Reference to the money label
     private Timer updateTimer; // Timer for updating the coin display
+    
+    /**
+     * Constructor for the MainGameScreen class.
+     * Sets up the layout, UI components, and initializes gameplay elements.
+     */
 	public MainGameScreen() {
         
-        //set up pet state icons
-      		petStateIcon = new JLabel();
-      		petStateIcon.setPreferredSize(new Dimension(50,50));
-      		normalIcon = new ImageIcon("icons/normal.png");
-      		hungryIcon = new ImageIcon("icons/hungry.png");
-      		angryIcon = new ImageIcon("icons/angry.png");
-      		sleepingIcon = new ImageIcon("icons/sleeping.png");
-      		deadIcon = new ImageIcon("icons/dead.png");
-      		petStateIcon.setIcon(normalIcon);//default state is normal   
-      		
-            resetPetState();
+        // Set up pet state icons
+		petStateIcon = new JLabel();
+  		petStateIcon.setPreferredSize(new Dimension(50,50));
+  		normalIcon = new ImageIcon("icons/normal.png");
+  		hungryIcon = new ImageIcon("icons/hungry.png");
+  		angryIcon = new ImageIcon("icons/angry.png");
+  		sleepingIcon = new ImageIcon("icons/sleeping.png");
+  		deadIcon = new ImageIcon("icons/dead.png");
+  		petStateIcon.setIcon(normalIcon); // Default state is normal   
+  		
+        resetPetState();
         
-		//set layout, setup subpanels
+		// Set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
 		JPanel header = new JPanel();
 		header.setBorder(BorderFactory.createLineBorder(Color.black, 2));
@@ -67,7 +94,7 @@ public class MainGameScreen extends Screen{
 		panel.add(center, BorderLayout.CENTER);
 		center.setBackground(Color.DARK_GRAY);
 		
-		//create elements
+		// Create elements, Initialize UI Components
 		curTime = new JLabel("17:25");
 		petName = new JLabel("pet name");
 		money = new JLabel("Coins: " + Coins.getCoins()); // Display initial coin count
@@ -84,8 +111,9 @@ public class MainGameScreen extends Screen{
 		setH2(sleep);
 		setH2(fullness);
 		setH2(happiness);
-		//footer icons go here
-		JButton rest = new JButton("Rest");//placeholders
+		
+		// Footer icons go here, Setup buttons for gameplay action 
+		JButton rest = new JButton("Rest"); // Placeholders
 		JButton inventory = new JButton("Inventory");
 		JButton doctor = new JButton("Doctor");
 		JButton market = new JButton("Market");
@@ -94,17 +122,13 @@ public class MainGameScreen extends Screen{
 		JButton menu = new JButton("Settings Menu");
 		// Create the Save Game button
 		JButton saveButton = new JButton("Save Game");
-
 		
-		
-		
-		
-		//set up pet sprite
+		// Set up pet sprite
 		petSprite = new JLabel();
 		petSprite.setHorizontalAlignment(SwingConstants.CENTER);
 		petSprite.setVerticalAlignment(SwingConstants.CENTER);
 		
-		//add functionality to buttons
+		// Add functionality to buttons
 		rest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				SoundManager.play("button_sound.wav");
@@ -147,18 +171,21 @@ public class MainGameScreen extends Screen{
 				ScreenManager.swapView("3");
 			}
 		});
-		//You can click on the pet to make it happy
+		
+		// You can click on the pet to make it happy
 		petSprite.addMouseListener(new MouseListener() {
 			public void mouseEntered(MouseEvent e) {}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}
 			public void mouseExited(MouseEvent e) {}
+			/**
+             * Increases pet's happiness when clicked.
+             */
 			public void mouseClicked(MouseEvent e) {
 				SoundManager.play("pet_interact_sound.wav");
 				main.pet.setHappiness(main.pet.getHappiness()+5);
 			}
 		});
-		// Inside MainGameScreen constructor
 
 		// Create the Save Game button
         saveButton.addActionListener(new ActionListener() {
@@ -167,9 +194,8 @@ public class MainGameScreen extends Screen{
                 ScreenManager.swapView("2"); // Swap to SaveScreen (or relevant screen)
             }
         });
-
 		
-		//add elements to subpanels
+		// Add elements to subpanels
 		header.add(curTime);
 		header.add(petName);
 		header.add(petStateIcon);
@@ -180,7 +206,8 @@ public class MainGameScreen extends Screen{
 		sidebar.add(fullness);
 		sidebar.add(happiness);
 		center.add(petSprite);
-		//footer icons go here
+		
+		// Footer icons go here
 		footer.add(rest);
 		footer.add(inventory);
 		footer.add(doctor);
@@ -228,7 +255,6 @@ public class MainGameScreen extends Screen{
 	    }
 	}
 
-    
 	/**
 	 * Change the name of the pet
 	 * <p>
@@ -262,12 +288,14 @@ public class MainGameScreen extends Screen{
             }
         }, 0, 1000); // Update every second
     }
+	
 	/**
 	 * Update score
 	 */
 	public void updateScore() {
 		//UNTESTED
 	}
+	
 	/**
 	 * Update time
 	 * <p>
@@ -287,6 +315,7 @@ public class MainGameScreen extends Screen{
 			}
 		}
 	}
+	
 	/**
 	 * Update health
 	 * <p>
@@ -302,6 +331,7 @@ public class MainGameScreen extends Screen{
 			health.setForeground(Color.red);
 		}
 	}
+	
 	/**
 	 * Update sleep
 	 * <p>
@@ -317,6 +347,7 @@ public class MainGameScreen extends Screen{
 			sleep.setForeground(Color.red);
 		}
 	}
+	
 	/**
 	 * Update fullness
 	 * <p>
@@ -331,6 +362,7 @@ public class MainGameScreen extends Screen{
 			fullness.setForeground(Color.red);
 		}
 	}
+	
 	/**
 	 * Update happiness
 	 * <p>
@@ -345,6 +377,7 @@ public class MainGameScreen extends Screen{
 			happiness.setForeground(Color.red);
 		}
 	}
+	
 	/**
 	 * Update pet status icon
 	 * <p>
@@ -393,9 +426,7 @@ public class MainGameScreen extends Screen{
 			}
 		}
 	}
-	/**
-	 * Change pet state to "Normal"
-	 */
+	
 	/**
 	 * Change pet state to "Normal".
 	 */
@@ -408,7 +439,6 @@ public class MainGameScreen extends Screen{
 	        updatePetName(); // Update the pet's name dynamically
 	    }
 	}
-
 
 	/**
 	 * Animate pet
