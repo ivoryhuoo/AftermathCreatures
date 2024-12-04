@@ -37,6 +37,19 @@ public class MainGameScreen extends Screen{
 	private JLabel money; // Reference to the money label
     private Timer updateTimer; // Timer for updating the coin display
 	public MainGameScreen() {
+        
+        //set up pet state icons
+      		petStateIcon = new JLabel();
+      		petStateIcon.setPreferredSize(new Dimension(50,50));
+      		normalIcon = new ImageIcon("icons/normal.png");
+      		hungryIcon = new ImageIcon("icons/hungry.png");
+      		angryIcon = new ImageIcon("icons/angry.png");
+      		sleepingIcon = new ImageIcon("icons/sleeping.png");
+      		deadIcon = new ImageIcon("icons/dead.png");
+      		petStateIcon.setIcon(normalIcon);//default state is normal   
+      		
+            resetPetState();
+        
 		//set layout, setup subpanels
 		this.panel.setLayout(new BorderLayout());
 		JPanel header = new JPanel();
@@ -84,16 +97,7 @@ public class MainGameScreen extends Screen{
 
 		
 		
-		//set up pet state icons
-		resetPetState();
-		petStateIcon = new JLabel();
-		petStateIcon.setPreferredSize(new Dimension(50,50));
-		normalIcon = new ImageIcon("icons/normal.png");
-		hungryIcon = new ImageIcon("icons/hungry.png");
-		angryIcon = new ImageIcon("icons/angry.png");
-		sleepingIcon = new ImageIcon("icons/sleeping.png");
-		deadIcon = new ImageIcon("icons/dead.png");
-		petStateIcon.setIcon(normalIcon);//default state is normal
+		
 		
 		//set up pet sprite
 		petSprite = new JLabel();
@@ -188,9 +192,43 @@ public class MainGameScreen extends Screen{
 
 		// Start updating the money label
         startUpdatingCoins();
+        
+        // Setup keyboard shortcuts for this screen
+        setupKeyboardShortcuts();
 	}
 	
+	/**
+	 * Setup keyboard shortcuts for this screen.
+	 */
+	private void setupKeyboardShortcuts() {
+	    // Global shortcut: ESC navigates to the settings menu
+	    KeyboardShortcutManager.setupGlobalShortcuts(this.panel);
 
+	    // Gameplay-specific shortcuts
+	    if (main.pet != null) {
+	        KeyboardShortcutManager.setupGameplayShortcuts(this.panel, main.pet);
+	    } else {
+	        System.err.println("Pet is not initialized. Gameplay shortcuts skipped.");
+	    }
+
+	    // Ensure the panel gains focus for shortcuts
+	    this.panel.requestFocusInWindow();
+	}
+    
+	/**
+	 * Update shortcuts dynamically when the pet changes.
+	 */
+	public void updateShortcuts() {
+	    if (main.pet != null) {
+	        KeyboardShortcutManager.setupGameplayShortcuts(this.panel, main.pet);
+	        System.out.println("Gameplay shortcuts updated for pet: " + main.pet.getName());
+	        updatePetName(); // Refresh the pet name display
+	    } else {
+	        System.err.println("Cannot update shortcuts. Pet is null.");
+	    }
+	}
+
+    
 	/**
 	 * Change the name of the pet
 	 * <p>
@@ -198,12 +236,18 @@ public class MainGameScreen extends Screen{
 	 * so this method exists to change from that default value to whatever name 
 	 * the player chose for the pet.
 	 */
-	public void updatePetName() {
-		//update pet name
-		if(main.pet.getName()!=petName.getText()) {
-			petName.setText(main.pet.getName());
-		}
-	}
+    /**
+     * Change the name of the pet dynamically.
+     * Ensures the pet's name displayed matches the actual name.
+     */
+    public void updatePetName() {
+        if (main.pet != null && petName != null) {
+            petName.setText(main.pet.getName()); // Update the label with the pet's actual name
+        } else {
+            petName.setText("No Pet Selected"); // Fallback if no pet is selected
+        }
+    }
+    
 	/**
 	 * Update coins
 	 * <p>
@@ -352,14 +396,20 @@ public class MainGameScreen extends Screen{
 	/**
 	 * Change pet state to "Normal"
 	 */
+	/**
+	 * Change pet state to "Normal".
+	 */
 	public void resetPetState() {
-		petState="Normal";
-		if(main.pet!=null) {
-			normalPet = new ImageIcon("sprites/Normal"+main.pet.getClass().getName()+".png");
-			petStateIcon.setIcon(normalIcon);
-			petSprite.setIcon(normalPet);
-		}
+	    petState = "Normal";
+	    if (main.pet != null) {
+	        normalPet = new ImageIcon("sprites/Normal" + main.pet.getClass().getName() + ".png");
+	        petStateIcon.setIcon(normalIcon);
+	        petSprite.setIcon(normalPet);
+	        updatePetName(); // Update the pet's name dynamically
+	    }
 	}
+
+
 	/**
 	 * Animate pet
 	 * <p>
