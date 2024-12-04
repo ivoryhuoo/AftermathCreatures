@@ -106,7 +106,4 @@ public class SaveSlot {
     private void updateCoins(int coins) { 
         playerMoney.setText("Coins: "+coins);
     }
-    private void updateTime(int time) { 
-        // Update time UI (e.g., labels, text fields, etc.)
-    }
 }
