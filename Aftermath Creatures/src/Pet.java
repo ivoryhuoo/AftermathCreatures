@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *   <li>Interaction with various items like food, gifts, and medicine</li>
  * </ul>
  * 
- * @author Ivory, Harshi, Terry
+ * @author Ivory, Harshi, Terry, Numan
  */
 public class Pet {
 	
