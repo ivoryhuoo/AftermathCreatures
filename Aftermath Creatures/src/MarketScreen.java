@@ -127,7 +127,7 @@ public class MarketScreen extends Screen {
      * @param statIncrement The stat increment provided by the item.
      * @param cost          The cost of the item in coins.
      */
-    private void attemptPurchase(String category, String item, int statIncrement, int cost) {
+    public void attemptPurchase(String category, String item, int statIncrement, int cost) {
         if (Coins.spendCoins(cost)) {
             if (GameState.addItem(category, item + "-" + statIncrement)) {
                 JOptionPane.showMessageDialog(null, "You purchased " + item + " for " + cost + " coins.", "Purchase Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -138,5 +138,14 @@ public class MarketScreen extends Screen {
         } else {
             JOptionPane.showMessageDialog(null, "Not enough coins to purchase " + item + "!", "Purchase Failed", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    
+    /**
+     * Returns the main panel of the MarketScreen for testing purposes.
+     *
+     * @return The main JPanel of the screen.
+     */
+    public JPanel getPanel() {
+        return this.panel;
     }
 }

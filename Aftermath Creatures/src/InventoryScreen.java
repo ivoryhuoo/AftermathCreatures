@@ -166,4 +166,13 @@ public class InventoryScreen extends Screen {
 
         return button;
     }
+    
+    /**
+     * Returns the main panel of the InventoryScreen for testing purposes.
+     *
+     * @return The main JPanel of the screen.
+     */
+    public JPanel getPanel() {
+        return this.panel;
+    }
 }

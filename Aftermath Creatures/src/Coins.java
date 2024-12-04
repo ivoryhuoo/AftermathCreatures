@@ -66,4 +66,12 @@ public class Coins {
             }, 60000, 60000); // Initial delay of 1 minute, repeat every 1 minute
         }
     }
+    
+    /**
+     * Resets the coin balance to a default value.
+     */
+    public static void resetCoins() {
+        coins = 0; // Reset to zero or any default value
+    }
+
 }
