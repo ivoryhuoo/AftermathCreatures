@@ -4,10 +4,11 @@ Aftermath Creatures is a basic virtual pet game in which players are tasked with
 REQUIRED LIBRARIES/TOOLS
 -Java 23
 -Jackson 2.18.1
--
+-JUnit 5
+-GIT (if cloning the repository)
 
 HOW TO BUILD SOFTWARE (COMPILING)
--
+- 
 
 HOW TO RUN BUILT/COMPILED SOFTWARE
 -
