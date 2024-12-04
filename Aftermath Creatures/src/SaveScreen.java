@@ -111,7 +111,7 @@ public class SaveScreen extends Screen {
 
           try {
             FileWriter myWriter = new FileWriter("saveSlot"+saveSlotNumber+".txt");
-            myWriter.write(main.pet.score+","+Coins.getCoins()+","+main.pet.name+","+main.pet.health+","+main.pet.fullness+","+main.pet.sleep+","+main.pet.happiness+","+main.pet.state);
+            myWriter.write(main.pet.score+","+Coins.getCoins()+","+main.pet.name+","+main.pet.health+","+main.pet.fullness+","+main.pet.sleep+","+main.pet.happiness+","+main.pet.state+","+main.pet.typePet);
             myWriter.close();
 
           } catch (IOException e) {
@@ -156,8 +156,19 @@ public class SaveScreen extends Screen {
 
         if (data!=""){
             String[] split = data.split(",");
+            switch(split[8]) {
+                case "robot" -> main.pet = new Robot(split[2],split[8]);
+                case "human" -> main.pet = new Human(split[2],split[8]);
+                case "zombie" -> main.pet = new Zombie(split[2],split[8]);
+            }
+            ScreenManager.mainGameScreen.resetPetState(); 
+			ScreenManager.swapView("5");
+
             main.pet.setStats(Integer.parseInt(split[0]), Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), 
             Integer.parseInt(split[4]), Integer.parseInt(split[5]), Integer.parseInt(split[6]), split[7]);
+        } else {
+            String message=("No Save file!");
+            JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.ERROR_MESSAGE);
         }
     }
 
