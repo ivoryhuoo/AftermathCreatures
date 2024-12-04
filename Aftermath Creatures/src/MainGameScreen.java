@@ -292,9 +292,11 @@ public class MainGameScreen extends Screen{
 	/**
 	 * Update score
 	 */
-	public void updateScore() {
-		//UNTESTED
-	}
+    public void updateScore() {
+        if(!(String.valueOf(main.pet.getScore()).equals(score.getText()))) {
+            score.setText("Score: "+String.valueOf(main.pet.getScore()));
+        }
+    }
 	
 	/**
 	 * Update time
