@@ -39,6 +39,9 @@ public class Pet {
     
     /** The current state of the pet (e.g., Normal, Hungry, Angry, Sleeping, Dead). */
     protected String state; 
+
+    /** Current Score of the Pet. */
+    protected int score;
     
     /** Indicates if the pet can visit the vet (cooldown mechanism). */
     protected boolean canUseVet = true; 
@@ -144,6 +147,7 @@ public class Pet {
                 sleep = MAX_STAT; // Restore sleep to maximum
                 state = "Normal"; // Pet wakes up
                 System.out.println(name + " woke up refreshed!");
+                score = Math.max(score + 5, MIN_STAT);
             }
         }, 5000); // Sleep for 5 seconds
     }
@@ -153,8 +157,9 @@ public class Pet {
      */
     public void play() {
         if (!canExecuteCommand("play")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
-
+        
         happiness = Math.min(happiness + 20, MAX_STAT); // Increase happiness by fixed amount of 20
+        score = Math.max(score + 5, MIN_STAT);
         String message = (name + " is playing and feels happier!");
         JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
         updateState(); // Check state after playing
@@ -169,7 +174,7 @@ public class Pet {
      */
     public void giveGift(int amount) {
         if (!canExecuteCommand("give a gift")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
-
+        score = Math.max(score + 5, MIN_STAT);
         happiness = Math.min(happiness + amount, MAX_STAT); // Increase happiness based on the type of gift 
         String message = (name + " received a gift and feels happier!");
         JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.INFORMATION_MESSAGE);
@@ -192,6 +197,7 @@ public class Pet {
 
         //If cooldown timer is done (command works)
         health = Math.min(health + 30, MAX_STAT); // Increase health by a fixed amount, 30
+        score = Math.max(score + 10, MIN_STAT);
         String message = (name + " was taken to the vet and is feeling better!");
         JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check state after visiting the vet
@@ -216,6 +222,7 @@ public class Pet {
         if (!canExecuteCommand("exercise")) return; // Check whether the canExecuteCommand method returns false (command is not allowed)
 
         health = Math.min(health + 20, MAX_STAT); // Increase health points by 20
+        score = Math.max(score + 7, MIN_STAT);
         fullness = Math.max(fullness - 10, MIN_STAT); // Decrease fullness (increase hunger) by 10
         sleep = Math.max(sleep - 10, MIN_STAT); // Decrease sleep points (increase sleepiness) by 10
         String message = (name + " exercised and is healthier but hungrier and sleepier.");
@@ -232,6 +239,7 @@ public class Pet {
         if (!canExecuteCommand("use medicine")) return; // Check if the command is executable
 
         health = Math.min(health + amount, MAX_STAT); // Increase health, but don't exceed max
+        score = Math.max(score + 5, MIN_STAT);
         String message = (name + " was healed with and feels better!");
         JOptionPane.showMessageDialog(ScreenManager.mainGameScreen.panel,message,"Notice",JOptionPane.PLAIN_MESSAGE);
         updateState(); // Check and update the pet's state after healing
@@ -325,6 +333,8 @@ public class Pet {
      * @return the health of the pet as an integer.
      */
     public int getHealth() { return health;}
+
+    public int getScore() { return score; }
     
     /**
      * Sets the health value of the pet.
